@@ -9,7 +9,7 @@ import xyz.wongs.drunktard.base.persistence.mybatis.service.BaseService;
 import xyz.wongs.drunktard.domain.addbook.entity.RegUser;
 import xyz.wongs.drunktard.domain.addbook.mapper.RegUserMapper;
 
-@Service(value="locationService")
+@Service
 @Transactional(readOnly = true)
 public class RegUserService extends BaseService<RegUser, Long> {
 
