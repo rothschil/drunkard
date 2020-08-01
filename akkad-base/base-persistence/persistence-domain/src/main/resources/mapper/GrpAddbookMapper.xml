@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.wongs.drunktard.domain.addbook.mapper.GrpAddbookMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" >
+    <id column="GRP_ADDBOOK_ID" property="id" jdbcType="BIGINT" />
+    <result column="U_ID" property="uId" jdbcType="BIGINT" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" extends="BaseResultMap" >
+    <result column="FD_GRP" property="fdGrp" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    GRP_ADDBOOK_ID, U_ID, STATUS
+  </sql>
+  <sql id="Blob_Column_List" >
+    FD_GRP
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbookExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from grp_addbook
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbookExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from grp_addbook
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from grp_addbook
+    where GRP_ADDBOOK_ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from grp_addbook
+    where GRP_ADDBOOK_ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" >
+    insert into grp_addbook (GRP_ADDBOOK_ID, U_ID, STATUS, 
+      FD_GRP)
+    values (#{id,jdbcType=BIGINT}, #{uId,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
+      #{fdGrp,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" >
+    insert into grp_addbook
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="grpAddbookId != null" >
+        GRP_ADDBOOK_ID,
+      </if>
+      <if test="uId != null" >
+        U_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="fdGrp != null" >
+        FD_GRP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="grpAddbookId != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="uId != null" >
+        #{uId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="fdGrp != null" >
+        #{fdGrp,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" >
+    update grp_addbook
+    <set >
+      <if test="uId != null" >
+        U_ID = #{uId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="fdGrp != null" >
+        FD_GRP = #{fdGrp,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where GRP_ADDBOOK_ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" >
+    update grp_addbook
+    set U_ID = #{uId,jdbcType=BIGINT},
+      STATUS = #{status,jdbcType=INTEGER},
+      FD_GRP = #{fdGrp,jdbcType=LONGVARBINARY}
+    where GRP_ADDBOOK_ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" >
+    update grp_addbook
+    set U_ID = #{uId,jdbcType=BIGINT},
+      STATUS = #{status,jdbcType=INTEGER}
+    where GRP_ADDBOOK_ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

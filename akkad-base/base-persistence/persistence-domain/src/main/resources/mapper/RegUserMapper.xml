@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.wongs.drunktard.domain.addbook.mapper.RegUserMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
+    <id column="U_ID" property="id" jdbcType="BIGINT" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="xyz.wongs.drunktard.domain.addbook.entity.RegUser" extends="BaseResultMap" >
+    <result column="NICK_NAME" property="nickName" jdbcType="VARBINARY" />
+    <result column="U_CODE" property="uCode" jdbcType="VARBINARY" />
+    <result column="U_MOBILE" property="uMobile" jdbcType="VARBINARY" />
+    <result column="EMAIL" property="email" jdbcType="VARBINARY" />
+    <result column="U_PWD" property="uPwd" jdbcType="VARBINARY" />
+    <result column="SAT" property="sat" jdbcType="VARBINARY" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    U_ID, STATUS
+  </sql>
+  <sql id="Blob_Column_List" >
+    NICK_NAME, U_CODE, U_MOBILE, EMAIL, U_PWD, SAT
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from reg_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from reg_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from reg_user
+    where U_ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from reg_user
+    where U_ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
+    insert into reg_user (U_ID, STATUS, NICK_NAME, 
+      U_CODE, U_MOBILE, EMAIL, 
+      U_PWD, SAT)
+    values (#{id,jdbcType=BIGINT}, #{status,jdbcType=CHAR}, #{nickName,jdbcType=VARBINARY}, 
+      #{uCode,jdbcType=VARBINARY}, #{uMobile,jdbcType=VARBINARY}, #{email,jdbcType=VARBINARY}, 
+      #{uPwd,jdbcType=VARBINARY}, #{sat,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
+    insert into reg_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uId != null" >
+        U_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME,
+      </if>
+      <if test="uCode != null" >
+        U_CODE,
+      </if>
+      <if test="uMobile != null" >
+        U_MOBILE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="uPwd != null" >
+        U_PWD,
+      </if>
+      <if test="sat != null" >
+        SAT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uId != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARBINARY},
+      </if>
+      <if test="uCode != null" >
+        #{uCode,jdbcType=VARBINARY},
+      </if>
+      <if test="uMobile != null" >
+        #{uMobile,jdbcType=VARBINARY},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARBINARY},
+      </if>
+      <if test="uPwd != null" >
+        #{uPwd,jdbcType=VARBINARY},
+      </if>
+      <if test="sat != null" >
+        #{sat,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
+    update reg_user
+    <set >
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME = #{nickName,jdbcType=VARBINARY},
+      </if>
+      <if test="uCode != null" >
+        U_CODE = #{uCode,jdbcType=VARBINARY},
+      </if>
+      <if test="uMobile != null" >
+        U_MOBILE = #{uMobile,jdbcType=VARBINARY},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARBINARY},
+      </if>
+      <if test="uPwd != null" >
+        U_PWD = #{uPwd,jdbcType=VARBINARY},
+      </if>
+      <if test="sat != null" >
+        SAT = #{sat,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where U_ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
+    update reg_user
+    set STATUS = #{status,jdbcType=CHAR},
+      NICK_NAME = #{nickName,jdbcType=VARBINARY},
+      U_CODE = #{uCode,jdbcType=VARBINARY},
+      U_MOBILE = #{uMobile,jdbcType=VARBINARY},
+      EMAIL = #{email,jdbcType=VARBINARY},
+      U_PWD = #{uPwd,jdbcType=VARBINARY},
+      SAT = #{sat,jdbcType=VARBINARY}
+    where U_ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
+    update reg_user
+    set STATUS = #{status,jdbcType=CHAR}
+    where U_ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

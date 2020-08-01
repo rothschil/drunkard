@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.wongs.drunktard.domain.addbook.mapper.RegUserExtMapper">
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunktard.domain.addbook.entity.RegUserExt">
+    <id column="U_REG_USER_EXT_ID" jdbcType="BIGINT" property="id" />
+    <result column="DICT_REGION_ID" jdbcType="BIGINT" property="dictRegionId" />
+    <result column="U_ID" jdbcType="BIGINT" property="uId" />
+    <result column="GENDER" jdbcType="CHAR" property="gender" />
+    <result column="BIRTHDAY" jdbcType="DATE" property="birthday" />
+    <result column="LAST_ACTIVE_DATE" jdbcType="TIMESTAMP" property="lastActiveDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    U_REG_USER_EXT_ID, DICT_REGION_ID, U_ID, GENDER, BIRTHDAY, LAST_ACTIVE_DATE
+  </sql>
+  <select id="selectByExample" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExtExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from reg_user_ext
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from reg_user_ext
+    where U_REG_USER_EXT_ID =#{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from reg_user_ext
+    where U_REG_USER_EXT_ID =#{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExt">
+    insert into reg_user_ext (U_REG_USER_EXT_ID, DICT_REGION_ID, U_ID, 
+      GENDER, BIRTHDAY, LAST_ACTIVE_DATE
+      )
+    values (#{id,jdbcType=BIGINT}, #{dictRegionId,jdbcType=BIGINT}, #{uId,jdbcType=BIGINT},
+      #{gender,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, #{lastActiveDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExt">
+    insert into reg_user_ext
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uRegUserExtId != null">
+        U_REG_USER_EXT_ID,
+      </if>
+      <if test="dictRegionId != null">
+        DICT_REGION_ID,
+      </if>
+      <if test="uId != null">
+        U_ID,
+      </if>
+      <if test="gender != null">
+        GENDER,
+      </if>
+      <if test="birthday != null">
+        BIRTHDAY,
+      </if>
+      <if test="lastActiveDate != null">
+        LAST_ACTIVE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uRegUserExtId != null">
+       #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dictRegionId != null">
+        #{dictRegionId,jdbcType=BIGINT},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=BIGINT},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="lastActiveDate != null">
+        #{lastActiveDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExt">
+    update reg_user_ext
+    <set>
+      <if test="dictRegionId != null">
+        DICT_REGION_ID = #{id,jdbcType=BIGINT},
+      </if>
+      <if test="uId != null">
+        U_ID = #{uId,jdbcType=BIGINT},
+      </if>
+      <if test="gender != null">
+        GENDER = #{gender,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null">
+        BIRTHDAY = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="lastActiveDate != null">
+        LAST_ACTIVE_DATE = #{lastActiveDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where U_REG_USER_EXT_ID =#{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExt">
+    update reg_user_ext
+    set DICT_REGION_ID = #{dictRegionId,jdbcType=BIGINT},
+      U_ID = #{uId,jdbcType=BIGINT},
+      GENDER = #{gender,jdbcType=CHAR},
+      BIRTHDAY = #{birthday,jdbcType=DATE},
+      LAST_ACTIVE_DATE = #{lastActiveDate,jdbcType=TIMESTAMP}
+    where U_REG_USER_EXT_ID =#{id,jdbcType=BIGINT}
+  </update>
+</mapper>

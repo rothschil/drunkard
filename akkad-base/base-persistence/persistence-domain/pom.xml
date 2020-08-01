@@ -16,9 +16,7 @@
         <dependency>
             <groupId>xyz.wongs.drunktard</groupId>
             <artifactId>persistence-mybatis</artifactId>
-        </dependency>       
-
-
+        </dependency>
     </dependencies>
 
 </project>
