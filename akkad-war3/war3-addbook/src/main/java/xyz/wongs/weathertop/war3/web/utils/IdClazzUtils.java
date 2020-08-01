@@ -1,8 +1,8 @@
-package xyz.wongs.weathertop.war3.web.utils;
+package xyz.wongs.drunktard.war3.web.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import xyz.wongs.weathertop.base.persistence.mybatis.service.RedisUidService;
+import xyz.wongs.drunktard.base.persistence.mybatis.service.RedisUidService;
 
 @Component
 public class IdClazzUtils {

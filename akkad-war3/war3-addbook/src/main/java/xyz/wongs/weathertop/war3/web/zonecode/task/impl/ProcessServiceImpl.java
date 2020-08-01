@@ -1,4 +1,4 @@
-package xyz.wongs.weathertop.war3.web.zonecode.task.impl;
+package xyz.wongs.drunktard.war3.web.zonecode.task.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
@@ -18,11 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import xyz.wongs.weathertop.domain.location.entity.Location;
-import xyz.wongs.weathertop.domain.location.service.LocationService;
-import xyz.wongs.weathertop.war3.web.utils.IdClazzUtils;
-import xyz.wongs.weathertop.war3.web.utils.ZoneCodeStringUtils;
-import xyz.wongs.weathertop.war3.web.zonecode.task.ProcessService;
+import xyz.wongs.drunktard.domain.location.entity.Location;
+import xyz.wongs.drunktard.domain.location.service.LocationService;
+import xyz.wongs.drunktard.war3.web.utils.IdClazzUtils;
+import xyz.wongs.drunktard.war3.web.utils.ZoneCodeStringUtils;
+import xyz.wongs.drunktard.war3.web.zonecode.task.ProcessService;
 
 import java.io.IOException;
 import java.util.ArrayList;

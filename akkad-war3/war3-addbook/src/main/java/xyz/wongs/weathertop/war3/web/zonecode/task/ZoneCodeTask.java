@@ -1,13 +1,13 @@
-package xyz.wongs.weathertop.war3.web.zonecode.task;
+package xyz.wongs.drunktard.war3.web.zonecode.task;
 
 import org.apache.http.conn.ConnectTimeoutException;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
-import xyz.wongs.weathertop.domain.location.entity.Location;
-import xyz.wongs.weathertop.war3.web.utils.HttpCrawlerUtil;
-import xyz.wongs.weathertop.war3.web.zonecode.exception.NoIpAddressException;
+import xyz.wongs.drunktard.domain.location.entity.Location;
+import xyz.wongs.drunktard.war3.web.utils.HttpCrawlerUtil;
+import xyz.wongs.drunktard.war3.web.zonecode.exception.NoIpAddressException;
 
 import java.io.IOException;
 import java.util.*;

@@ -1,10 +1,10 @@
-package xyz.wongs.weathertop.domain.location.entity;
+package xyz.wongs.drunktard.domain.location.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import xyz.wongs.weathertop.base.persistence.mybatis.entity.BaseEntity;
+import xyz.wongs.drunktard.base.persistence.mybatis.entity.BaseEntity;
 
 @Builder(toBuilder=true)
 @Data

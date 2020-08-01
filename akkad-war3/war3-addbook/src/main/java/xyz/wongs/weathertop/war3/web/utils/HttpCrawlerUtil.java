@@ -1,11 +1,11 @@
-package xyz.wongs.weathertop.war3.web.utils;
+package xyz.wongs.drunktard.war3.web.utils;
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import xyz.wongs.weathertop.war3.web.zonecode.exception.NoIpAddressException;
+import xyz.wongs.drunktard.war3.web.zonecode.exception.NoIpAddressException;
 
 import java.io.IOException;
 

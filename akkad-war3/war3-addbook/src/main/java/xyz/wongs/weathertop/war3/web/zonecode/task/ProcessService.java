@@ -1,7 +1,7 @@
-package xyz.wongs.weathertop.war3.web.zonecode.task;
+package xyz.wongs.drunktard.war3.web.zonecode.task;
 
 
-import xyz.wongs.weathertop.domain.location.entity.Location;
+import xyz.wongs.drunktard.domain.location.entity.Location;
 
 public interface ProcessService {
 

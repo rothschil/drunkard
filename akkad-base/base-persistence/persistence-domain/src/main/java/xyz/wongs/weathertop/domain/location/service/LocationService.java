@@ -1,4 +1,4 @@
-package xyz.wongs.weathertop.domain.location.service;
+package xyz.wongs.drunktard.domain.location.service;
 
 
 import com.github.pagehelper.Page;
@@ -11,10 +11,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import xyz.wongs.weathertop.base.persistence.mybatis.mapper.BaseMapper;
-import xyz.wongs.weathertop.base.persistence.mybatis.service.BaseService;
-import xyz.wongs.weathertop.domain.location.entity.Location;
-import xyz.wongs.weathertop.domain.location.mapper.LocationMapper;
+import xyz.wongs.drunktard.base.persistence.mybatis.mapper.BaseMapper;
+import xyz.wongs.drunktard.base.persistence.mybatis.service.BaseService;
+import xyz.wongs.drunktard.domain.location.entity.Location;
+import xyz.wongs.drunktard.domain.location.mapper.LocationMapper;
 
 import java.util.List;
 

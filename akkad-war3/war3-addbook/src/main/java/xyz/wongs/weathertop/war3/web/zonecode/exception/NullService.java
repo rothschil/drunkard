@@ -1,4 +1,4 @@
-package xyz.wongs.weathertop.war3.web.zonecode.exception;
+package xyz.wongs.drunktard.war3.web.zonecode.exception;
 
 import java.io.PrintWriter;
 

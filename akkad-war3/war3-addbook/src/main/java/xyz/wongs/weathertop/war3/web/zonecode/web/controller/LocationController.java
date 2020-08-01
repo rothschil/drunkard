@@ -1,4 +1,4 @@
-package xyz.wongs.weathertop.war3.web.zonecode.web.controller;
+package xyz.wongs.drunktard.war3.web.zonecode.web.controller;
 
 
 import com.github.pagehelper.PageInfo;
@@ -6,10 +6,10 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
-import xyz.wongs.weathertop.domain.location.entity.Location;
-import xyz.wongs.weathertop.domain.location.service.LocationService;
-import xyz.wongs.weathertop.war3.web.utils.ZoneCodeStringUtils;
-import xyz.wongs.weathertop.war3.web.zonecode.task.ProcessService;
+import xyz.wongs.drunktard.domain.location.entity.Location;
+import xyz.wongs.drunktard.domain.location.service.LocationService;
+import xyz.wongs.drunktard.war3.web.utils.ZoneCodeStringUtils;
+import xyz.wongs.drunktard.war3.web.zonecode.task.ProcessService;
 
 import java.util.*;
 import java.util.concurrent.ExecutorService;

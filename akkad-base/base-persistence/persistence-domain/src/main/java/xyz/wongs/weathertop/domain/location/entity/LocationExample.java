@@ -1,4 +1,4 @@
-package xyz.wongs.weathertop.domain.location.entity;
+package xyz.wongs.drunktard.domain.location.entity;
 
 import java.util.ArrayList;
 import java.util.List;

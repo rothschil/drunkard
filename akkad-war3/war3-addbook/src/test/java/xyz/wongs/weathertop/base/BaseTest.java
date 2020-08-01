@@ -1,11 +1,11 @@
-package xyz.wongs.weathertop.base;
+package xyz.wongs.drunktard.base;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import xyz.wongs.weathertop.War3AreaApplication;
+import xyz.wongs.drunktard.War3AreaApplication;
 
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)

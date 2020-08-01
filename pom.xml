@@ -3,13 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>xyz.wongs.weathertop</groupId>
+    <groupId>xyz.wongs.drunktard</groupId>
     <artifactId>drunktard</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
-
         <module>akkad-base</module>
-
         <module>akkad-springboot</module>
         <module>akkad-war3</module>
     </modules>
@@ -82,24 +80,24 @@
                 <version>${mysql.connector.version}</version>
             </dependency>
             <dependency>
-                <groupId>xyz.wongs.weathertop</groupId>
+                <groupId>xyz.wongs.drunktard</groupId>
                 <artifactId>persistence-mybatis</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>xyz.wongs.weathertop</groupId>
+                <groupId>xyz.wongs.drunktard</groupId>
                 <artifactId>persistence-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>xyz.wongs.weathertop</groupId>
+                <groupId>xyz.wongs.drunktard</groupId>
                 <artifactId>base-utils-non-db</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>xyz.wongs.weathertop</groupId>
+                <groupId>xyz.wongs.drunktard</groupId>
                 <artifactId>base-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>

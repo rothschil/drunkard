@@ -1,4 +1,4 @@
-package xyz.wongs.weathertop.war3.web.utils;
+package xyz.wongs.drunktard.war3.web.utils;
 
 /**
  * @author WCNGS@QQ.CO

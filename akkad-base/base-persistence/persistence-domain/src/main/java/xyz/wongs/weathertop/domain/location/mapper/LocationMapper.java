@@ -1,8 +1,8 @@
-package xyz.wongs.weathertop.domain.location.mapper;
+package xyz.wongs.drunktard.domain.location.mapper;
 
 
-import xyz.wongs.weathertop.base.persistence.mybatis.mapper.BaseMapper;
-import xyz.wongs.weathertop.domain.location.entity.Location;
+import xyz.wongs.drunktard.base.persistence.mybatis.mapper.BaseMapper;
+import xyz.wongs.drunktard.domain.location.entity.Location;
 
 import java.util.List;
 
