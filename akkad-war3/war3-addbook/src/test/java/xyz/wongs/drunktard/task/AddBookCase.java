@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import xyz.wongs.drunktard.base.BaseTest;
 
-public class LocationCase extends BaseTest {
+public class AddBookCase extends BaseTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
