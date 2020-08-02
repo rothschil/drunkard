@@ -5,7 +5,7 @@ package xyz.wongs.drunkard.base.utils;
  * @Description 
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
- * @date 2020/8/2 14:23
+ * @date 2020/8/2 14:31
  * @Version 1.0.0
 */
 public class NptypeUtil {

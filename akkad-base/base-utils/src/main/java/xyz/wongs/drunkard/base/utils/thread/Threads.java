@@ -1,6 +1,9 @@
 package xyz.wongs.drunkard.base.utils.thread;
 
 import lombok.extern.slf4j.Slf4j;
+import xyz.wongs.drunkard.base.utils.StringUtils;
+
+import java.util.AbstractQueue;
 import java.util.concurrent.*;
 
 /**
@@ -82,5 +85,26 @@ public class Threads {
         if (t != null) {
             log.error(t.getMessage(), t);
         }
+    }
+
+    /**
+     * @Description
+     * @param coreSize      核心线程数
+     * @param maxSize       最大数量
+     * @param keepAlive     存活时间
+     * @param queueSize     指定有界队列的大小
+     * @param threadName    线程名字
+     * @return java.util.concurrent.ExecutorService
+     * @throws
+     * @date 2020/8/2 14:56
+     */
+    public static ExecutorService createThreadPool(int coreSize,int maxSize,int keepAlive,int queueSize,String threadName){
+        BlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(queueSize);
+        ThreadFactory factory = null;
+        if(StringUtils.isNotBlank(threadName)){
+            factory = new DrunkardThreadFactory(threadName);
+        }
+        factory = new DrunkardThreadFactory();
+        return new ThreadPoolExecutor(coreSize, maxSize, keepAlive, TimeUnit.SECONDS,queue,factory,new DrunkardHandler());
     }
 }

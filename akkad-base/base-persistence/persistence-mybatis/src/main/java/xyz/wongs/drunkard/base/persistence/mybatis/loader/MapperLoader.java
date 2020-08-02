@@ -18,6 +18,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
+import xyz.wongs.drunkard.base.utils.thread.Threads;
 
 import java.io.IOException;
 import java.lang.reflect.Field;

@@ -3,7 +3,7 @@ package xyz.wongs.drunkard.base.constant;
 /**
  * 通用常量信息
  *
- * @author ruoyi
+ * @author
  */
 public class Constants {
 
