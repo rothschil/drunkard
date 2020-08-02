@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="xyz.wongs.drunktard.domain.addbook.mapper.DictRegionMapper" >
-  <resultMap id="BaseResultMap" type="xyz.wongs.drunktard.domain.addbook.entity.DictRegion" >
+<mapper namespace="xyz.wongs.drunkard.domain.addbook.mapper.DictRegionMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.domain.addbook.entity.DictRegion" >
     <id column="DICT_REGION_ID" property="id" jdbcType="BIGINT" />
     <result column="STATUS" property="status" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="xyz.wongs.drunktard.domain.addbook.entity.DictRegion" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="xyz.wongs.drunkard.domain.addbook.entity.DictRegion" extends="BaseResultMap" >
     <result column="REGION_NAME" property="regionName" jdbcType="VARBINARY" />
     <result column="REGION_CODE" property="regionCode" jdbcType="VARBINARY" />
     <result column="UP_REGION_CODE" property="upRegionCode" jdbcType="VARBINARY" />
@@ -45,7 +45,7 @@
   <sql id="Blob_Column_List" >
     REGION_NAME, REGION_CODE, UP_REGION_CODE
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="xyz.wongs.drunktard.domain.addbook.entity.DictRegionExample" >
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="xyz.wongs.drunkard.domain.addbook.entity.DictRegionExample" >
     select
     <if test="distinct" >
       distinct
@@ -62,7 +62,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.wongs.drunktard.domain.addbook.entity.DictRegionExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.wongs.drunkard.domain.addbook.entity.DictRegionExample" >
     select
     <if test="distinct" >
       distinct
@@ -89,13 +89,13 @@
     delete from dict_region
     where DICT_REGION_ID = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="xyz.wongs.drunktard.domain.addbook.entity.DictRegion" >
+  <insert id="insert" parameterType="xyz.wongs.drunkard.domain.addbook.entity.DictRegion" >
     insert into dict_region (DICT_REGION_ID, STATUS, REGION_NAME, 
       REGION_CODE, UP_REGION_CODE)
     values (#{id,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{regionName,jdbcType=VARBINARY}, 
       #{regionCode,jdbcType=VARBINARY}, #{upRegionCode,jdbcType=VARBINARY})
   </insert>
-  <insert id="insertSelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.DictRegion" >
+  <insert id="insertSelective" parameterType="xyz.wongs.drunkard.domain.addbook.entity.DictRegion" >
     insert into dict_region
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="dictRegionId != null" >
@@ -132,7 +132,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.DictRegion" >
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunkard.domain.addbook.entity.DictRegion" >
     update dict_region
     <set >
       <if test="status != null" >
@@ -150,7 +150,7 @@
     </set>
     where DICT_REGION_ID = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="xyz.wongs.drunktard.domain.addbook.entity.DictRegion" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="xyz.wongs.drunkard.domain.addbook.entity.DictRegion" >
     update dict_region
     set STATUS = #{status,jdbcType=INTEGER},
       REGION_NAME = #{regionName,jdbcType=VARBINARY},
@@ -158,7 +158,7 @@
       UP_REGION_CODE = #{upRegionCode,jdbcType=VARBINARY}
     where DICT_REGION_ID = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunktard.domain.addbook.entity.DictRegion" >
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunkard.domain.addbook.entity.DictRegion" >
     update dict_region
     set STATUS = #{status,jdbcType=INTEGER}
     where DICT_REGION_ID = #{id,jdbcType=BIGINT}

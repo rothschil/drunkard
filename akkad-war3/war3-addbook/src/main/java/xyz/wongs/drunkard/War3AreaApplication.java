@@ -1,4 +1,4 @@
-package xyz.wongs.drunktard;
+package xyz.wongs.drunkard;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -15,7 +15,7 @@ import org.springframework.cache.annotation.EnableCaching;
  * @Version 1.0.0
 */
 @EnableCaching
-@MapperScan(basePackages = {"xyz.wongs.drunktard.**.mapper"})
+@MapperScan(basePackages = {"xyz.wongs.drunkard.**.mapper"})
 @SpringBootApplication
 public class War3AreaApplication {
 

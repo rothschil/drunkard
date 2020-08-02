@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="xyz.wongs.drunktard.domain.addbook.mapper.RegUserExtMapper">
-  <resultMap id="BaseResultMap" type="xyz.wongs.drunktard.domain.addbook.entity.RegUserExt">
+<mapper namespace="xyz.wongs.drunkard.domain.addbook.mapper.RegUserExtMapper">
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.domain.addbook.entity.RegUserExt">
     <id column="U_REG_USER_EXT_ID" jdbcType="BIGINT" property="id" />
     <result column="DICT_REGION_ID" jdbcType="BIGINT" property="dictRegionId" />
     <result column="U_ID" jdbcType="BIGINT" property="uId" />
@@ -41,7 +41,7 @@
   <sql id="Base_Column_List">
     U_REG_USER_EXT_ID, DICT_REGION_ID, U_ID, GENDER, BIRTHDAY, LAST_ACTIVE_DATE
   </sql>
-  <select id="selectByExample" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExtExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUserExtExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -66,7 +66,7 @@
     delete from reg_user_ext
     where U_REG_USER_EXT_ID =#{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExt">
+  <insert id="insert" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUserExt">
     insert into reg_user_ext (U_REG_USER_EXT_ID, DICT_REGION_ID, U_ID, 
       GENDER, BIRTHDAY, LAST_ACTIVE_DATE
       )
@@ -74,7 +74,7 @@
       #{gender,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, #{lastActiveDate,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExt">
+  <insert id="insertSelective" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUserExt">
     insert into reg_user_ext
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uRegUserExtId != null">
@@ -117,7 +117,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExt">
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUserExt">
     update reg_user_ext
     <set>
       <if test="dictRegionId != null">
@@ -138,7 +138,7 @@
     </set>
     where U_REG_USER_EXT_ID =#{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExt">
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUserExt">
     update reg_user_ext
     set DICT_REGION_ID = #{dictRegionId,jdbcType=BIGINT},
       U_ID = #{uId,jdbcType=BIGINT},

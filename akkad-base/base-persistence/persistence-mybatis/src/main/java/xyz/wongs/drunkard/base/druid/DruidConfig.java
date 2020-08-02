@@ -1,4 +1,4 @@
-//package xyz.wongs.drunktard.base.druid;
+//package xyz.wongs.drunkard.base.druid;
 //
 //import com.alibaba.druid.support.http.StatViewServlet;
 //import com.alibaba.druid.support.http.WebStatFilter;

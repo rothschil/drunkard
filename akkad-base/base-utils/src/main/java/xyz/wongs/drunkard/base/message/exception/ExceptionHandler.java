@@ -1,4 +1,4 @@
-//package xyz.wongs.drunktard.base.message.exception;
+//package xyz.wongs.drunkard.base.message.exception;
 //
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.dao.DuplicateKeyException;
@@ -7,9 +7,9 @@
 //import org.springframework.web.HttpRequestMethodNotSupportedException;
 //import org.springframework.web.bind.annotation.ControllerAdvice;
 //import org.springframework.web.bind.annotation.ResponseBody;
-//import xyz.wongs.drunktard.base.message.enums.ResponseCode;
-//import xyz.wongs.drunktard.base.message.response.ResponseResult;
-//import xyz.wongs.drunktard.base.utils.StringUtils;
+//import xyz.wongs.drunkard.base.message.enums.ResponseCode;
+//import xyz.wongs.drunkard.base.message.response.ResponseResult;
+//import xyz.wongs.drunkard.base.utils.StringUtils;
 //
 //import javax.servlet.http.HttpServletRequest;
 //import javax.validation.ConstraintViolation;
@@ -39,7 +39,7 @@
 //     * @date 2019/9/23 17:53
 //     * @param request
 //     * @param ex
-//     * @return xyz.wongs.drunktard.base.message.response.Response
+//     * @return xyz.wongs.drunkard.base.message.response.Response
 //     * @throws
 //     * @since
 //     */
@@ -57,7 +57,7 @@
 //     * @date 2019/9/23 17:53
 //     * @param request
 //     * @param ex
-//     * @return xyz.wongs.drunktard.base.message.response.Response
+//     * @return xyz.wongs.drunkard.base.message.response.Response
 //     * @throws
 //     * @since
 //     */
@@ -84,7 +84,7 @@
 //     * @date 2019/9/23 17:53
 //     * @param request
 //     * @param ex
-//     * @return xyz.wongs.drunktard.base.message.response.Response
+//     * @return xyz.wongs.drunkard.base.message.response.Response
 //     * @throws
 //     * @since
 //     */

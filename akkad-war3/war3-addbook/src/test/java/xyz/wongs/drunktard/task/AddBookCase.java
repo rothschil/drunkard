@@ -1,4 +1,4 @@
-package xyz.wongs.drunktard.task;
+package xyz.wongs.drunkard.task;
 
 import org.junit.Assert;
 import org.junit.Before;

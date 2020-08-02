@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="xyz.wongs.drunktard.domain.addbook.mapper.GrpAddbookMapper" >
-  <resultMap id="BaseResultMap" type="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" >
+<mapper namespace="xyz.wongs.drunkard.domain.addbook.mapper.GrpAddbookMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.domain.addbook.entity.GrpAddbook" >
     <id column="GRP_ADDBOOK_ID" property="id" jdbcType="BIGINT" />
     <result column="U_ID" property="uId" jdbcType="BIGINT" />
     <result column="STATUS" property="status" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="xyz.wongs.drunkard.domain.addbook.entity.GrpAddbook" extends="BaseResultMap" >
     <result column="FD_GRP" property="fdGrp" jdbcType="LONGVARBINARY" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -44,7 +44,7 @@
   <sql id="Blob_Column_List" >
     FD_GRP
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbookExample" >
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="xyz.wongs.drunkard.domain.addbook.entity.GrpAddbookExample" >
     select
     <if test="distinct" >
       distinct
@@ -61,7 +61,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbookExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.wongs.drunkard.domain.addbook.entity.GrpAddbookExample" >
     select
     <if test="distinct" >
       distinct
@@ -88,13 +88,13 @@
     delete from grp_addbook
     where GRP_ADDBOOK_ID = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" >
+  <insert id="insert" parameterType="xyz.wongs.drunkard.domain.addbook.entity.GrpAddbook" >
     insert into grp_addbook (GRP_ADDBOOK_ID, U_ID, STATUS, 
       FD_GRP)
     values (#{id,jdbcType=BIGINT}, #{uId,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
       #{fdGrp,jdbcType=LONGVARBINARY})
   </insert>
-  <insert id="insertSelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" >
+  <insert id="insertSelective" parameterType="xyz.wongs.drunkard.domain.addbook.entity.GrpAddbook" >
     insert into grp_addbook
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="grpAddbookId != null" >
@@ -125,7 +125,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" >
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunkard.domain.addbook.entity.GrpAddbook" >
     update grp_addbook
     <set >
       <if test="uId != null" >
@@ -140,14 +140,14 @@
     </set>
     where GRP_ADDBOOK_ID = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="xyz.wongs.drunkard.domain.addbook.entity.GrpAddbook" >
     update grp_addbook
     set U_ID = #{uId,jdbcType=BIGINT},
       STATUS = #{status,jdbcType=INTEGER},
       FD_GRP = #{fdGrp,jdbcType=LONGVARBINARY}
     where GRP_ADDBOOK_ID = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunktard.domain.addbook.entity.GrpAddbook" >
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunkard.domain.addbook.entity.GrpAddbook" >
     update grp_addbook
     set U_ID = #{uId,jdbcType=BIGINT},
       STATUS = #{status,jdbcType=INTEGER}

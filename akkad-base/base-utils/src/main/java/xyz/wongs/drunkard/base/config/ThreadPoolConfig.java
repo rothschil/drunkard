@@ -10,11 +10,14 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 
-/**
- * 线程池配置
- *
- * @author
- **/
+/** 线程池任务配置
+ * @ClassName ThreadPoolConfig
+ * @Description
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 2020/8/2 15:19
+ * @Version 1.0.0
+*/
 @Configuration
 public class ThreadPoolConfig {
     /**

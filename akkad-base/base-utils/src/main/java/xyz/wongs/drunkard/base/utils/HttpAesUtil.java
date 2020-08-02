@@ -1,10 +1,10 @@
-//package xyz.wongs.drunktard.base.utils;
+//package xyz.wongs.drunkard.base.utils;
 //
 //import lombok.AccessLevel;
 //import lombok.NoArgsConstructor;
 //import lombok.extern.slf4j.Slf4j;
 //
-//import xyz.wongs.drunktard.base.utils.exception.HttpAesException;
+//import xyz.wongs.drunkard.base.utils.exception.HttpAesException;
 //
 //import javax.crypto.Cipher;
 //import javax.crypto.spec.IvParameterSpec;

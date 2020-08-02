@@ -1,5 +1,5 @@
 //
-//package xyz.wongs.drunktard.base.utils;
+//package xyz.wongs.drunkard.base.utils;
 //
 //import java.lang.reflect.*;
 //import java.math.BigDecimal;

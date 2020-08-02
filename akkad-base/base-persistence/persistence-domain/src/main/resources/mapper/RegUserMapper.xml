@@ -48,7 +48,7 @@
   <sql id="Blob_Column_List" >
     NICK_NAME, U_CODE, U_MOBILE, EMAIL, U_PWD, SAT
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExample" >
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUserExample" >
     select
     <if test="distinct" >
       distinct
@@ -65,7 +65,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUserExample" >
     select
     <if test="distinct" >
       distinct

@@ -1,4 +1,4 @@
-package xyz.wongs.drunktard.war3.web.zonecode.web.controller;
+package xyz.wongs.drunkard.war3.web.zonecode.web.controller;
 
 
 import io.swagger.annotations.Api;
