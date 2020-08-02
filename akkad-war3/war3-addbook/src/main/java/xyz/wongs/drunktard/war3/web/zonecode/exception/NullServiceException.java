@@ -2,6 +2,14 @@ package xyz.wongs.drunktard.war3.web.zonecode.exception;
 
 import java.io.PrintWriter;
 
+/**
+ * @ClassName
+ * @Description
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 2020/8/2 13:48
+ * @Version 1.0.0
+ */
 public class NullServiceException extends Exception {
 
 	/**

@@ -53,7 +53,11 @@
 
     <dependencyManagement>
         <dependencies>
-
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>1.9</version>
+            </dependency>
             <!-- 获取系统信息 -->
             <dependency>
                 <groupId>com.github.oshi</groupId>
@@ -71,11 +75,11 @@
                 <artifactId>spring-boot-configuration-processor</artifactId>
                 <version>${spring.boot.version}</version>
             </dependency>
-            <dependency>
+<!--            <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.connector.version}</version>
-            </dependency>
+            </dependency>-->
             <dependency>
                 <groupId>xyz.wongs.drunkard</groupId>
                 <artifactId>persistence-mybatis</artifactId>

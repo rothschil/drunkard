@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import xyz.wongs.drunktard.base.BaseTest;
+import xyz.wongs.drunkard.base.BaseTest;
 
 public class AddBookCase extends BaseTest {
 

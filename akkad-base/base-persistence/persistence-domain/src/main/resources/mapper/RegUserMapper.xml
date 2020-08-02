@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="xyz.wongs.drunktard.domain.addbook.mapper.RegUserMapper" >
-  <resultMap id="BaseResultMap" type="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
+<mapper namespace="xyz.wongs.drunkard.domain.addbook.mapper.RegUserMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.domain.addbook.entity.RegUser" >
     <id column="U_ID" property="id" jdbcType="BIGINT" />
     <result column="STATUS" property="status" jdbcType="CHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="xyz.wongs.drunktard.domain.addbook.entity.RegUser" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="xyz.wongs.drunkard.domain.addbook.entity.RegUser" extends="BaseResultMap" >
     <result column="NICK_NAME" property="nickName" jdbcType="VARBINARY" />
     <result column="U_CODE" property="uCode" jdbcType="VARBINARY" />
     <result column="U_MOBILE" property="uMobile" jdbcType="VARBINARY" />
@@ -92,7 +92,7 @@
     delete from reg_user
     where U_ID = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
+  <insert id="insert" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUser" >
     insert into reg_user (U_ID, STATUS, NICK_NAME, 
       U_CODE, U_MOBILE, EMAIL, 
       U_PWD, SAT)
@@ -100,7 +100,7 @@
       #{uCode,jdbcType=VARBINARY}, #{uMobile,jdbcType=VARBINARY}, #{email,jdbcType=VARBINARY}, 
       #{uPwd,jdbcType=VARBINARY}, #{sat,jdbcType=VARBINARY})
   </insert>
-  <insert id="insertSelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
+  <insert id="insertSelective" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUser" >
     insert into reg_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="uId != null" >
@@ -155,7 +155,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUser" >
     update reg_user
     <set >
       <if test="status != null" >
@@ -182,7 +182,7 @@
     </set>
     where U_ID = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBlob" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
+  <update id="updateByPrimaryKeyWithBlob" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUser" >
     update reg_user
     set STATUS = #{status,jdbcType=CHAR},
       NICK_NAME = #{nickName,jdbcType=VARBINARY},
@@ -193,7 +193,7 @@
       SAT = #{sat,jdbcType=VARBINARY}
     where U_ID = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUser" >
     update reg_user
     set STATUS = #{status,jdbcType=CHAR}
     where U_ID = #{id,jdbcType=BIGINT}
