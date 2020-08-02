@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>akkad-war3</artifactId>
-        <groupId>xyz.wongs.drunktard</groupId>
+        <groupId>xyz.wongs.drunkard</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>xyz.wongs.drunktard</groupId>
+            <groupId>xyz.wongs.drunkard</groupId>
             <artifactId>persistence-domain</artifactId>
         </dependency>
 
