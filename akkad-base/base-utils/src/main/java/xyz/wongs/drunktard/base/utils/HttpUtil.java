@@ -1,5 +1,6 @@
 package xyz.wongs.drunktard.base.utils;
 
+import com.xiaoleilu.hutool.util.StrUtil;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
@@ -7,6 +8,8 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import xyz.wongs.drunktard.base.constant.Constants;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -204,56 +207,6 @@ public class HttpUtil {
     return responseMessage;
   }
 
-  /**
-   * 与PostPage类似，只是增加了GBK字符集处理，支持汉字
-   * @param pageUrl
-   * @param content
-   * @return
-   */
-  public static String PostPage1(String pageUrl, String content,int timeOut) {
-    String res = "";
-    try {
-      URL url;
-      HttpURLConnection urlConn;
-      DataOutputStream printout;
-      BufferedReader input;
-      url = new URL(pageUrl);
-      urlConn = (HttpURLConnection) url.openConnection();
-      urlConn.setConnectTimeout(timeOut);// 连接主机的超时时间（单位：毫秒）
-      urlConn.setReadTimeout(timeOut);//从主机读取数据的超时时间（单位：毫秒）
-      urlConn.setDoInput(true);
-      urlConn.setDoOutput(true);
-      urlConn.setUseCaches(false);
-      urlConn.setRequestMethod("POST");
-      urlConn.setRequestProperty("Content-Type",
-              "application/x-www-form-urlencoded");
-      //发送request
-      urlConn.setRequestProperty("Content-Length", content.length() + "");
-      printout = new DataOutputStream(urlConn.getOutputStream());
-      byte[] pp=content.getBytes("GBK");
-      printout.write(pp);
-      printout.flush();
-      printout.close();
-      //取response
-      input = new BufferedReader(new InputStreamReader(urlConn.
-              getInputStream()));
-      String str = "";
-      int count;
-      char[] chs = new char[1024];
-      while ((count= input.read(chs)) != -1) {
-        str += new String(chs,0,count);
-        //char[] chs_temp=new char[1024];
-        //chs=chs_temp;
-      }
-      res = str;
-      input.close();
-    } catch (Exception ex) {
-      log.error("HttpUtil.PostPage(): url=" + pageUrl + ", content=" + content + ", ex=" + ex);
-    }
-    return res;
-  }
-
-
 
   /**
    * Add By ChenW 2018-11-06
@@ -262,7 +215,7 @@ public class HttpUtil {
    * @param content
    * @return
    */
-  public static String postAboutGBK(String pageUrl, String content,int timeOut) {
+  public static String postAboutGbk(String pageUrl, String content,int timeOut) {
     String res = "";
     try {
       URL url;
@@ -341,7 +294,7 @@ public class HttpUtil {
    * @exception:
    * @return: String
    */
-  public static String HttpPost(final String pageUrl, final String content,
+  public static String httpPost(final String pageUrl, final String content,
                                 final int timeout, final int autoAddTi) throws Exception {
     String res = "";
     try {
@@ -584,9 +537,9 @@ public class HttpUtil {
     int code = con.getResponseCode();
     BufferedReader in = null;
     if (200 == code) {
-      in = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
+      in = new BufferedReader(new InputStreamReader(con.getInputStream(),Constants.UTF8));
     } else {
-      in = new BufferedReader(new InputStreamReader(con.getErrorStream(),"UTF-8"));
+      in = new BufferedReader(new InputStreamReader(con.getErrorStream(),Constants.UTF8));
     }
 
     String line;
@@ -680,7 +633,7 @@ public class HttpUtil {
     con.setDoOutput(true);
 
     DataOutputStream out = new DataOutputStream(con.getOutputStream());// 打开输出流往对端服务器写数据
-    out.write(json.getBytes("UTF-8"));// 写数据
+    out.write(json.getBytes(Constants.UTF8));// 写数据
     out.flush();// 刷新
     out.close();// 关闭输出流
     BufferedReader reader = new BufferedReader(new InputStreamReader(
@@ -693,112 +646,7 @@ public class HttpUtil {
     }
     reader.close();
     return buffer.toString();
-
   }
 
 
-  /**
-   * POST请求方式
-   * @param postUrl
-   * @param json
-   * @param timeOut
-   * @param keyMap
-   * @return
-   * @throws Exception
-   * 		add by xukc 2018-08-08
-   */
-  public static Map httpPost2(final String postUrl, final String json,
-                              final int timeOut, Map<String, String> keyMap,String method) throws Exception {
-    HttpUtil.log.info("req:" + json);
-    final StringBuffer rsp = new StringBuffer();
-    //String jsonEn = URLEncoder.encode(json, "UTF-8");
-    //final URL url = new URL(postUrl+"/"+jsonEn);
-    final URL url = new URL(postUrl);
-
-    final HttpURLConnection con = (HttpURLConnection) url.openConnection();
-    con.addRequestProperty("Content-Type", "application/json;charset=utf-8");
-    con.addRequestProperty("content-length", String.valueOf(json.length()));
-    if(keyMap!=null){
-      con.setRequestProperty("X-APP-ID", StrUtil.strnull(keyMap.get("appId")));
-      con.setRequestProperty("X-APP-KEY", StrUtil.strnull(keyMap.get("appKey")));
-    }
-    con.setConnectTimeout(15000);// 设置连接主机超时长（毫秒）两时间参数要同时设置
-    con.setReadTimeout(15000);// 设置从主机读取数据超时长（毫秒） 两时间参数要同时设置
-    con.setRequestMethod(method);
-    con.setUseCaches(true);
-    con.setDoInput(true);
-    con.setDoOutput(true);
-
-    final OutputStream os = con.getOutputStream();
-    final PrintWriter pw = new PrintWriter(os);
-    pw.print(json);
-
-    pw.close();
-    Map map = new HashMap();
-    int code = con.getResponseCode();
-    map.put("code",StrUtil.strnull(code));
-
-    BufferedReader in = null;
-    if (200 == code) {
-      in = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
-    } else {
-      in = new BufferedReader(new InputStreamReader(con.getErrorStream(),"UTF-8"));
-    }
-
-    String line;
-    while ((line = in.readLine()) != null) {
-      rsp.append(line);
-    }
-    in.close();
-    HttpUtil.log.info("rsp:" + rsp.toString());
-
-    map.put("msg",rsp.toString());
-    return map;
-  }
-  public static Map http(final String pacthUrl, final String json,
-                         final int timeOut, Map<String, String> keyMap,String method) throws Exception {
-    HttpUtil.log.info("req:" + json);
-    final StringBuffer rsp = new StringBuffer();
-    //String jsonEn = URLEncoder.encode(json, "UTF-8");
-    final URL url = new URL(pacthUrl);
-    final HttpURLConnection con = (HttpURLConnection) url.openConnection();
-    con.addRequestProperty("Content-Type", "application/json;charset=utf-8");
-    con.addRequestProperty("content-length", String.valueOf(json.length()));
-    if(keyMap!=null){
-      con.setRequestProperty("X-APP-ID", StrUtil.strnull(keyMap.get("appId")));
-      con.setRequestProperty("X-APP-KEY", StrUtil.strnull(keyMap.get("appKey")));
-    }
-    con.setConnectTimeout(15000);// 设置连接主机超时长（毫秒）两时间参数要同时设置
-    con.setReadTimeout(15000);// 设置从主机读取数据超时长（毫秒） 两时间参数要同时设置
-    con.setRequestMethod(method);
-    //con.setUseCaches(true);
-    con.setDoInput(true);
-    con.setDoOutput(true);
-    final OutputStream os = con.getOutputStream();
-    final PrintWriter pw = new PrintWriter(os);
-    //写入json
-    pw.print(json);
-
-    pw.close();
-    Map<String,String> map = new HashMap<String,String>();
-    int code = con.getResponseCode();
-    map.put("code",StrUtil.strnull(code));
-
-    BufferedReader in = null;
-    if (200 == code) {
-      in = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
-    } else {
-      in = new BufferedReader(new InputStreamReader(con.getErrorStream(),"UTF-8"));
-    }
-
-    String line;
-    while ((line = in.readLine()) != null) {
-      rsp.append(line);
-    }
-    in.close();
-    HttpUtil.log.info("rsp:" + rsp.toString());
-
-    map.put("msg",rsp.toString());
-    return map;
-  }
 }

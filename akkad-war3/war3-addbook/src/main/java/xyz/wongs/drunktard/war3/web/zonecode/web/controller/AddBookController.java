@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.wongs.drunktard.domain.addbook.service.RegUserService;
 
-@Api(description="",value="AddBookController")
+@Api(value="AddBookController")
 @RestController
 @RequestMapping(value = "/addBook")
 public class AddBookController {

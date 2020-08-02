@@ -2,18 +2,18 @@ package xyz.wongs.drunktard.war3.web.zonecode.exception;
 
 import java.io.PrintWriter;
 
-public class NullService extends Exception {
+public class NullServiceException extends Exception {
 
 	/**
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public NullService(){
+	public NullServiceException(){
 
 	}
 
-	public NullService(String msg){
+	public NullServiceException(String msg){
 		super(msg);
 	}
 

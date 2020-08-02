@@ -2,12 +2,12 @@ package xyz.wongs.drunktard.base.persistence.mybatis.service;
 
 
 import com.github.pagehelper.PageInfo;
-import xyz.wongs.drunktard.base.persistence.mybatis.entity.BaseEntity;
+import xyz.wongs.drunktard.base.persistence.mybatis.entity.BaseEntityAbstract;
 import xyz.wongs.drunktard.base.persistence.mybatis.page.PaginationInfo;
 
 import java.io.Serializable;
 
-public interface IBaseService<T extends BaseEntity,ID extends Serializable>{
+public interface IBaseService<T extends BaseEntityAbstract,ID extends Serializable>{
 
     PageInfo<T> selectPage(PaginationInfo pgInfo, T t);
 
@@ -20,6 +20,6 @@ public interface IBaseService<T extends BaseEntity,ID extends Serializable>{
     Long insertSelective(T t);
     T selectByPrimaryKey(ID id);
     int updateByPrimaryKeySelective(T t);
-    int updateByPrimaryKeyWithBLOBs(T t);
+    int updateByPrimaryKeyWithBlob(T t);
     int updateByPrimaryKey(T t);
 }

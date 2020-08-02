@@ -1,6 +1,6 @@
 package xyz.wongs.drunktard.base.persistence.mybatis.mapper;
 
-import xyz.wongs.drunktard.base.persistence.mybatis.entity.BaseEntity;
+import xyz.wongs.drunktard.base.persistence.mybatis.entity.BaseEntityAbstract;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2019/11/21 17:40
  * @Version 1.0.0
 */
-public interface BaseMapper<T extends BaseEntity,ID extends Serializable> {
+public interface BaseMapper<T extends BaseEntityAbstract,ID extends Serializable> {
 
     /**
      * @author WCNGS@QQ.COM
@@ -40,7 +40,7 @@ public interface BaseMapper<T extends BaseEntity,ID extends Serializable> {
 
     int updateByPrimaryKeySelective(T t);
 
-    int updateByPrimaryKeyWithBLOBs(T t);
+    int updateByPrimaryKeyWithBlob(T t);
 
     int updateByPrimaryKey(T t);
 

@@ -310,21 +310,21 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 		// 是不是HTML代码
 		boolean isCode = false;
 		// 是不是HTML特殊字符,如&nbsp;
-		boolean isHTML = false;
+		boolean isHtml = false;
 		for (int i = 0; i < param.length(); i++) {
 			temp = param.charAt(i);
 			if (temp == '<') {
 				isCode = true;
 			} else if (temp == '&') {
-				isHTML = true;
+				isHtml = true;
 			} else if (temp == '>' && isCode) {
 				n = n - 1;
 				isCode = false;
-			} else if (temp == ';' && isHTML) {
-				isHTML = false;
+			} else if (temp == ';' && isHtml) {
+				isHtml = false;
 			}
 			try {
-				if (!isCode && !isHTML) {
+				if (!isCode && !isHtml) {
 					n += String.valueOf(temp).getBytes("GBK").length;
 				}
 			} catch (UnsupportedEncodingException e) {
@@ -339,27 +339,27 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 			}
 		}
 		// 取出截取字符串中的HTML标记
-		String temp_result = result.toString().replaceAll("(>)[^<>]*(<?)",
+		String tempResult = result.toString().replaceAll("(>)[^<>]*(<?)",
 				"$1$2");
 		// 去掉不需要结素标记的HTML标记
-		temp_result = temp_result
+		tempResult = tempResult
 				.replaceAll(
 						"</?(AREA|BASE|BASEFONT|BODY|BR|COL|COLGROUP|DD|DT|FRAME|HEAD|HR|HTML|IMG|INPUT|ISINDEX|LI|LINK|META|OPTION|P|PARAM|TBODY|TD|TFOOT|TH|THEAD|TR|area|base|basefont|body|br|col|colgroup|dd|dt|frame|head|hr|html|img|input|isindex|li|link|meta|option|p|param|tbody|td|tfoot|th|thead|tr)[^<>]*/?>",
 						"");
 		// 去掉成对的HTML标记
-		temp_result = temp_result.replaceAll("<([a-zA-Z]+)[^<>]*>(.*?)</\\1>",
+		tempResult = tempResult.replaceAll("<([a-zA-Z]+)[^<>]*>(.*?)</\\1>",
 				"$2");
 		// 用正则表达式取出标记
 		Pattern p = Pattern.compile(PARR);
-		Matcher m = p.matcher(temp_result);
-		List<String> endHTML = Lists.newArrayList();
+		Matcher m = p.matcher(tempResult);
+		List<String> endHtml = Lists.newArrayList();
 		while (m.find()) {
-			endHTML.add(m.group(1));
+			endHtml.add(m.group(1));
 		}
 		// 补全不成对的HTML标记
-		for (int i = endHTML.size() - 1; i >= 0; i--) {
+		for (int i = endHtml.size() - 1; i >= 0; i--) {
 			result.append("</");
-			result.append(endHTML.get(i));
+			result.append(endHtml.get(i));
 			result.append(">");
 		}
 		return result.toString();

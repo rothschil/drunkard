@@ -182,7 +182,7 @@
     </set>
     where U_ID = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
+  <update id="updateByPrimaryKeyWithBlob" parameterType="xyz.wongs.drunktard.domain.addbook.entity.RegUser" >
     update reg_user
     set STATUS = #{status,jdbcType=CHAR},
       NICK_NAME = #{nickName,jdbcType=VARBINARY},

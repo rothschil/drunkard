@@ -416,6 +416,7 @@ public final class HTMLFilter {
     }
 
     private String processParamProtocol(String s) {
+        String val = "#//";
         s = decodeEntities(s);
         final Matcher m = P_PROTOCOL.matcher(s);
         if (m.find()) {
@@ -423,7 +424,7 @@ public final class HTMLFilter {
             if (!inArray(protocol, vAllowedProtocols)) {
                 // bad protocol, turn into local anchor link instead
                 s = "#" + s.substring(protocol.length() + 1, s.length());
-                if (s.startsWith("#//")) {
+                if (s.startsWith(val)) {
                     s = "#" + s.substring(3, s.length());
                 }
             }

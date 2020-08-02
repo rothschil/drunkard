@@ -80,10 +80,12 @@ public class Exceptions {
 	 */
 	public static Throwable getThrowable(HttpServletRequest request){
 		Throwable ex = null;
-		if (request.getAttribute("exception") != null) {
-			ex = (Throwable) request.getAttribute("exception");
-		} else if (request.getAttribute("javax.servlet.error.exception") != null) {
-			ex = (Throwable) request.getAttribute("javax.servlet.error.exception");
+		String except = "exception";
+		String javaxExcept = "javax.servlet.error.exception";
+		if (request.getAttribute(except) != null) {
+			ex = (Throwable) request.getAttribute(except);
+		} else if (request.getAttribute(javaxExcept) != null) {
+			ex = (Throwable) request.getAttribute(javaxExcept);
 		}
 		return ex;
 	}

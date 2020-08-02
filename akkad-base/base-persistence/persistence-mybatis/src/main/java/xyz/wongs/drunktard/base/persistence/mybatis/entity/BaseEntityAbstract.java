@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class BaseEntity<ID extends Serializable> extends IdEntity<ID> {
+public abstract class BaseEntityAbstract<ID extends Serializable> extends AbstractIdEntity<ID> {
 
     @JSONField
     private String dtype;

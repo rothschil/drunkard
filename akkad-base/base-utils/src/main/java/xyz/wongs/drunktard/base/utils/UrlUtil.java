@@ -16,7 +16,7 @@ public class UrlUtil {
 	/**
 	 * URL 解码
 	 */
-	public static String getURLDecoderString(String str) {
+	public static String getUrlDecoderString(String str) {
 		String result = "";
 		if (null == str) {
 			return "";
@@ -32,7 +32,7 @@ public class UrlUtil {
 	/**
 	 * URL 转码
 	 */
-	public static String getURLEncoderString(String str) {
+	public static String getUrlEncoderString(String str) {
 		String result = "";
 		if (null == str) {
 			return "";

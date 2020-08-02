@@ -97,7 +97,7 @@ public class MapperLoader implements DisposableBean, InitializingBean, Applicati
             try {
                 if (scanner.isChanged()) {
                     log.error("*Mapper.xml文件改变,重新加载.");
-                    scanner.reloadXML();
+                    scanner.reloadXml();
                     log.error("加载完毕.");
                 }
             } catch (Exception e) {
@@ -127,7 +127,7 @@ public class MapperLoader implements DisposableBean, InitializingBean, Applicati
             return resources;
         }
 
-        public void reloadXML() throws Exception {
+        public void reloadXml() throws Exception {
             SqlSessionFactory factory = context.getBean(SqlSessionFactory.class);
             Configuration configuration = factory.getConfiguration();
             // 移除加载项
@@ -190,8 +190,8 @@ public class MapperLoader implements DisposableBean, InitializingBean, Applicati
                 Resource[] resources = getResource(basePackage, XML_RESOURCE_PATTERN);
                 if (resources != null) {
                     for (int i = 0; i < resources.length; i++) {
-                        String multi_key = getValue(resources[i]);
-                        fileMapping.put(resources[i].getFilename(), multi_key);
+                        String multiKey = getValue(resources[i]);
+                        fileMapping.put(resources[i].getFilename(), multiKey);
                     }
                 }
             }
@@ -211,10 +211,10 @@ public class MapperLoader implements DisposableBean, InitializingBean, Applicati
                     for (int i = 0; i < resources.length; i++) {
                         String name = resources[i].getFilename();
                         String value = fileMapping.get(name);
-                        String multi_key = getValue(resources[i]);
-                        if (!multi_key.equals(value)) {
+                        String multiKey = getValue(resources[i]);
+                        if (!multiKey.equals(value)) {
                             isChanged = true;
-                            fileMapping.put(name, multi_key);
+                            fileMapping.put(name, multiKey);
                         }
                     }
                 }

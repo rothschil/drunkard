@@ -13,7 +13,7 @@ import java.util.*;
 import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 
 @Controller
-@Api(value = "", description = "git info from git-commit-id-plugin")
+@Api(value = "git info from git-commit-id-plugin")
 public class GitCommitController {
 
     /**

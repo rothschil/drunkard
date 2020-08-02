@@ -93,12 +93,13 @@ public class NpFileUtil extends FileUtil {
 
         File file = new File(outputDir);
         //子目录不为空
-        if(!(subDir == null || subDir.trim().equals(""))){
+        if(!(subDir == null || "".equals(subDir.trim()))){
             file = new File(outputDir + "/" + subDir);
         }
         if(!file.exists()){
-            if(!file.getParentFile().exists())
+            if(!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
+            }
             file.mkdirs();
         }
     }
@@ -140,8 +141,9 @@ public class NpFileUtil extends FileUtil {
                     } catch(IOException ex){
                         throw ex;
                     } finally{
-                        if(out!=null)
+                        if(out!=null) {
                             out.close();
+                        }
                     }
                 }
             }
@@ -187,14 +189,18 @@ public class NpFileUtil extends FileUtil {
                 out.write(buffer, 0, n);
             }
         } finally {
-            if(gcis != null)
+            if(gcis != null) {
                 gcis.close();
-            if(in != null)
+            }
+            if(in != null) {
                 in.close();
-            if(fin != null)
+            }
+            if(fin != null) {
                 fin.close();
-            if(out != null)
+            }
+            if(out != null) {
                 out.close();
+            }
         }
         return true;
     }

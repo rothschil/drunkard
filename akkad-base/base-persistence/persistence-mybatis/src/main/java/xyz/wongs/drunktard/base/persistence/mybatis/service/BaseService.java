@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import xyz.wongs.drunktard.base.persistence.mybatis.entity.BaseEntity;
+import xyz.wongs.drunktard.base.persistence.mybatis.entity.BaseEntityAbstract;
 import xyz.wongs.drunktard.base.persistence.mybatis.mapper.BaseMapper;
 import xyz.wongs.drunktard.base.persistence.mybatis.page.PaginationInfo;
 
@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Transactional(readOnly = true)
-public abstract class BaseService<T extends BaseEntity,ID extends Serializable> implements IBaseService<T,ID> {
+public abstract class BaseService<T extends BaseEntityAbstract,ID extends Serializable> implements IBaseService<T,ID> {
 
     protected abstract BaseMapper<T,ID> getMapper();
 
@@ -83,8 +83,8 @@ public abstract class BaseService<T extends BaseEntity,ID extends Serializable> 
 
     @Transactional(readOnly = false)
     @Override
-    public int updateByPrimaryKeyWithBLOBs(T t) {
-        return getMapper().updateByPrimaryKeyWithBLOBs(t);
+    public int updateByPrimaryKeyWithBlob(T t) {
+        return getMapper().updateByPrimaryKeyWithBlob(t);
     }
 
 

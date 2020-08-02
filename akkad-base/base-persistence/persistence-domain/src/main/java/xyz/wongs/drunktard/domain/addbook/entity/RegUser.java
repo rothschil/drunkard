@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import xyz.wongs.drunktard.base.persistence.mybatis.entity.BaseEntity;
+import xyz.wongs.drunktard.base.persistence.mybatis.entity.BaseEntityAbstract;
 
 @Builder(toBuilder=true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegUser extends BaseEntity<Long> {
+public class RegUser extends BaseEntityAbstract<Long> {
     private Long id;
 
     private String status;
