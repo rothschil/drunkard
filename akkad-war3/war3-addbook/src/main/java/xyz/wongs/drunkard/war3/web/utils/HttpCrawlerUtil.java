@@ -5,7 +5,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import xyz.wongs.drunkard.war3.web.zonecode.exception.NoIpAddressException;
+import xyz.wongs.drunkard.war3.web.addbook.exception.NoIpAddressException;
 
 import java.io.IOException;
 

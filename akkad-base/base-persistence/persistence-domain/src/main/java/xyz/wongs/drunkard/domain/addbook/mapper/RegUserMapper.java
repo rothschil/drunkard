@@ -3,6 +3,8 @@ package xyz.wongs.drunkard.domain.addbook.mapper;
 import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
 import xyz.wongs.drunkard.domain.addbook.entity.RegUser;
 
+import java.util.List;
+
 /**
  * @ClassName RegUserMapper
  * @Description 
@@ -44,6 +46,13 @@ public interface RegUserMapper extends BaseMapper<RegUser,Long> {
      */
     @Override
     RegUser selectByPrimaryKey(Long uId);
+
+    /**
+     * 根据用户信息查询
+     * @param regUser
+     * @return
+     */
+    List<RegUser> selectByRegUser(RegUser regUser);
 
     /**
      * 待补充

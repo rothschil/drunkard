@@ -23,16 +23,16 @@ public class RegUser extends BaseEntityAbstract<Long> {
 
     private String status;
 
-    private byte[] nickName;
+    private String nickName;
 
-    private byte[] uCode;
+    private String uCode;
 
-    private byte[] uMobile;
+    private String uMobile;
 
-    private byte[] email;
+    private String email;
 
-    private byte[] uPwd;
+    private String uPwd;
 
-    private byte[] sat;
+    private String sat;
 
 }

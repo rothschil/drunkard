@@ -8,6 +8,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import xyz.wongs.drunkard.base.constant.Constants;
+import xyz.wongs.drunkard.base.constant.PunctuateConstant;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -288,87 +289,6 @@ public class HttpUtil {
     return responseMessage;
   }
 
-  /**
-   * 远程地址调用
-   *
-   * @param:
-   * @exception:
-   * @return: String
-   */
-  public static String httpPost(final String pageUrl, final String content,
-                                final int timeout, final int autoAddTi) throws Exception {
-    String res = "";
-    try {
-      URL url;
-      HttpURLConnection urlConn;
-      DataOutputStream printout;
-      BufferedReader input;
-      // 增加随机数，避免缓存
-      final long ct = System.currentTimeMillis();
-      final Random random = new Random(ct);
-      String npageUrl = pageUrl + "";
-      if (autoAddTi == 1) {
-        if (npageUrl.indexOf("?") > -1) {
-          npageUrl += "&ti=" + ct + random.nextInt();
-        } else {
-          npageUrl += "?ti=" + ct + random.nextInt();
-        }
-      } else if (autoAddTi == 2) {
-        npageUrl += "?ti=" + ct + random.nextInt();
-      } else if (autoAddTi == 3) {
-        npageUrl += "&ti=" + ct + random.nextInt();
-      }
-      url = new URL(npageUrl);
-      urlConn = (HttpURLConnection) url.openConnection();
-      urlConn.setDoInput(true);
-      urlConn.setDoOutput(true);
-      urlConn.setUseCaches(false);
-      urlConn.setRequestMethod("POST");
-      urlConn.setRequestProperty("Content-Type",
-              "application/x-www-form-urlencoded");
-      // 设置超时
-      int realTimeOut = 0;
-      String timeOut = null;
-      try {
-
-      } catch (Throwable t) {
-        timeOut = "5000";
-      }
-
-      if(timeout!=0){
-        realTimeOut = timeout;
-      }else{
-        realTimeOut = Integer.parseInt(timeOut);
-      }
-      // 设置连接主机超时
-      urlConn.setConnectTimeout(realTimeOut);
-      // 设置从主机读取数据超时
-      urlConn.setReadTimeout(realTimeOut);
-
-      // 发送request
-      final byte[] pp = content.getBytes("GBK");
-      urlConn.setRequestProperty("Content-Length", pp.length + "");
-      printout = new DataOutputStream(urlConn.getOutputStream());
-      printout.writeBytes(content);
-      printout.flush();
-      printout.close();
-      // 取response
-      input = new BufferedReader(new InputStreamReader(urlConn
-              .getInputStream(), "GBK"));
-      final StringBuffer str = new StringBuffer();
-      String readLine = input.readLine();
-      while (readLine != null) {
-        str.append(readLine);
-        readLine = input.readLine();
-      }
-
-      res = str.toString().trim();
-      input.close();
-    } catch (final Exception ex) {
-      throw ex;
-    }
-    return res;
-  }
 
   /**
    * 参数为JSON格式的POST请求方式

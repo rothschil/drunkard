@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.war3.web.zonecode.exception;
+package xyz.wongs.drunkard.war3.web.addbook.exception;
 
 import java.io.PrintWriter;
 

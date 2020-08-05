@@ -9,6 +9,8 @@ import xyz.wongs.drunkard.base.persistence.mybatis.service.BaseService;
 import xyz.wongs.drunkard.domain.addbook.entity.RegUser;
 import xyz.wongs.drunkard.domain.addbook.mapper.RegUserMapper;
 
+import java.util.List;
+
 /**
  * @ClassName RegUserService
  * @Description 
@@ -28,6 +30,10 @@ public class RegUserService extends BaseService<RegUser, Long> {
 	@Override
 	protected BaseMapper<RegUser, Long> getMapper() {
 		return regUserMapper;
+	}
+
+	public List<RegUser> selectByRegUser(RegUser regUser){
+		return regUserMapper.selectByRegUser(regUser);
 	}
 
 }

@@ -45,7 +45,8 @@ public class IpUtils {
     }
 
     private static boolean internalIp(byte[] addr) {
-        if (StringUtils.isNull(addr) || addr.length < 2) {
+        int initLength = 2;
+        if (StringUtils.isNull(addr) || addr.length < initLength) {
             return true;
         }
         final byte b0 = addr[0];

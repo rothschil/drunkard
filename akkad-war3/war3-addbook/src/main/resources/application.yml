@@ -1,7 +1,8 @@
 server:
   port: 9090
 # mysql数据源配置
-
+db:
+  dtype: mysql
 spring:
   redis:
     database: 0
@@ -10,7 +11,7 @@ spring:
   datasource:
     name: mysql
     type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/addbook?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     username: root
     password: 123456
@@ -30,6 +31,33 @@ spring:
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=6000
       login-username: admin
       login-password: 123456
-# mybatis配置
+  aop:
+    auto: true
+    proxy-target-class: true
+
+  jackson:
+    default-property-inclusion: non_null
+    time-zone: GMT+8
+    ##时间戳统一转换
+    date-format: yyyy-MM-dd HH:mm:ss
+######### mybatis ##########
 mybatis:
+  configuration:
+    lazy-loading-enabled: true
+    aggressive-lazy-loading: false
+    map-underscore-to-camel-case: true
   mapperLocations: classpath:mapper/**/*.xml
+
+######### 分页插件 ##########
+pagehelper:
+  helper-dialect: ${db.dtype}
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true
+
+######### RocketMQ ##########
+rocketmq:
+  name-server: 192.168.244.128:9876;192.168.244.129:9876;
+  producer:
+    group: drunkard
+    send-message-timeout: 30000

@@ -4,90 +4,39 @@
   <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.domain.addbook.entity.RegUser" >
     <id column="U_ID" property="id" jdbcType="BIGINT" />
     <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
+    <result column="U_CODE" property="uCode" jdbcType="VARCHAR" />
+    <result column="U_MOBILE" property="uMobile" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="U_PWD" property="uPwd" jdbcType="VARCHAR" />
+    <result column="SAT" property="sat" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="xyz.wongs.drunkard.domain.addbook.entity.RegUser" extends="BaseResultMap" >
-    <result column="NICK_NAME" property="nickName" jdbcType="VARBINARY" />
-    <result column="U_CODE" property="uCode" jdbcType="VARBINARY" />
-    <result column="U_MOBILE" property="uMobile" jdbcType="VARBINARY" />
-    <result column="EMAIL" property="email" jdbcType="VARBINARY" />
-    <result column="U_PWD" property="uPwd" jdbcType="VARBINARY" />
-    <result column="SAT" property="sat" jdbcType="VARBINARY" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
+
   <sql id="Base_Column_List" >
-    U_ID, STATUS
+    U_ID, STATUS ,NICK_NAME ,U_CODE ,U_MOBILE,EMAIL,U_PWD,SAT
   </sql>
-  <sql id="Blob_Column_List" >
-    NICK_NAME, U_CODE, U_MOBILE, EMAIL, U_PWD, SAT
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUserExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'false' as QUERYID,
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from reg_user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUserExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'false' as QUERYID,
-    <include refid="Base_Column_List" />
-    from reg_user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from reg_user
     where U_ID = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="selectByRegUser" resultMap="BaseResultMap" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUser" >
+    select
+    <include refid="Base_Column_List" />
+    from reg_user
+    where 1=1
+      <if test="uCode != null" >
+        AND U_CODE =#{uCode,jdbcType=VARCHAR}
+      </if>
+      <if test="uMobile != null" >
+        AND U_MOBILE =#{uMobile,jdbcType=VARCHAR}
+      </if>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from reg_user
     where U_ID = #{id,jdbcType=BIGINT}
@@ -96,9 +45,9 @@
     insert into reg_user (U_ID, STATUS, NICK_NAME, 
       U_CODE, U_MOBILE, EMAIL, 
       U_PWD, SAT)
-    values (#{id,jdbcType=BIGINT}, #{status,jdbcType=CHAR}, #{nickName,jdbcType=VARBINARY}, 
-      #{uCode,jdbcType=VARBINARY}, #{uMobile,jdbcType=VARBINARY}, #{email,jdbcType=VARBINARY}, 
-      #{uPwd,jdbcType=VARBINARY}, #{sat,jdbcType=VARBINARY})
+    values (#{id,jdbcType=BIGINT}, #{status,jdbcType=CHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{uCode,jdbcType=VARCHAR}, #{uMobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{uPwd,jdbcType=VARCHAR}, #{sat,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUser" >
     insert into reg_user
@@ -136,22 +85,22 @@
         #{status,jdbcType=CHAR},
       </if>
       <if test="nickName != null" >
-        #{nickName,jdbcType=VARBINARY},
+        #{nickName,jdbcType=VARCHAR},
       </if>
       <if test="uCode != null" >
-        #{uCode,jdbcType=VARBINARY},
+        #{uCode,jdbcType=VARCHAR},
       </if>
       <if test="uMobile != null" >
-        #{uMobile,jdbcType=VARBINARY},
+        #{uMobile,jdbcType=VARCHAR},
       </if>
       <if test="email != null" >
-        #{email,jdbcType=VARBINARY},
+        #{email,jdbcType=VARCHAR},
       </if>
       <if test="uPwd != null" >
-        #{uPwd,jdbcType=VARBINARY},
+        #{uPwd,jdbcType=VARCHAR},
       </if>
       <if test="sat != null" >
-        #{sat,jdbcType=VARBINARY},
+        #{sat,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -162,22 +111,22 @@
         STATUS = #{status,jdbcType=CHAR},
       </if>
       <if test="nickName != null" >
-        NICK_NAME = #{nickName,jdbcType=VARBINARY},
+        NICK_NAME = #{nickName,jdbcType=VARCHAR},
       </if>
       <if test="uCode != null" >
-        U_CODE = #{uCode,jdbcType=VARBINARY},
+        U_CODE = #{uCode,jdbcType=VARCHAR},
       </if>
       <if test="uMobile != null" >
-        U_MOBILE = #{uMobile,jdbcType=VARBINARY},
+        U_MOBILE = #{uMobile,jdbcType=VARCHAR},
       </if>
       <if test="email != null" >
-        EMAIL = #{email,jdbcType=VARBINARY},
+        EMAIL = #{email,jdbcType=VARCHAR},
       </if>
       <if test="uPwd != null" >
-        U_PWD = #{uPwd,jdbcType=VARBINARY},
+        U_PWD = #{uPwd,jdbcType=VARCHAR},
       </if>
       <if test="sat != null" >
-        SAT = #{sat,jdbcType=VARBINARY},
+        SAT = #{sat,jdbcType=VARCHAR},
       </if>
     </set>
     where U_ID = #{id,jdbcType=BIGINT}
@@ -185,12 +134,12 @@
   <update id="updateByPrimaryKeyWithBlob" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUser" >
     update reg_user
     set STATUS = #{status,jdbcType=CHAR},
-      NICK_NAME = #{nickName,jdbcType=VARBINARY},
-      U_CODE = #{uCode,jdbcType=VARBINARY},
-      U_MOBILE = #{uMobile,jdbcType=VARBINARY},
-      EMAIL = #{email,jdbcType=VARBINARY},
-      U_PWD = #{uPwd,jdbcType=VARBINARY},
-      SAT = #{sat,jdbcType=VARBINARY}
+      NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      U_CODE = #{uCode,jdbcType=VARCHAR},
+      U_MOBILE = #{uMobile,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      U_PWD = #{uPwd,jdbcType=VARCHAR},
+      SAT = #{sat,jdbcType=VARCHAR}
     where U_ID = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegUser" >

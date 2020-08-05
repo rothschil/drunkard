@@ -14,6 +14,6 @@ import xyz.wongs.drunkard.base.message.enums.ResponseCode;
 public class ParamException extends GlobalException {
 
     public ParamException(String message){
-        super(message, ResponseCode.PARAM_ERROR_CODE.getCode());
+        super(message, ResponseCode.PARAM_ERROR.getCode());
     }
 }

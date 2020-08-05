@@ -72,8 +72,6 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-
-
         <!--BEGIn spring boot依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
