@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.war3.web.mq;
+package xyz.wongs.drunkard.war3.web.mq.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

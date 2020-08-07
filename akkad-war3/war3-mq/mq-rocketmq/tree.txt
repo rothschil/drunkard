@@ -1,0 +1,25 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building mq-rocketmq 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+Downloading from nexus-aliyun: http://maven.aliyun.com/nexus/content/groups/public/xyz/wongs/drunkard/base-utils/1.0.0-SNAPSHOT/maven-metadata.xml
+Downloading from nexus-aliyun: http://maven.aliyun.com/nexus/content/groups/public/xyz/wongs/drunkard/base-utils/1.0.0-SNAPSHOT/base-utils-1.0.0-SNAPSHOT.pom
+[WARNING] The POM for xyz.wongs.drunkard:base-utils:jar:1.0.0-SNAPSHOT is missing, no dependency information available
+[INFO] 
+[INFO] --- maven-dependency-plugin:3.1.1:tree (default-cli) @ mq-rocketmq ---
+Downloading from nexus-aliyun: http://maven.aliyun.com/nexus/content/groups/public/xyz/wongs/drunkard/base-utils/1.0.0-SNAPSHOT/base-utils-1.0.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 10.613 s
+[INFO] Finished at: 2020-08-07T10:34:14+08:00
+[INFO] Final Memory: 29M/104M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-dependency-plugin:3.1.1:tree (default-cli) on project mq-rocketmq: Cannot build project dependency graph: Could not resolve nor collect following dependencies: [xyz.wongs.drunkard:base-utils:jar:1.0.0-SNAPSHOT (compile)]: Could not resolve dependencies for project xyz.wongs.drunkard:mq-rocketmq:jar:1.0.0-SNAPSHOT: Could not find artifact xyz.wongs.drunkard:base-utils:jar:1.0.0-SNAPSHOT in nexus-aliyun (http://maven.aliyun.com/nexus/content/groups/public) -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

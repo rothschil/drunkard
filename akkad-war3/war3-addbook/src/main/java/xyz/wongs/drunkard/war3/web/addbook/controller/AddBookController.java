@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.web.bind.annotation.*;
-import sun.rmi.runtime.Log;
 import xyz.wongs.drunkard.base.message.enums.ResponseCode;
 import xyz.wongs.drunkard.base.message.response.ResponseResult;
 import xyz.wongs.drunkard.base.web.BaseController;

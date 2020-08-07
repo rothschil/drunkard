@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.war3.web.mq;
+package xyz.wongs.drunkard.war3.web.mq.day1;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +8,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.wongs.drunkard.war3.web.mq.vo.UserVo;
 
 @Slf4j
 @RestController
