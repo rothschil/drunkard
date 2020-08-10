@@ -1,0 +1,17 @@
+server:
+  port: 9090
+# mysql数据源配置
+db:
+  dtype: mysql
+spring:
+  application:
+    name: mq-rocketmq
+  aop:
+    auto: true
+    proxy-target-class: true
+
+  jackson:
+    default-property-inclusion: non_null
+    time-zone: GMT+8
+    ##时间戳统一转换
+    date-format: yyyy-MM-dd HH:mm:ss

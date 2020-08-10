@@ -13,6 +13,7 @@
 
     <modules>
         <module>mq-rocketmq</module>
+        <module>mq-demo</module>
     </modules>
 
 </project>
