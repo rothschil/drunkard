@@ -60,7 +60,7 @@ public interface BaseMapper<T extends BaseEntityAbstract,ID extends Serializable
      * @throws
      * @date 2020/8/2 13:24
      */
-    Long insert(T t);
+    int insert(T t);
 
     /** 按条件将数据对象持久化
      * @Description
@@ -69,7 +69,7 @@ public interface BaseMapper<T extends BaseEntityAbstract,ID extends Serializable
      * @throws
      * @date 2020/8/2 13:24
      */
-    Long insertSelective(T t);
+    int insertSelective(T t);
 
 
     /** 按照主键查询一个对象

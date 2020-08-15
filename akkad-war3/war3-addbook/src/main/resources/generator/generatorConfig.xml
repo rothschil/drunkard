@@ -35,32 +35,32 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成对应表及类名-->
-        <table tableName="DICT_REGION"  schema="DictRegion"
+<!--        <table tableName="DICT_REGION"  schema="DictRegion"
                enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="true"
+               enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
-        <table tableName="REG_USER"  schema="RegUser"
+        <table tableName="register_user"  schema="RegUser"
                enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="true"
+               enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
-
-        <table tableName="GRP_ADDBOOK"  schema="GrpAddbook"
+-->
+        <table tableName="register_user_his"  schema="RegisterUserHis"
                enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="true"
+               enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
-        <table tableName="REG_USER_EXT"  schema="RegUserExt"
+<!--        <table tableName="REG_USER_EXT"  schema="RegUserExt"
                enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="true"
+               enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
-        <table tableName="REG_USER_EXT"  schema="RegUserExt"
+        <table tableName="personal_grp"  schema="PersonalGrp"
                enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="true"
+               enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-        </table>
+        </table>-->
 
     </context>
 </generatorConfiguration>

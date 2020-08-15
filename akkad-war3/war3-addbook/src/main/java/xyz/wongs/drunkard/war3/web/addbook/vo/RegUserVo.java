@@ -20,9 +20,19 @@ import java.io.Serializable;
 @Data
 public class RegUserVo implements Serializable {
 
+    private String nickName;
+
     @Size(min=6, max=15, message = "编码在 66 ~ 15 个字符之间")
     private String uCode;
 
     @Length(min=11, max=11, message = "手机号不合法")
     private String uMobile;
+
+    private String email;
+
+    private String uPwd;
+
+    private String sat;
+
+    private String status;
 }

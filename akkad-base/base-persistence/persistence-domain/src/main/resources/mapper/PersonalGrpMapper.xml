@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.wongs.drunkard.domain.addbook.mapper.PersonalGrpMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.domain.addbook.entity.PersonalGrp" >
+    <id column="PERSONAL_GRP_ID" property="id" jdbcType="BIGINT" />
+    <result column="REGISTER_USER_ID" property="registerUserId" jdbcType="BIGINT" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="xyz.wongs.drunkard.domain.addbook.entity.PersonalGrp" extends="BaseResultMap" >
+    <result column="FD_GRP" property="fdGrp" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PERSONAL_GRP_ID, REGISTER_USER_ID, STATUS
+  </sql>
+  <sql id="Blob_Column_List" >
+    FD_GRP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from personal_grp
+    where PERSONAL_GRP_ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from personal_grp
+    where PERSONAL_GRP_ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="xyz.wongs.drunkard.domain.addbook.entity.PersonalGrp" >
+    insert into personal_grp (PERSONAL_GRP_ID, REGISTER_USER_ID, STATUS, 
+      FD_GRP)
+    values (#{id,jdbcType=BIGINT}, #{registerUserId,jdbcType=BIGINT}, #{status,jdbcType=CHAR}, 
+      #{fdGrp,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="xyz.wongs.drunkard.domain.addbook.entity.PersonalGrp" >
+    insert into personal_grp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="personalGrpId != null" >
+        PERSONAL_GRP_ID,
+      </if>
+      <if test="registerUserId != null" >
+        REGISTER_USER_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="fdGrp != null" >
+        FD_GRP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="personalGrpId != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="registerUserId != null" >
+        #{registerUserId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="fdGrp != null" >
+        #{fdGrp,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunkard.domain.addbook.entity.PersonalGrp" >
+    update personal_grp
+    <set >
+      <if test="registerUserId != null" >
+        REGISTER_USER_ID = #{registerUserId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="fdGrp != null" >
+        FD_GRP = #{fdGrp,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where PERSONAL_GRP_ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="xyz.wongs.drunkard.domain.addbook.entity.PersonalGrp" >
+    update personal_grp
+    set REGISTER_USER_ID = #{registerUserId,jdbcType=BIGINT},
+      STATUS = #{status,jdbcType=CHAR},
+      FD_GRP = #{fdGrp,jdbcType=LONGVARBINARY}
+    where PERSONAL_GRP_ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunkard.domain.addbook.entity.PersonalGrp" >
+    update personal_grp
+    set REGISTER_USER_ID = #{registerUserId,jdbcType=BIGINT},
+      STATUS = #{status,jdbcType=CHAR}
+    where PERSONAL_GRP_ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

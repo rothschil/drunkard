@@ -1,5 +1,6 @@
 package xyz.wongs.drunkard.task;
 
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import xyz.wongs.drunkard.base.BaseTest;
+import xyz.wongs.drunkard.domain.addbook.entity.RegisterUser;
 
 public class AddBookCase extends BaseTest {
 
@@ -27,14 +29,15 @@ public class AddBookCase extends BaseTest {
     }
 
     @Test
-    public void testGetById() throws Exception{
-        MvcResult mvcResult= mockMvc.perform(MockMvcRequestBuilders.get("/locations/getUrl")
-                .param("id","143840")
-                .accept(MediaType.TEXT_HTML_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("32.html"))
+    public void testRegister() throws Exception{
+        RegisterUser registerUser = RegisterUser.builder().nickName("王老邪").uniCode("WCNGS").mobile("18900010002").email("WCNGS@QQ.COM").build();
+
+        MvcResult mvcResult= mockMvc.perform(MockMvcRequestBuilders.post("/addBook/register").contentType(MediaType.APPLICATION_JSON)
+                 .content(JSONObject.toJSONString(registerUser)))
                 .andDo(MockMvcResultHandlers.print())
-                .andReturn();
+                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+
+//        System.out.println(mvcResult.getResponse().getContentAsString());
     }
 
     @Test

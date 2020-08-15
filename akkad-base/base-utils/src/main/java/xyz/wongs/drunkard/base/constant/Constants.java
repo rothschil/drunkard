@@ -7,9 +7,22 @@ package xyz.wongs.drunkard.base.constant;
  */
 public class Constants {
 
+    public static final String RANDOM_STR="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
     public static final String IP_LOCAL_ADDREE = "unknown";
     public static final String UNKNOWN = "unknown";
     public static final String HEADER_X_FORWARDED_FOR ="x-forwarded-for";
+
+    /**
+     * UTF-8 字符集
+     */
+    public static final String STATUS_EFF = "Y";
+
+    /**
+     * UTF-8 字符集
+     */
+    public static final String STATUS_EXP = "N";
+
     /**
      * UTF-8 字符集
      */

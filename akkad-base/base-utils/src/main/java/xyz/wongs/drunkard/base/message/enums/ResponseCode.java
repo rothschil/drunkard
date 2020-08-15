@@ -33,6 +33,7 @@ public enum ResponseCode {
     CAPTCHA_ERROR(12002,"验证码不合规"),
 
     ATTR_COPY_ERROR(13001,"属性COPY异常"),
+    ATTR_DUPLICATION(14001,"Data already exists"),
 
 
     RESOURCE_NOT_EXIST(1001, "资源不存在"),

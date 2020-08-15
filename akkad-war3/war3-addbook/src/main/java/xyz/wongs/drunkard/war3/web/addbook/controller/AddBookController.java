@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import xyz.wongs.drunkard.base.message.enums.ResponseCode;
 import xyz.wongs.drunkard.base.message.response.ResponseResult;
 import xyz.wongs.drunkard.base.web.BaseController;
-import xyz.wongs.drunkard.domain.addbook.entity.RegUser;
-import xyz.wongs.drunkard.domain.addbook.service.RegUserService;
+import xyz.wongs.drunkard.domain.addbook.entity.RegisterUser;
+import xyz.wongs.drunkard.domain.addbook.service.RegisterUserService;
 import xyz.wongs.drunkard.war3.web.addbook.vo.RegUserVo;
 
 import java.util.List;
@@ -32,7 +32,7 @@ import java.util.List;
 public class AddBookController extends BaseController {
 
     @Autowired
-    private RegUserService regUserService;
+    private RegisterUserService registerUserService;
 
     @GetMapping("/")
     public String index(){
@@ -46,18 +46,47 @@ public class AddBookController extends BaseController {
      * @throws
      * @date 2020/8/4 19:14
      */
+    @ApiOperation(value = "用户注册")
+    @PostMapping("/register")
+    public ResponseResult<List> saveOrUpdate(@RequestBody RegisterUser registerUser){
+        ResponseResult<List> result = getResponseResult();
+        try {
+            List<RegisterUser> regUsers = null;
+            regUsers = registerUserService.selectByRegUser(registerUser);
+            if(regUsers.isEmpty()){
+                registerUserService.save(registerUser);
+            } else {
+                result.setCode(ResponseCode.ATTR_DUPLICATION.getCode());
+                result.setMsg(ResponseCode.ATTR_DUPLICATION.getMsg());
+            }
+        } catch (Exception e) {
+            log.error("Request Params Is {} ,But No Data", JSON.toJSON(registerUser));
+            result.setCode(ResponseCode.ATTR_COPY_ERROR.getCode());
+            result.setMsg(ResponseCode.ATTR_COPY_ERROR.getMsg());
+        }
+        return result;
+    }
+
+
+    /**
+     * @Description
+     * @param regUserVo
+     * @return void
+     * @throws
+     * @date 2020/8/4 19:14
+     */
     @ApiOperation(value = "获取用户下所有朋友通讯录")
     @PostMapping("/getAddBook")
     public ResponseResult<List> getAddBookBy(@RequestBody RegUserVo regUserVo){
 
         ResponseResult<List> result = getResponseResult();
-        RegUser regUser = RegUser.builder().build();
-        List<RegUser> regUsers = null;
+        RegisterUser regUser = new RegisterUser();
+        List<RegisterUser> regUsers = null;
         try {
-            BeanCopier copier = BeanCopier.create(RegUserVo.class, RegUser.class,false);
+            BeanCopier copier = BeanCopier.create(RegUserVo.class, RegisterUser.class,false);
             copier.copy(regUserVo, regUser, null);
 
-            regUsers = regUserService.selectByRegUser(regUser);
+            regUsers = registerUserService.selectByRegUser(regUser);
             if(!regUsers.isEmpty()){
                 result.setData(regUsers);
             }

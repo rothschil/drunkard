@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.wongs.drunkard.domain.addbook.mapper.RegisterUserMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.domain.addbook.entity.RegisterUser" >
+    <id column="REGISTER_USER_ID" property="id" jdbcType="BIGINT" />
+    <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
+    <result column="UNI_CODE" property="uniCode" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="passWord" jdbcType="VARCHAR" />
+    <result column="SAT" property="sat" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    REGISTER_USER_ID, NICK_NAME, UNI_CODE, MOBILE, EMAIL, PASSWORD, SAT, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from register_user
+    where REGISTER_USER_ID = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByRegUser" resultMap="BaseResultMap" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegisterUser" >
+    select
+    <include refid="Base_Column_List" />
+    from register_user
+    where 1=1
+    <if test="uniCode != null" >
+      AND UNI_CODE = #{uniCode,jdbcType=VARCHAR}
+    </if>
+    <if test="mobile != null" >
+      AND MOBILE = #{mobile,jdbcType=VARCHAR}
+    </if>
+    <if test="id != null" >
+      AND REGISTER_USER_ID = #{id,jdbcType=BIGINT}
+    </if>
+
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from register_user
+    where REGISTER_USER_ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegisterUser" >
+    insert into register_user (REGISTER_USER_ID, NICK_NAME, UNI_CODE,
+      MOBILE, EMAIL, PASSWORD,
+      SAT, STATUS)
+    values (#{id,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR}, #{uniCode,jdbcType=VARCHAR},
+      #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR},
+      #{sat,jdbcType=VARCHAR}, #{status,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegisterUser" >
+    insert into register_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="registerUserId != null" >
+        REGISTER_USER_ID,
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME,
+      </if>
+      <if test="uniCode != null" >
+        UNI_CODE,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="sat != null" >
+        SAT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="registerUserId != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="uniCode != null" >
+        #{uniCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="sat != null" >
+        #{sat,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegisterUser" >
+    update register_user
+    <set >
+      <if test="nickName != null" >
+        NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="uniCode != null" >
+        UNI_CODE = #{uniCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="sat != null" >
+        SAT = #{sat,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where REGISTER_USER_ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunkard.domain.addbook.entity.RegisterUser" >
+    update register_user
+    set NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      UNI_CODE = #{uniCode,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      PASSWORD = #{passWord,jdbcType=VARCHAR},
+      SAT = #{sat,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR}
+    where REGISTER_USER_ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
