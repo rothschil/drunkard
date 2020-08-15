@@ -5,6 +5,7 @@ import xyz.wongs.drunkard.domain.addbook.entity.DictRegion;
 import xyz.wongs.drunkard.domain.addbook.entity.RegUserExt;
 
 public interface RegUserExtMapper extends BaseMapper<RegUserExt,Long> {
+
     int deleteByPrimaryKey(Long uRegUserExtId);
 
     int insert(RegUserExt record);

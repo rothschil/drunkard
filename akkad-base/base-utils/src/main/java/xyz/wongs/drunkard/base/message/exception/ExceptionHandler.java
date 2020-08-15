@@ -98,7 +98,7 @@ public class ExceptionHandler {
 
     @ResponseBody
     @org.springframework.web.bind.annotation.ExceptionHandler(RuntimeException.class)
-    public ResponseResult<?> RuntimeException(RuntimeException ex){
+    public ResponseResult<?> runtimeException(RuntimeException ex){
         log.error(ex.getMessage(),ex);
         ResponseResult response = new ResponseResult(false,ResponseCode.ERROR_RUNTION.getCode(),ResponseCode.ERROR_RUNTION.getMsg());
         return response;
@@ -122,7 +122,7 @@ public class ExceptionHandler {
 
     @ResponseBody
     @org.springframework.web.bind.annotation.ExceptionHandler(IOException.class)
-    public ResponseResult<?> iOException(IOException ex){
+    public ResponseResult<?> ioException(IOException ex){
         log.error(ex.getMessage(),ex);
         ResponseResult response = new ResponseResult(false,ResponseCode.ERROR_IO.getCode(),ResponseCode.ERROR_IO.getMsg());
         return response;
