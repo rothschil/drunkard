@@ -8,6 +8,14 @@ spring:
     database: 0
     host: 127.0.0.1
     port: 6379
+#    password:
+#    ssl: false
+#    timeout:
+#    sentinel:
+#      master:
+#      nodes:
+#    cluster:
+#      nodes:
   datasource:
     name: mysql
     type: com.alibaba.druid.pool.DruidDataSource

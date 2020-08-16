@@ -37,7 +37,6 @@ public class AddBookCase extends BaseTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
 
-//        System.out.println(mvcResult.getResponse().getContentAsString());
     }
 
     @Test

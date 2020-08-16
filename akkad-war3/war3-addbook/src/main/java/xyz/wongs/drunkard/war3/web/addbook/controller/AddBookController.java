@@ -35,11 +35,6 @@ public class AddBookController extends BaseController {
     @Autowired
     private AsyncAddBookComp asyncAddBookComp;
 
-    @GetMapping("/")
-    public String index(){
-        return "wongs";
-    }
-
     /**
      * @Description
      * @param regUserVo
@@ -49,7 +44,7 @@ public class AddBookController extends BaseController {
      */
     @ApiOperation(value = "用户注册")
     @PostMapping("/register")
-    public ResponseResult<List> saveOrUpdate(@RequestBody RegisterUser registerUser){
+    public ResponseResult<List> register(@RequestBody RegisterUser registerUser){
         ResponseResult<List> result = getResponseResult();
         try {
             List<RegisterUser> regUsers = null;
@@ -64,8 +59,8 @@ public class AddBookController extends BaseController {
             }
         } catch (Exception e) {
             log.error("Request Params Is {} ,But No Data", JSON.toJSON(registerUser));
-            result.setCode(ResponseCode.ATTR_COPY_ERROR.getCode());
-            result.setMsg(ResponseCode.ATTR_COPY_ERROR.getMsg());
+            result.setCode(ResponseCode.ERROR.getCode());
+            result.setMsg(ResponseCode.ERROR.getMsg());
         }
         return result;
     }
