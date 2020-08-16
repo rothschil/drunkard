@@ -14,7 +14,7 @@ import xyz.wongs.drunkard.base.message.enums.ResponseCode;
 public class WeathertopAccountException extends GlobalException {
 
     public WeathertopAccountException(){
-        super(ResponseCode.AUTHENTICATION_FAILED_ERROR.getMsg(), ResponseCode.AUTHENTICATION_FAILED_ERROR.getCode());
+        super(ResponseCode.AUTHENTICATION_FAILED.getMsg(), ResponseCode.AUTHENTICATION_FAILED.getCode());
     }
 
     public WeathertopAccountException(String message, int code) {
@@ -22,6 +22,6 @@ public class WeathertopAccountException extends GlobalException {
     }
 
     public WeathertopAccountException(String message){
-        super(message, ResponseCode.AUTHENTICATION_FAILED_ERROR.getCode());
+        super(message, ResponseCode.AUTHENTICATION_FAILED.getCode());
     }
 }

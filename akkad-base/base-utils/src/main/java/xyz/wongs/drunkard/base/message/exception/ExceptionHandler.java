@@ -92,8 +92,7 @@ public class ExceptionHandler {
     @ResponseBody
     public ResponseResult<?> handleDuplicateKeyException(HttpServletRequest request, DuplicateKeyException ex){
         log.error("exception error:{}", ex);
-        ResponseResult response = new ResponseResult(false,ResponseCode.DUPLICATEKEY_ERROR_CODE.getCode(),ResponseCode.DUPLICATEKEY_ERROR_CODE.getMsg());
-        return response;
+        return new ResponseResult(false,ResponseCode.RESOURCE_EXIST.getCode(),ResponseCode.RESOURCE_EXIST.getMsg());
     }
 
     @ResponseBody
@@ -120,13 +119,13 @@ public class ExceptionHandler {
         return response;
     }
 
-    @ResponseBody
-    @org.springframework.web.bind.annotation.ExceptionHandler(IOException.class)
-    public ResponseResult<?> ioException(IOException ex){
-        log.error(ex.getMessage(),ex);
-        ResponseResult response = new ResponseResult(false,ResponseCode.ERROR_IO.getCode(),ResponseCode.ERROR_IO.getMsg());
-        return response;
-    }
+//    @ResponseBody
+//    @org.springframework.web.bind.annotation.ExceptionHandler(IOException.class)
+//    public ResponseResult<?> ioException(IOException ex){
+//        log.error(ex.getMessage(),ex);
+//        ResponseResult response = new ResponseResult(false,ResponseCode.ERROR_IO.getCode(),ResponseCode.ERROR_IO.getMsg());
+//        return response;
+//    }
 
     @ResponseBody
     @org.springframework.web.bind.annotation.ExceptionHandler(NullPointerException.class)

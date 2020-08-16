@@ -54,8 +54,8 @@ public class AddBookController extends BaseController {
                 registerUser.setId(id);
                 asyncAddBookComp.inrecord(registerUser);
             } else {
-                result.setCode(ResponseCode.ATTR_DUPLICATION.getCode());
-                result.setMsg(ResponseCode.ATTR_DUPLICATION.getMsg());
+                result.setCode(ResponseCode.RESOURCE_EXIST.getCode());
+                result.setMsg(ResponseCode.RESOURCE_EXIST.getMsg());
             }
         } catch (Exception e) {
             log.error("Request Params Is {} ,But No Data", JSON.toJSON(registerUser));
