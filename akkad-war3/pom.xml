@@ -13,6 +13,7 @@
     <modules>
         <module>war3-addbook</module>
         <module>war3-mq</module>
+        <module>war3-dust</module>
     </modules>
 
 

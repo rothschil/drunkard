@@ -13,7 +13,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 /**
  * @ClassName SwaggerConfig
- * @Description 
+ * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/8/5 10:13

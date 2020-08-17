@@ -15,6 +15,12 @@
         <dependency>
             <groupId>xyz.wongs.drunkard</groupId>
             <artifactId>persistence-domain</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.oracle</groupId>
+                    <artifactId>ojdbc6</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
