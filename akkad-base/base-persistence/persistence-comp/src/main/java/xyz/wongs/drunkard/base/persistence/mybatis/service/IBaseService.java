@@ -65,7 +65,7 @@ public interface IBaseService<T extends BaseEntityAbstract,ID extends Serializab
      * @throws 
      * @date 2020/8/2 14:07
     */
-    int insert(T t);
+    Long insert(T t);
 
     /**  待补充
      * @Description
@@ -74,7 +74,7 @@ public interface IBaseService<T extends BaseEntityAbstract,ID extends Serializab
      * @throws 
      * @date 2020/8/2 14:08
     */
-    int insertSelective(T t);
+    Long insertSelective(T t);
 
     /**  待补充
      * @Description

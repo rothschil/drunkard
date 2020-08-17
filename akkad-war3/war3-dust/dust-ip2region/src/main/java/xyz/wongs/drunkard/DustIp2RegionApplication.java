@@ -1,14 +1,11 @@
 package xyz.wongs.drunkard;
 
-import org.lionsoul.ip2region.Ip2regionSearcher;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 /** 自动将IP解析成国家，地区

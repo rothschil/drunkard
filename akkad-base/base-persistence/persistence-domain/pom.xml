@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>xyz.wongs.drunkard</groupId>
-            <artifactId>persistence-mybatis</artifactId>
+            <artifactId>persistence-comp</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

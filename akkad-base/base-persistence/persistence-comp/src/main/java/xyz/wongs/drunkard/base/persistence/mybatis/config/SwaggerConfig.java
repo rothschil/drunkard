@@ -18,7 +18,7 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/8/5 10:13
  * @Version 1.0.0
-*/
+ */
 @Configuration
 public class SwaggerConfig {
 

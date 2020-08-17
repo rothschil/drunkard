@@ -43,14 +43,6 @@
         <oshi.version>3.9.1</oshi.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -83,6 +75,11 @@
             <dependency>
                 <groupId>xyz.wongs.drunkard</groupId>
                 <artifactId>persistence-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xyz.wongs.drunkard</groupId>
+                <artifactId>persistence-comp</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

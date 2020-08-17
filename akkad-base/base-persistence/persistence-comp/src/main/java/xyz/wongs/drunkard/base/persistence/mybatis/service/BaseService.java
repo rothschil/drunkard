@@ -13,12 +13,12 @@ import java.util.List;
 
 /**
  * @ClassName BaseService
- * @Description 
+ * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/8/2 13:34
  * @Version 1.0.0
-*/
+ */
 @Transactional(readOnly = true)
 public abstract class BaseService<T extends BaseEntityAbstract,ID extends Serializable> implements IBaseService<T,ID> {
 
@@ -26,11 +26,14 @@ public abstract class BaseService<T extends BaseEntityAbstract,ID extends Serial
     /** 待补充
      * @Description
      * @param null
-     * @return 
-     * @throws 
+     * @return
+     * @throws
      * @date 2020/8/2 14:12
-    */
+     */
     protected abstract BaseMapper<T,ID> getMapper();
+
+    @Autowired
+    private RedisUidService redisUidService;
 
     @Override
     public PageInfo<T> selectPage(PaginationInfo pgInfo, T t) {
@@ -63,15 +66,24 @@ public abstract class BaseService<T extends BaseEntityAbstract,ID extends Serial
 
     @Transactional(readOnly = false)
     @Override
-    public int insert(T t) {
-        return getMapper().insert(t);
+    public Long insert(T t) {
+        Long id = getPrimaryKey(t);
+        t.setId(id);
+        getMapper().insert(t);
+        return id;
     }
 
+    public Long getPrimaryKey(T t){
+        return Long.valueOf(redisUidService.generate(t.getClass().getSimpleName().toUpperCase()));
+    }
 
     @Transactional(readOnly = false)
     @Override
-    public int insertSelective(T t) {
-        return getMapper().insertSelective(t);
+    public Long insertSelective(T t) {
+        Long id = getPrimaryKey(t);
+        t.setId(id);
+        getMapper().insertSelective(t);
+        return id;
     }
 
     @Override
