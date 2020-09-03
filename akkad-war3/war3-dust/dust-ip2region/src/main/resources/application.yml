@@ -7,7 +7,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@10.10.10.10:1521:tycata
+    url: jdbc:oracle:thin:@10.183.4.207:1521:tycata
     username: uom
     password: scuom_0824
     druid:

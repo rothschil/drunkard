@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>xyz.wongs.drunkard</groupId>
-            <artifactId>persistence-mybatis</artifactId>
+            <artifactId>mybatis-no-pk</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>mysql</groupId>

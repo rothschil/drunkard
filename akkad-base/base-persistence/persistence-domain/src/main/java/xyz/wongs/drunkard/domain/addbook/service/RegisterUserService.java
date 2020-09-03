@@ -18,7 +18,7 @@ import java.util.Random;
 
 /**
  * @ClassName RegUserService
- * @Description 
+ * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/8/2 14:14

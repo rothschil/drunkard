@@ -2,11 +2,12 @@ package xyz.wongs.drunkard.war3.web.addbook.controller;
 
 
 import com.alibaba.fastjson.JSON;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import xyz.wongs.drunkard.base.message.enums.ResponseCode;
 import xyz.wongs.drunkard.base.message.response.ResponseResult;
 import xyz.wongs.drunkard.base.web.BaseController;
@@ -24,7 +25,6 @@ import java.util.List;
  * @Version 1.0.0
 */
 @Slf4j
-@Api(value="AddBookController")
 @RestController
 @RequestMapping(value = "/addBook")
 public class AddBookController extends BaseController {
@@ -42,7 +42,6 @@ public class AddBookController extends BaseController {
      * @throws
      * @date 2020/8/4 19:14
      */
-    @ApiOperation(value = "用户注册")
     @PostMapping("/register")
     public ResponseResult<List> register(@RequestBody RegisterUser registerUser){
         ResponseResult<List> result = getResponseResult();

@@ -11,7 +11,7 @@ import xyz.wongs.drunkard.domain.addbook.mapper.RegUserExtMapper;
 
 /**
  * @ClassName RegUserExtService
- * @Description 
+ * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/8/2 14:14

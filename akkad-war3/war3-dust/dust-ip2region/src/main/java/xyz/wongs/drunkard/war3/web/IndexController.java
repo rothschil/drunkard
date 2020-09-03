@@ -41,7 +41,7 @@ public class IndexController extends BaseController {
     public ResponseResult convert(@PathVariable String ip){
         ResponseResult responseResult= getResponseResult();
         try {
-            ip2regionSearcher.search(ip);
+            ip2regionSearcher.search(ip, Ip2regionSearcher.ALGORITHM.MEMORY_SEARCH);
             IpRegionVo ipRegionVo = IpRegionVo.builder()
                     .country(ip2regionSearcher.getCountry())
                     .city(ip2regionSearcher.getCity())
