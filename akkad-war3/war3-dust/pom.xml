@@ -12,6 +12,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>dust-ip2region</module>
+        <module>dust-area</module>
     </modules>
 
 </project>
