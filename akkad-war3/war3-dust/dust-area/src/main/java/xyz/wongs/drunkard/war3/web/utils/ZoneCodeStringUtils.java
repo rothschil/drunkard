@@ -58,4 +58,8 @@ public class ZoneCodeStringUtils {
         }
         return sb.toString();
     }
+
+    public static void main(String[] args) {
+        System.out.println(ZoneCodeStringUtils.getUrlStrByLocationCode("110102001000",3));
+    }
 }

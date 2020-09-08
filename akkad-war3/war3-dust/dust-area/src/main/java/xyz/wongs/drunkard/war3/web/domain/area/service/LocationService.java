@@ -36,6 +36,18 @@ public class LocationService extends BaseService<Location, Long> {
 		return pageInfo;
 	}
 
+	public PageInfo<Location> getLocationsByLvAndFlag(int pageNum, int pageSize,Location location){
+		PageInfo<Location> pageInfo =null;
+		try {
+			PageHelper.startPage(pageNum,pageSize);
+			List<Location> locations = locationtMapper.getList2(location);
+			pageInfo = new PageInfo<>(locations);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pageInfo;
+	}
+
 	public List<Location> getLocationBySupLocalCode(String supLocalCode) {
 		// TODO Auto-generated method stub
 		Location location = new Location();

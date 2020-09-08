@@ -57,6 +57,9 @@
       <if test="supLocalCode != null">
         and sup_local_code = #{supLocalCode,jdbcType=VARCHAR}
       </if>
+      <if test="flag != null">
+        and flag = #{flag,jdbcType=VARCHAR}
+      </if>
     </trim>
   </select>
 

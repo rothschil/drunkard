@@ -11,6 +11,7 @@ import xyz.wongs.drunkard.war3.web.domain.area.entity.Location;
 import xyz.wongs.drunkard.war3.web.domain.area.service.LocationService;
 import xyz.wongs.drunkard.war3.web.utils.ZoneCodeStringUtils;
 import xyz.wongs.drunkard.war3.web.zonecode.task.ProcessService;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +21,8 @@ public class ProcessServiceImplTest extends BaseTest {
 
     private static final String url = "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2019/";
     private final static Logger logger = LoggerFactory.getLogger(ProcessServiceImplTest.class);
+
+    static final int counts = 200;
 
     @Autowired
     @Qualifier("processService")
@@ -141,30 +144,27 @@ public class ProcessServiceImplTest extends BaseTest {
      */
     @Test
     public void intLevelFour(){
-        village(1);
+        Location location = new Location();
+        location.setLv(3);
+        location.setFlag("D");
+        village(1,location);
     }
 
-    public void village(int pageNum){
-        PageInfo<Location> pageInfo = locationService.getLocationsByLv(3,pageNum,100);
+    public void village(int pageNum,Location location){
+//        int sc=0;
+//        if(sc==counts){
+//            return;
+//        }
+        PageInfo<Location> pageInfo = locationService.getLocationsByLvAndFlag(pageNum,10,location);
         if(pageInfo.getPages()==0 || pageInfo.getPageNum()>pageInfo.getPages()){
             return;
         }
         List<Location> locations = pageInfo.getList();
-        Iterator<Location> iter = locations.iterator();
-        Location location = null;
-
-        while(iter.hasNext()){
-            location = iter.next();
-            String url2 = new StringBuilder().append(url).append(ZoneCodeStringUtils.getUrlStrByLocationCode(location.getLocalCode(), 2)).append(location.getUrl()).toString();
-            processService.thridLevelResolve(url2, location, "T");
-            try {
-                int times = new Random().nextInt(2000);
-                Thread.sleep(times);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        if(!locations.isEmpty()){
+            processService.getLocationFourthLevel(url, locations);
         }
-        village(pageNum+1);
+//        sc++;
+        village(pageNum+1,location);
     }
 
 }

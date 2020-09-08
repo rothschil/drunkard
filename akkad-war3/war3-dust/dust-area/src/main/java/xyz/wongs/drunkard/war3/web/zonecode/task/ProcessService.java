@@ -3,6 +3,8 @@ package xyz.wongs.drunkard.war3.web.zonecode.task;
 
 import xyz.wongs.drunkard.war3.web.domain.area.entity.Location;
 
+import java.util.List;
+
 public interface ProcessService {
 
 
@@ -25,6 +27,15 @@ public interface ProcessService {
 
 	void thridLevelResolve(String url, Location location);
 	void thridLevelResolve(String url, Location location, String flag);
+
+	/**
+	 *
+	 * @Title: htmlParser
+	 * @Description: 解析HTML
+	 * @return: void
+	 */
+	void initLevelFour(String url, Location location,String flag);
+	void getLocationFourthLevel(String url, List<Location> thridLevelLocas);
 
 
 	/**

@@ -169,19 +169,56 @@ public class ProcessServiceImpl implements ProcessService {
 	}
 
 
-	public  void getLocationFourthLevel(String url,List<Location> thridLevelLocas){
-		String prefix = ZoneCodeStringUtils.interceptionStringByLastIndexOf(url,"/")+"/";
-		List<Location> locations = new ArrayList<Location>(20);
+	@Override
+	public void initLevelFour(String url, Location location,String flag){
+		try {
+			if(StringUtils.isEmpty(location.getUrl())){
+				return;
+			}
+			List<Location> thridLevelLocas =getLocation(url,new String[]{"villagetr"},location.getLocalCode(),4,flag);
+			location.setFlag(flag);
+			locationService.updateByPrimaryKey(location);
+			save(thridLevelLocas);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void getLocationFourthLevel(String url,List<Location> thridLevelLocas){
 		for(Location le:thridLevelLocas){
-			Elements es = getElementsByConnection(prefix+le.getUrl(),"villagetr");
-			for(Element e:es){
-				locations.add(new Location(e.child(0).text(),e.child(2).text(),le.getLocalCode(),null,4));
+			try {
+				List<Location> locations = new ArrayList<Location>(12);
+				String suffix = new StringBuilder().append(url).append(ZoneCodeStringUtils.getUrlStrByLocationCode(le.getLocalCode(), 3)).append(le.getUrl()).toString();
+				Elements es = null;
+				try {
+					es = getElementsByConnection(suffix,"villagetr");
+				} catch (Exception e) {
+					log.error("");
+				}
+				if(null==es){
+					try {
+						int times = new Random().nextInt(2000);
+						Thread.sleep(times);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					continue;
+				}
+				Location tempLocation = null;
+				for(Element e:es){
+					tempLocation = new Location(e.child(0).text(),e.child(2).text(),le.getLocalCode(),null,4);
+					tempLocation.setId(idClazzUtils.getId(Location.class));
+					locations.add(tempLocation);
+				}
+				le.setFlag("Y");
+				locationService.updateByPrimaryKey(le);
+				save(locations);
+			} catch (Exception e) {
+				log.error("le={}",le.toString());
+				continue;
 			}
 		}
-
-		locationService.insertBatchByOn(locations);
-
-
 	}
 
 
@@ -347,9 +384,9 @@ public class ProcessServiceImpl implements ProcessService {
 			return doc.getElementsByClass(clazzName);
 		} catch (ConnectTimeoutException e) {
 			// TODO Auto-generated catch block
-			log.error(" URL: "+url+",clazzName:"+clazzName);
+			log.error(" URL={},clazzName={},errMsg={}",url,clazzName,e.getMessage());
 		} catch (IOException e) {
-			log.error(" URL: "+url+",clazzName:"+clazzName);
+			log.error(" URL={},clazzName={},errMsg={}",url,clazzName,e.getMessage());
 		}
 		return null;
 	}
