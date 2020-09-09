@@ -7,15 +7,13 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import xyz.wongs.drunkard.base.constant.Constants;
-import xyz.wongs.drunkard.base.constant.PunctuateConstant;
+import xyz.wongs.drunkard.base.constant.Constant;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
-import java.util.Random;
 
 
 /**
@@ -310,8 +308,8 @@ public class HttpUtil {
       // 设置通用的请求属性
       conn.setRequestProperty("accept", "*/*");
       conn.setRequestProperty("connection", "Keep-Alive");
-      conn.setRequestProperty("Content-Type", Constants.APPLICATION_JSON);
-      conn.setRequestProperty("Charset", Constants.UTF8);
+      conn.setRequestProperty("Content-Type", Constant.APPLICATION_JSON);
+      conn.setRequestProperty("Charset", Constant.UTF8);
       conn.setRequestProperty("user-agent",
               "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
       //设置连接主机超时长（毫秒）两时间参数要同时设置
@@ -452,9 +450,9 @@ public class HttpUtil {
     int code = con.getResponseCode();
     BufferedReader in = null;
     if (HttpStatus.SC_OK == code) {
-      in = new BufferedReader(new InputStreamReader(con.getInputStream(),Constants.UTF8));
+      in = new BufferedReader(new InputStreamReader(con.getInputStream(), Constant.UTF8));
     } else {
-      in = new BufferedReader(new InputStreamReader(con.getErrorStream(),Constants.UTF8));
+      in = new BufferedReader(new InputStreamReader(con.getErrorStream(), Constant.UTF8));
     }
 
     String line;
@@ -507,9 +505,9 @@ public class HttpUtil {
     int code = con.getResponseCode();
     BufferedReader in = null;
     if (HttpStatus.SC_OK == code) {
-      in = new BufferedReader(new InputStreamReader(con.getInputStream(),Constants.UTF8));
+      in = new BufferedReader(new InputStreamReader(con.getInputStream(), Constant.UTF8));
     } else {
-      in = new BufferedReader(new InputStreamReader(con.getErrorStream(),Constants.UTF8));
+      in = new BufferedReader(new InputStreamReader(con.getErrorStream(), Constant.UTF8));
     }
 
     String line;
@@ -553,7 +551,7 @@ public class HttpUtil {
     // 打开输出流往对端服务器写数据
     DataOutputStream out = new DataOutputStream(con.getOutputStream());
     // 写数据
-    out.write(json.getBytes(Constants.UTF8));
+    out.write(json.getBytes(Constant.UTF8));
     out.flush();// 刷新
     out.close();// 关闭输出流
     // 往对端写完数据对端服务器返回数据

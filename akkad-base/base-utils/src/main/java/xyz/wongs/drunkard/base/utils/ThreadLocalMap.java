@@ -8,10 +8,13 @@ import java.util.Map;
 
 
 /**
- * The class Thread local map.
- *
- * @author iwcngs@gmail.com
- */
+ * @ClassName ThreadLocalMap
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 2020/9/9 14:50
+ * @Version 1.0.0
+*/
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ThreadLocalMap {
 	/**

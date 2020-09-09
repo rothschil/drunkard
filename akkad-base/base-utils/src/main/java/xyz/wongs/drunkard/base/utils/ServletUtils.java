@@ -3,7 +3,7 @@ package xyz.wongs.drunkard.base.utils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import xyz.wongs.drunkard.base.constant.Constants;
+import xyz.wongs.drunkard.base.constant.Constant;
 import xyz.wongs.drunkard.base.utils.text.Convert;
 
 import javax.servlet.http.HttpServletRequest;
@@ -83,8 +83,8 @@ public class ServletUtils {
      */
     public static String renderString(HttpServletResponse response, String string) {
         try {
-            response.setContentType(Constants.APPLICATION_JSON);
-            response.setCharacterEncoding(Constants.UTF8);
+            response.setContentType(Constant.APPLICATION_JSON);
+            response.setCharacterEncoding(Constant.UTF8);
             response.getWriter().print(string);
         } catch (IOException e) {
             e.printStackTrace();
@@ -99,23 +99,23 @@ public class ServletUtils {
      */
     public static boolean isAjaxRequest(HttpServletRequest request) {
         String indexOf = "XMLHttpRequest";
-        String accept = request.getHeader(Constants.REQ_HEADER_ACCEPT);
-        if (accept != null && accept.indexOf(Constants.APPLICATION_JSON) != -1) {
+        String accept = request.getHeader(Constant.REQ_HEADER_ACCEPT);
+        if (accept != null && accept.indexOf(Constant.APPLICATION_JSON) != -1) {
             return true;
         }
 
-        String xRequestedWith = request.getHeader(Constants.REQ_HEADER);
+        String xRequestedWith = request.getHeader(Constant.REQ_HEADER);
         if (xRequestedWith != null && xRequestedWith.indexOf(indexOf) != -1) {
             return true;
         }
 
         String uri = request.getRequestURI();
-        if (StringUtils.inStringIgnoreCase(uri, Constants.SUFFIX_JSON, Constants.SUFFIX_XML)) {
+        if (StringUtils.inStringIgnoreCase(uri, Constant.SUFFIX_JSON, Constant.SUFFIX_XML)) {
             return true;
         }
 
-        String ajax = request.getParameter(Constants.REQ_HEADER_AJAX);
-        if (StringUtils.inStringIgnoreCase(ajax, Constants.SUFFIX_JSON.substring(1), Constants.SUFFIX_XML.substring(1))) {
+        String ajax = request.getParameter(Constant.REQ_HEADER_AJAX);
+        if (StringUtils.inStringIgnoreCase(ajax, Constant.SUFFIX_JSON.substring(1), Constant.SUFFIX_XML.substring(1))) {
             return true;
         }
         return false;

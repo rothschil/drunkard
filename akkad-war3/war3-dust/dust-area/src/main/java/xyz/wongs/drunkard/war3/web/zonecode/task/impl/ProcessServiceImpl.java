@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import xyz.wongs.drunkard.base.constant.Constant;
 import xyz.wongs.drunkard.war3.web.domain.area.entity.Location;
 import xyz.wongs.drunkard.war3.web.domain.area.service.LocationService;
 import xyz.wongs.drunkard.war3.web.utils.IdClazzUtils;
@@ -29,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Stream;
 
 /**
  *
@@ -52,8 +52,8 @@ public class ProcessServiceImpl implements ProcessService {
 
 
 	@Override
-	public void initLevelOne(String url, Location location) {
-		List<Location> levelOne = getLevelOneByRoot(url,location.getLocalCode());
+	public void initLevelOne(String url, Location parentLocation) {
+		List<Location> levelOne = getLevelOneByRoot(url,parentLocation.getLocalCode());
 		save(levelOne);
 	}
 
@@ -118,14 +118,14 @@ public class ProcessServiceImpl implements ProcessService {
 	 * @version
 	 * @see
 	 * @param url
-	 * @param location
+	 * @param location
 	 * @return      void
 	 * @exception
 	 * @date        2018/7/1 9:50
 	 */
 	@Override
-	public void thridLevelResolve(String url,Location location){
-		this.thridLevelResolve(url,location,"Y");
+	public void initLevelThrid(String url,Location location){
+		this.initLevelThrid(url,location,"Y");
 	}
 
 
@@ -136,14 +136,14 @@ public class ProcessServiceImpl implements ProcessService {
 	 * @version
 	 * @see
 	 * @param url
-	 * @param location
-	 * @param flag
+	 * @param location
+	 * @param flag
 	 * @return      void
 	 * @exception
 	 * @date        2018/7/1 16:24
 	 */
 	@Override
-	public void thridLevelResolve(String url,Location location,String flag){
+	public void initLevelThrid(String url,Location location,String flag){
 
 		try {
 			if(StringUtils.isEmpty(location.getUrl())){
@@ -170,22 +170,7 @@ public class ProcessServiceImpl implements ProcessService {
 
 
 	@Override
-	public void initLevelFour(String url, Location location,String flag){
-		try {
-			if(StringUtils.isEmpty(location.getUrl())){
-				return;
-			}
-			List<Location> thridLevelLocas =getLocation(url,new String[]{"villagetr"},location.getLocalCode(),4,flag);
-			location.setFlag(flag);
-			locationService.updateByPrimaryKey(location);
-			save(thridLevelLocas);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void getLocationFourthLevel(String url,List<Location> thridLevelLocas){
+	public void initLevelFour(String url,List<Location> thridLevelLocas){
 		for(Location le:thridLevelLocas){
 			try {
 				List<Location> locations = new ArrayList<Location>(12);
@@ -305,7 +290,7 @@ public class ProcessServiceImpl implements ProcessService {
 	}
 
 
-	public List<Location> getLocation(String url,String[] cssClazz,String parentURLCode,Integer lv,String flag){
+	public List<Location> getLocation(String url,String[] cssClazz,String parentCode,Integer lv,String flag){
 		List<Location> locas = new ArrayList<Location>(20);
 		Elements eles = getElementsByConnection(url,cssClazz[0]);
 		if(null==eles){
@@ -316,7 +301,7 @@ public class ProcessServiceImpl implements ProcessService {
 		for(Element e:eles){
 			eles = e.getElementsByAttribute(cssClazz[1]);
 			List<Attribute> attrs = eles.get(0).attributes().asList();
-			location= new Location(eles.get(0).text(),eles.get(1).text(),parentURLCode,attrs.get(0).getValue(),lv,flag);
+			location= new Location(eles.get(0).text(),eles.get(1).text(),parentCode,attrs.get(0).getValue(),lv,flag);
 			location.setId(idClazzUtils.getId(Location.class));
 			locas.add(location);
 		}
@@ -335,8 +320,8 @@ public class ProcessServiceImpl implements ProcessService {
 	 * @param parentURLCode
 	 * @return  List<Location>
 	 */
-	public List<Location> getLocation(String url,String[] cssClazz,String parentURLCode,Integer lv){
-		 return getLocation(url,cssClazz,parentURLCode,lv);
+	public List<Location> getLocation(String url,String[] cssClazz,String parentCode,Integer lv){
+		 return getLocation(url,cssClazz,parentCode,lv);
 	}
 
 
@@ -358,7 +343,6 @@ public class ProcessServiceImpl implements ProcessService {
 			CloseableHttpClient httpclient = HttpClients.createDefault();
 			HttpGet httpget = new HttpGet(url);
 			httpget.setHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:50.0) Gecko/20100101 Firefox/50.0");
-
 			RequestConfig config = RequestConfig.custom()
 					//.setProxy(proxy)
 					//设置连接超时 ✔
@@ -375,59 +359,39 @@ public class ProcessServiceImpl implements ProcessService {
 			String content = EntityUtils.toString(entity, "GBK");
 			// ============================= 【Jsoup】 ====================================
 			//获取响应类型、内容
-//			logger.error("Status:"+response.getStatusLine().getStatusCode());
-//			logger.error("Content-Type:"+entity.getContentType().getValue());
-
 //			Connection connection = HttpConnection.connect(new URL(url)).timeout(15000);
 //			Document doc = connection.get();
 			Document doc = Jsoup.parse(content);
 			return doc.getElementsByClass(clazzName);
 		} catch (ConnectTimeoutException e) {
-			// TODO Auto-generated catch block
-			log.error(" URL={},clazzName={},errMsg={}",url,clazzName,e.getMessage());
+			log.error(" ConnectTimeoutException URL={},clazzName={},errMsg={}",url,clazzName,e.getMessage());
 		} catch (IOException e) {
-			log.error(" URL={},clazzName={},errMsg={}",url,clazzName,e.getMessage());
+			log.error(" IOException URL={},clazzName={},errMsg={}",url,clazzName,e.getMessage());
 		}
 		return null;
 	}
 
-	@Override
-	public void getLocationThrid() {
-		String prefix ="http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2016/";
-		List<Location> ll = locationService.findLocationThrid(3,31);
-		for(Location le:ll){
-			List<Location> llv2 = locationService.findLocationTreeNodeByLocalCode(le.getLocalCode());
-			String url= prefix+appengUrl(llv2);
-
-			Elements eles = getElementsByConnection(url,"villagetr");
-			List<Location> locas = new ArrayList<Location>(eles.size());
-			for(Element e:eles){
-				locas.add(new Location(e.child(0).text(),e.child(2).text(),le.getLocalCode(),null,4));
-//				System.out.println("toString() => " + new Location(e.child(0).text(),e.child(2).text(),le.getLocalCode(),null,4));
-			}
-			locationService.updateLocationFlag("3",le.getId());
-			save(locas);
-			try {
-				Thread.sleep(new Random().nextInt(10)*1000L);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-
+	/**
+	 * @Description
+	 * @param locations
+	 * @return java.lang.String
+	 * @throws
+	 * @date 2020/9/9 14:52
+	 */
 	public String appengUrl(List<Location> locations){
 		Iterator<Location> it =  locations.iterator();
 		String url = "";
+		StringBuilder sb = new StringBuilder();
 		while(it.hasNext()){
-			Location ln =it.next();
-			String str= ln.getUrl();
-			if (ln.getLv()==3){
-				url=str;
+			Location cation =it.next();
+			String str= cation.getUrl();
+			if (cation.getLv()==3){
+//				url=str;
+				sb.append(str);
 			} else{
-				int i = ln.getUrl().indexOf("/");
-				url = str.substring(0, i)+"/"+url;
+				int i = cation.getUrl().indexOf(Constant.SLASH);
+				sb.append(str.substring(0, i)).append(Constant.SLASH).append(sb);
+				// url = str.substring(0, i)+"/"+url;
 			}
 		}
 		return url;

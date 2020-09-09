@@ -6,6 +6,14 @@ import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Component;
 import xyz.wongs.drunkard.war3.web.mq.vo.UserVo;
 
+/** 消费者示例
+ * @ClassName UserConsumer
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 2020/9/9 15:08
+ * @Version 1.0.0
+*/
 @Slf4j
 @Component
 @RocketMQMessageListener(topic = "rocket-topic-01", consumerGroup = "my-rocket-topic-01")

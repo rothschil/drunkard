@@ -3,7 +3,8 @@
  */
 package xyz.wongs.drunkard.base.utils;
 
-import com.xiaoleilu.hutool.date.DateField;
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateUtil;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.lang.management.ManagementFactory;
@@ -72,8 +73,8 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     }
 
     public static String getBeforeTime(int minute) {
-        Date newDate = com.xiaoleilu.hutool.date.DateUtil.offset(new Date(), DateField.MINUTE, -minute);
-        return com.xiaoleilu.hutool.date.DateUtil.formatDateTime(newDate);
+        Date newDate = DateUtil.offset(new Date(), DateField.MINUTE, -minute);
+        return DateUtil.formatDateTime(newDate);
     }
 
     private static String[] parsePatterns = {
@@ -395,51 +396,6 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
      * @date 2018/4/12 19:53
      * @see
      */
-    public static int dateVali(Date date1, Date date2) {
-
-        Calendar cal1 = Calendar.getInstance();
-        cal1.setTime(date1);
-
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTime(date2);
-        int day1 = cal1.get(Calendar.DAY_OF_YEAR);
-        int day2 = cal2.get(Calendar.DAY_OF_YEAR);
-
-        int year1 = cal1.get(Calendar.YEAR);
-        int year2 = cal2.get(Calendar.YEAR);
-        //同一年
-        if (year1 != year2) {
-            int timeDistance = 0;
-            for (int i = year1; i < year2; i++) {
-                //闰年
-                if (i % 4 == 0 && i % 100 != 0 || i % 400 == 0) {
-                    timeDistance += 366;
-                } else {
-                    //不是闰年
-                    timeDistance += 365;
-                }
-            }
-
-            return timeDistance + (day2 - day1);
-        } else {
-            return day2 - day1;
-        }
-    }
-
-
-    /**
-     * 方法实现说明
-     *
-     * @param date1
-     * @param date2
-     * @return int
-     * @throws
-     * @method dateVali
-     * @author WCNGS@QQ.COM
-     * @version
-     * @date 2018/4/12 19:53
-     * @see
-     */
     public static int dateValiSeconds(Date date1, Date date2) {
 
         long time1 = date1.getTime();
@@ -454,11 +410,6 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         }
         return new java.sql.Date(aDate.getTime());
     }
-
-
-//	public static void main(String[] args) {
-//		System.out.println(DateUtils.getDate("yyyy-MM-dd HH:mm:ss"));
-//	}
 
     /**
      * 获取上n个小时整点小时时间

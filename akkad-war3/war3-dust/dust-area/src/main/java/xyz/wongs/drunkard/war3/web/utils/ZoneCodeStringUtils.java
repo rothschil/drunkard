@@ -21,7 +21,7 @@ public class ZoneCodeStringUtils {
      * @version
      * @see
      * @param str
-     * @param suffix
+     * @param suffix
      * @return      java.lang.String
      * @exception
      * @date        2018/7/1 1:03
@@ -39,7 +39,7 @@ public class ZoneCodeStringUtils {
      * @version
      * @see
      * @param locationCode
-     * @param level
+     * @param level
      * @return      String
      * @exception
      * @date        2018/7/1 9:33

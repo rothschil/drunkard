@@ -41,6 +41,7 @@ public abstract class RootServiceImpl<T extends BaseEntityAbstract,ID extends Se
     }
 
 
+    @Override
     public PageInfo<T> selectPageByCondition(PaginationInfo pgInfo, Object condition) {
         PageHelper.startPage(pgInfo.getPageNum(), pgInfo.getPageSize());
         List<T> lt = getMapper().getListByCondition(condition);

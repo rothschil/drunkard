@@ -1,17 +1,25 @@
 package xyz.wongs.drunkard.base.constant;
 
-/**
- * 通用常量信息
- *
- * @author
- */
-public class Constants {
+/** 通用常量信息
+ * @ClassName Constants
+ * @Description
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 2020/9/9 15:00
+ * @Version 1.0.0
+*/
+public class Constant {
 
     public static final String RANDOM_STR="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     public static final String IP_LOCAL_ADDREE = "unknown";
     public static final String UNKNOWN = "unknown";
     public static final String HEADER_X_FORWARDED_FOR ="x-forwarded-for";
+
+    /**
+     * 斜杠
+     */
+    public static final String SLASH="/";
 
     /**
      * UTF-8 字符集

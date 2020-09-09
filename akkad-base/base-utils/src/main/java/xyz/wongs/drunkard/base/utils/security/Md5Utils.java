@@ -1,16 +1,10 @@
 package xyz.wongs.drunkard.base.utils.security;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.sql.SQLOutput;
-import java.util.Arrays;
-import java.util.Random;
 
 /**
  * Md5加密方法
@@ -30,7 +24,7 @@ public class Md5Utils {
      * @param password 要加密的密码
      * @return String 含有随机盐的密码
      */
-    public static String getSaltMD5(String password, String salts) {
+    public static String getSalt4Md5(String password, String salts) {
         password = md5Hex(password + salts);
         char[] cs = new char[48];
         for (int i = 0; i < 48; i += 3) {
@@ -84,7 +78,7 @@ public class Md5Utils {
      * @throws
      * @date 2020/8/15 23:21
      */
-    public static boolean getSaltverifyMD5(String password, String md5Str,String salt) {
+    public static boolean getSaltverify4Md5(String password, String md5Str, String salt) {
         char[] cars = new char[32];
         for (int i = 0; i < 48; i += 3) {
             cars[i / 3 * 2] = md5Str.charAt(i);
@@ -94,8 +88,8 @@ public class Md5Utils {
     }
 
     public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        System.out.println(Md5Utils.getSaltMD5("fZ1j1ll", "MZONl1233224322168"));
+        System.out.println(Md5Utils.getSalt4Md5("fZ1j1ll", "MZONl1233224322168"));
         // eM49Z79O49N3fl041b62e731133f2cf2a44f43e427323312
-        System.out.println(Md5Utils.getSaltverifyMD5("fZ1j1ll","eM49Z79O49N3fl041b62e731133f2cf2a44f43e427323312", "MZONl1233224322168"));
+        System.out.println(Md5Utils.getSaltverify4Md5("fZ1j1ll","eM49Z79O49N3fl041b62e731133f2cf2a44f43e427323312", "MZONl1233224322168"));
     }
 }

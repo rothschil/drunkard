@@ -1,7 +1,7 @@
 package xyz.wongs.drunkard.base.utils.http;
 
 import lombok.extern.slf4j.Slf4j;
-import xyz.wongs.drunkard.base.constant.Constants;
+import xyz.wongs.drunkard.base.constant.Constant;
 
 import javax.net.ssl.*;
 import java.io.*;
@@ -30,7 +30,7 @@ public class HttpUtils {
      * @return 所代表远程资源的响应结果
      */
     public static String sendGet(String url, String param) {
-        return sendGet(url, param, Constants.UTF8);
+        return sendGet(url, param, Constant.UTF8);
     }
 
     /**

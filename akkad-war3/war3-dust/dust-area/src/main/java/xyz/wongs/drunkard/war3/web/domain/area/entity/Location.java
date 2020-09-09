@@ -6,6 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import xyz.wongs.drunkard.base.persistence.mybatis.entity.BaseEntityAbstract;
 
+/** 行政区域实体类
+ * @ClassName Location
+ * @Description
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 2020/9/9 15:27
+ * @Version 1.0.0
+*/
 @Builder(toBuilder=true)
 @Data
 @AllArgsConstructor

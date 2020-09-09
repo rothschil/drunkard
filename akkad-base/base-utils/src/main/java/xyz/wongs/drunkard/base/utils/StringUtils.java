@@ -6,7 +6,7 @@ package xyz.wongs.drunkard.base.utils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang3.BooleanUtils;
-import xyz.wongs.drunkard.base.constant.Constants;
+import xyz.wongs.drunkard.base.constant.Constant;
 import xyz.wongs.drunkard.base.utils.text.StrFormatter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -68,7 +68,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 		StringBuffer sb=new StringBuffer();
 		for(int i=0;i<length;i++){
 			int number=random.nextInt(62);
-			sb.append(Constants.RANDOM_STR.charAt(number));
+			sb.append(Constant.RANDOM_STR.charAt(number));
 		}
 		return sb.toString();
 	}
@@ -586,12 +586,12 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         if (name == null || name.isEmpty()) {
             // 没必要转换
             return "";
-        } else if (!name.contains(Constants.UNDERSCORE)) {
+        } else if (!name.contains(Constant.UNDERSCORE)) {
             // 不含下划线，仅将首字母大写
             return name.substring(0, 1).toUpperCase() + name.substring(1);
         }
         // 用下划线将原始字符串分割
-        String[] camels = name.split(Constants.UNDERSCORE);
+        String[] camels = name.split(Constant.UNDERSCORE);
         for (String camel : camels) {
             // 跳过原始字符串中开头、结尾的下换线或双重下划线
             if (camel.isEmpty()) {

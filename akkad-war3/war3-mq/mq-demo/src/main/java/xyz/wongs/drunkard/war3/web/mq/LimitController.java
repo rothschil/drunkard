@@ -8,6 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @ClassName LimitController
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 2020/9/9 16:11
+ * @Version 1.0.0
+*/
 @RequestMapping("/limit")
 @RestController
 public class LimitController {

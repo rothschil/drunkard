@@ -2,10 +2,9 @@ package xyz.wongs.drunkard.domain.addbook.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import xyz.wongs.drunkard.base.constant.Constants;
+import xyz.wongs.drunkard.base.constant.Constant;
 import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
 import xyz.wongs.drunkard.base.persistence.mybatis.service.BaseService;
 import xyz.wongs.drunkard.base.utils.StringUtils;
@@ -14,7 +13,6 @@ import xyz.wongs.drunkard.domain.addbook.entity.RegisterUser;
 import xyz.wongs.drunkard.domain.addbook.mapper.RegisterUserMapper;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * @ClassName RegUserService
@@ -43,10 +41,10 @@ public class RegisterUserService extends BaseService<RegisterUser, Long> {
 	@Transactional(readOnly = false)
 	public Long save(RegisterUser registerUser){
 		String salt = StringUtils.getRandomString(16);
-		String passWord = Md5Utils.getSaltMD5(StringUtils.getRandomString(7),salt);
+		String passWord = Md5Utils.getSalt4Md5(StringUtils.getRandomString(7),salt);
 		registerUser.setSat(salt);
 		registerUser.setPassWord(passWord);
-		registerUser.setStatus(Constants.STATUS_EFF);
+		registerUser.setStatus(Constant.STATUS_EFF);
 		return super.insert(registerUser);
 	}
 

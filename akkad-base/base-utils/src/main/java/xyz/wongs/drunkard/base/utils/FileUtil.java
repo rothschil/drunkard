@@ -32,7 +32,7 @@ import java.nio.channels.FileChannel;
  * @date 2018/8/31 16:37
  * @Version 1.0.0
 */
-public class FileUtil extends com.xiaoleilu.hutool.io.FileUtil {
+public class FileUtil extends cn.hutool.core.io.FileUtil {
 
     private static Logger log = LoggerFactory.getLogger(FileUtil.class);
 

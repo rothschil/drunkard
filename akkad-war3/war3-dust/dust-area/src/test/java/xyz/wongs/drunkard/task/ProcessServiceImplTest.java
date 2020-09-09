@@ -16,10 +16,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-
+/**
+ * @ClassName ProcessServiceImplTest
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 2020/9/9 15:26
+ * @Version 1.0.0
+*/
 public class ProcessServiceImplTest extends BaseTest {
 
-    private static final String url = "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2019/";
+    private static final String URL = "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2019/";
     private final static Logger logger = LoggerFactory.getLogger(ProcessServiceImplTest.class);
 
     static final int counts = 200;
@@ -40,7 +47,7 @@ public class ProcessServiceImplTest extends BaseTest {
     */
     @Test
     public void initRoot(){
-        processService.intiRootUrl(url);
+        processService.intiRootUrl(URL);
     }
 
 
@@ -65,7 +72,7 @@ public class ProcessServiceImplTest extends BaseTest {
         Iterator<Location> iter = locations.iterator();
         while(iter.hasNext()){
             Location location = iter.next();
-            String uls =  url+location.getUrl();
+            String uls =  URL+location.getUrl();
             processService.initLevelOne(uls,location);
             location.setFlag("Y");
             locationService.updateByPrimaryKey(location);
@@ -94,7 +101,7 @@ public class ProcessServiceImplTest extends BaseTest {
         Iterator<Location> iter = locations.iterator();
         while(iter.hasNext()){
             Location location = iter.next();
-            String url2 = new StringBuilder().append(url).append(location.getUrl()).toString();
+            String url2 = new StringBuilder().append(URL).append(location.getUrl()).toString();
             processService.initLevelTwo(url2,location);
             location.setFlag("Y");
             locationService.updateByPrimaryKey(location);
@@ -123,8 +130,8 @@ public class ProcessServiceImplTest extends BaseTest {
         Location location = null;
         while(iter.hasNext()){
             location = iter.next();
-            String url2 = new StringBuilder().append(url).append(ZoneCodeStringUtils.getUrlStrByLocationCode(location.getLocalCode(), 2)).append(location.getUrl()).toString();
-            processService.thridLevelResolve(url2, location, "D");
+            String url2 = new StringBuilder().append(URL).append(ZoneCodeStringUtils.getUrlStrByLocationCode(location.getLocalCode(), 2)).append(location.getUrl()).toString();
+            processService.initLevelThrid(url2, location, "D");
             try {
                 int times = new Random().nextInt(2000);
                 Thread.sleep(times);
@@ -161,7 +168,7 @@ public class ProcessServiceImplTest extends BaseTest {
         }
         List<Location> locations = pageInfo.getList();
         if(!locations.isEmpty()){
-            processService.getLocationFourthLevel(url, locations);
+            processService.initLevelFour(URL, locations);
         }
 //        sc++;
         village(pageNum+1,location);

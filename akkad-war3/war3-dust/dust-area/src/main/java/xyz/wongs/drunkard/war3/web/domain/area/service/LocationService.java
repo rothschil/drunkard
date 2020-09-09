@@ -18,6 +18,14 @@ import xyz.wongs.drunkard.war3.web.domain.area.mapper.LocationMapper;
 
 import java.util.List;
 
+/**
+ * @ClassName LocationService
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 2020/9/9 16:11
+ * @Version 1.0.0
+*/
 @Service(value="locationService")
 @Transactional(readOnly = true)
 public class LocationService extends BaseService<Location, Long> {
@@ -98,7 +106,6 @@ public class LocationService extends BaseService<Location, Long> {
 		Location location = new Location();
 		location.setLv(lv);
 		int size = locationtMapper.getCount(location);
-//		int size = locationtMapper.getLocationCountsByLevel(lv).intValue();
 		if(size%pageSize!=0) {
 			return  (size/pageSize)+1;
 		} else {
