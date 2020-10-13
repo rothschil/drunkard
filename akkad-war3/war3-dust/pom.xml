@@ -13,6 +13,7 @@
     <modules>
         <module>dust-ip2region</module>
         <module>dust-area</module>
+        <module>dust-real-id</module>
     </modules>
 
 </project>

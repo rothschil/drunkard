@@ -1,7 +1,6 @@
 package xyz.wongs.drunkard.base.persistence.mybatis.service;
 
 import com.github.pagehelper.PageInfo;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import xyz.wongs.drunkard.base.persistence.mybatis.entity.BaseEntityAbstract;
 import xyz.wongs.drunkard.base.persistence.mybatis.page.PaginationInfo;
 

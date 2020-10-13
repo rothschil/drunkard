@@ -9,15 +9,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.wongs.drunkard.base.message.enums.ResponseCode;
 import xyz.wongs.drunkard.base.message.response.ResponseResult;
-import xyz.wongs.drunkard.base.utils.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.Path;
-import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @ClassName ExceptionHandler
@@ -143,28 +137,28 @@ public class ExceptionHandler {
         return response;
     }
 
-    /**统一处理请求参数校验.
-     * @author WCNGS@QQ.COM
-     * @See
-     * @date 2019/10/23 9:22
-     * @param e
-     * @return java.lang.String
-     * @throws
-     * @since
-     */
-    @org.springframework.web.bind.annotation.ExceptionHandler(value = ConstraintViolationException.class)
-    public ResponseResult<?> handleConstrainViolationException(ConstraintViolationException e) {
-        StringBuilder message = new StringBuilder();
-        Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-        for (ConstraintViolation violation : violations) {
-            Path path = violation.getPropertyPath();
-            String[] pathArr = StringUtils.splitByWholeSeparatorPreserveAllTokens(path.toString(), ".");
-            message.append(pathArr[1]).append(violation.getMessage()).append(",");
-        }
-        message = new StringBuilder(message.substring(0, message.length() - 1));
-        ResponseResult response = new ResponseResult(false,ResponseCode.VALID_ENTITY_PARAMS.getCode(),message.toString());
-        return response;
-    }
+//    /**统一处理请求参数校验.
+//     * @author WCNGS@QQ.COM
+//     * @See
+//     * @date 2019/10/23 9:22
+//     * @param e
+//     * @return java.lang.String
+//     * @throws
+//     * @since
+//     */
+//    @org.springframework.web.bind.annotation.ExceptionHandler(value = ConstraintViolationException.class)
+//    public ResponseResult<?> handleConstrainViolationException(ConstraintViolationException e) {
+//        StringBuilder message = new StringBuilder();
+//        Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+//        for (ConstraintViolation violation : violations) {
+//            Path path = violation.getPropertyPath();
+//            String[] pathArr = StringUtils.splitByWholeSeparatorPreserveAllTokens(path.toString(), ".");
+//            message.append(pathArr[1]).append(violation.getMessage()).append(",");
+//        }
+//        message = new StringBuilder(message.substring(0, message.length() - 1));
+//        ResponseResult response = new ResponseResult(false,ResponseCode.VALID_ENTITY_PARAMS.getCode(),message.toString());
+//        return response;
+//    }
 
     /** 统一请求参数校验(实体对象传参).
      * @author WCNGS@QQ.COM

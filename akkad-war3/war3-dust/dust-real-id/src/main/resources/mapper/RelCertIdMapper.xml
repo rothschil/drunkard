@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.wongs.drunkard.domain.real.mapper.RelCertIdMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.domain.real.entity.RelCertId" >
+    <id column="CERT_SORT" property="id" jdbcType="DECIMAL" />
+    <result column="CERT_NAME" property="certName" jdbcType="VARCHAR" />
+    <result column="CERT_ID" property="certId" jdbcType="VARCHAR" />
+    <result column="REL_STAT" property="relStat" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CERT_SORT, CERT_NAME, CERT_ID, REL_STAT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from REL_CERT_ID
+    where CERT_SORT = #{id,jdbcType=DECIMAL}
+  </select>
+
+  <select id="getCount" resultType="java.lang.Integer" >
+    select
+    COUNT(CERT_SORT)
+    from REL_CERT_ID
+    where REL_STAT is null
+  </select>
+
+  <select id="getList2" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from REL_CERT_ID
+    where REL_STAT is null
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from REL_CERT_ID
+    where CERT_SORT = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="xyz.wongs.drunkard.domain.real.entity.RelCertId" >
+    insert into REL_CERT_ID (CERT_SORT, CERT_NAME, CERT_ID, 
+      REL_STAT)
+    values (#{id,jdbcType=DECIMAL}, #{certName,jdbcType=VARCHAR}, #{certId,jdbcType=VARCHAR}, 
+      #{relStat,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="xyz.wongs.drunkard.domain.real.entity.RelCertId" >
+    insert into REL_CERT_ID
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="certSort != null" >
+        CERT_SORT,
+      </if>
+      <if test="certName != null" >
+        CERT_NAME,
+      </if>
+      <if test="certId != null" >
+        CERT_ID,
+      </if>
+      <if test="relStat != null" >
+        REL_STAT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="certSort != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="certName != null" >
+        #{certName,jdbcType=VARCHAR},
+      </if>
+      <if test="certId != null" >
+        #{certId,jdbcType=VARCHAR},
+      </if>
+      <if test="relStat != null" >
+        #{relStat,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunkard.domain.real.entity.RelCertId" >
+    update REL_CERT_ID
+    <set >
+      <if test="certName != null" >
+        CERT_NAME = #{certName,jdbcType=VARCHAR},
+      </if>
+      <if test="certId != null" >
+        CERT_ID = #{certId,jdbcType=VARCHAR},
+      </if>
+      <if test="relStat != null" >
+        REL_STAT = #{relStat,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CERT_SORT = #{id,jdbcType=DECIMAL}
+  </update>
+
+  <update id="updateBatch" parameterType="java.util.List">
+    update REL_CERT_ID SET rel_stat = #{relStat} WHERE CERT_SORT IN
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+      #{item,jdbcType=DECIMAL}
+    </foreach>
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunkard.domain.real.entity.RelCertId" >
+    update REL_CERT_ID
+    set CERT_NAME = #{certName,jdbcType=VARCHAR},
+      CERT_ID = #{certId,jdbcType=VARCHAR},
+      REL_STAT = #{relStat,jdbcType=VARCHAR}
+    where CERT_SORT = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,6 +1,5 @@
 package xyz.wongs.drunkard.base.persistence.mybatis.mapper;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import xyz.wongs.drunkard.base.persistence.mybatis.entity.BaseEntityAbstract;
 
 import java.io.Serializable;

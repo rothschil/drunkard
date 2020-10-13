@@ -36,9 +36,7 @@ spring:
     ##时间戳统一转换
     date-format: yyyy-MM-dd HH:mm:ss
 
-ip2region:
-  enabled: true
-  dbfile: ipdb/ip2region.db
+
 ######### mybatis ##########
 mybatis:
   configuration:
