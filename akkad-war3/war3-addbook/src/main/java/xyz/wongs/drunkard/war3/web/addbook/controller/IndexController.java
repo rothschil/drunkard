@@ -3,6 +3,7 @@ package xyz.wongs.drunkard.war3.web.addbook.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import xyz.wongs.drunkard.base.aop.annotion.ApplicationLog;
 import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
 import xyz.wongs.drunkard.base.message.exception.DrunkardException;
 import xyz.wongs.drunkard.domain.addbook.entity.RegisterUser;
@@ -29,6 +30,7 @@ public class IndexController {
         return "I AM INDEX";
     }
 
+    @ApplicationLog
     @GetMapping("/test")
     public Map<String, Object> test() {
         HashMap<String, Object> data = new HashMap<>();
@@ -36,6 +38,7 @@ public class IndexController {
         return data;
     }
 
+    @ApplicationLog
     @GetMapping("/fail")
     public Integer error() {
         int res = 0; // 查询结果数

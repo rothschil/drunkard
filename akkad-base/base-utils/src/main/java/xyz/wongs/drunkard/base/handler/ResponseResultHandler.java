@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.base.interceptor;
+package xyz.wongs.drunkard.base.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;

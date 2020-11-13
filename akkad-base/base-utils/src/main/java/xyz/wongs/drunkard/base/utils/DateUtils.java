@@ -217,6 +217,25 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     }
 
     /**
+     * @param date1 第一个时间
+     * @param date2 第二个时间
+     * @return long
+     * @throws
+     * @Description
+     * @date 2019/12/4 9:35
+     */
+    public static long getMills(Date date1, Date date2) {
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.clear();
+        calendar1.setTime(date1);
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.clear();
+        calendar2.setTime(date2);
+        return calendar2.getTimeInMillis() - calendar1.getTimeInMillis();
+    }
+
+    /**
      * 获取过去的天数
      *
      * @param date
