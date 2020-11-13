@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import xyz.wongs.drunkard.base.persistence.mybatis.entity.BaseEntityAbstract;
+import xyz.wongs.drunkard.base.entity.BaseEntityAbstract;
 
 /**
  * @ClassName RegisterUser

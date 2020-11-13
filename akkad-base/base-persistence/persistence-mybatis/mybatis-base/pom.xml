@@ -40,12 +40,6 @@
             <version>1.0</version>
         </dependency>
 
-        <!--aop-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-
     </dependencies>
 
 </project>

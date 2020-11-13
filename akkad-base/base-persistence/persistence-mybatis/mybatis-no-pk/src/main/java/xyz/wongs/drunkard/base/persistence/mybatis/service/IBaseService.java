@@ -1,7 +1,7 @@
 package xyz.wongs.drunkard.base.persistence.mybatis.service;
 
 
-import xyz.wongs.drunkard.base.persistence.mybatis.entity.BaseEntityAbstract;
+import xyz.wongs.drunkard.base.entity.BaseEntityAbstract;
 
 import java.io.Serializable;
 

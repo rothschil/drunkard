@@ -1,9 +1,8 @@
 package xyz.wongs.drunkard.base.persistence.mybatis.mapper;
 
-import xyz.wongs.drunkard.base.persistence.mybatis.entity.BaseEntityAbstract;
+import xyz.wongs.drunkard.base.entity.BaseEntityAbstract;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @ClassName BaseMapper
