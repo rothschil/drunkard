@@ -1,15 +1,13 @@
 package xyz.wongs.drunkard.war3.web.addbook.controller;
 
 
-import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import xyz.wongs.drunkard.base.message.enums.ResponseCode;
-import xyz.wongs.drunkard.base.message.response.ResponseResult;
+import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
 import xyz.wongs.drunkard.base.web.BaseController;
 import xyz.wongs.drunkard.domain.addbook.entity.RegisterUser;
 import xyz.wongs.drunkard.domain.addbook.service.RegisterUserService;
@@ -18,7 +16,7 @@ import java.util.List;
 
 /**
  * @ClassName AddBookController
- * @Description 
+ * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/8/2 13:32
@@ -27,6 +25,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(value = "/addBook")
+@ResponseResult
 public class AddBookController extends BaseController {
 
     @Autowired
@@ -34,6 +33,7 @@ public class AddBookController extends BaseController {
 
     @Autowired
     private AsyncAddBookComp asyncAddBookComp;
+
 
     /**
      * @Description
@@ -43,26 +43,15 @@ public class AddBookController extends BaseController {
      * @date 2020/8/4 19:14
      */
     @PostMapping("/register")
-    public ResponseResult<List> register(@RequestBody RegisterUser registerUser){
-        ResponseResult<List> result = getResponseResult();
-        try {
-            List<RegisterUser> regUsers = null;
-            regUsers = registerUserService.selectByRegUser(registerUser);
-            if(regUsers.isEmpty()){
-                Long id = registerUserService.save(registerUser);
-                registerUser.setId(id);
-                asyncAddBookComp.inrecord(registerUser);
-            } else {
-                result.setCode(ResponseCode.RESOURCE_EXIST.getCode());
-                result.setMsg(ResponseCode.RESOURCE_EXIST.getMsg());
-            }
-        } catch (Exception e) {
-            log.error("Request Params Is {} ,But No Data", JSON.toJSON(registerUser));
-            result.setCode(ResponseCode.ERROR.getCode());
-            result.setMsg(ResponseCode.ERROR.getMsg());
+    public RegisterUser register(@RequestBody RegisterUser registerUser){
+        List<RegisterUser> regUsers = null;
+        regUsers = registerUserService.selectByRegUser(registerUser);
+        if(regUsers.isEmpty()){
+            Long id = registerUserService.save(registerUser);
+            registerUser.setId(id);
+            asyncAddBookComp.inrecord(registerUser);
         }
-        return result;
+        return registerUser;
     }
-
 }
 

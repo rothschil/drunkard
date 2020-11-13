@@ -39,7 +39,7 @@
         <commons.beanutils.version>1.9.4</commons.beanutils.version>
         <joda.time.version>2.10.2</joda.time.version>
         <webmagic.core.version>0.7.3</webmagic.core.version>
-        <swagger2.version>3.0.0</swagger2.version>
+        <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
         <shiro.version>1.4.2</shiro.version>
         <thymeleaf.extras.shiro.version>2.0.0</thymeleaf.extras.shiro.version>
         <poi.version>3.17</poi.version>
@@ -200,17 +200,15 @@
                 <version>1.18.8</version>
             </dependency>
 
-            <!-- swagger -->
+            <!-- BEGIN swagger -->
+
             <dependency>
                 <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${swagger2.version}</version>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox-boot-starter.version}</version>
             </dependency>
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${swagger2.version}</version>
-            </dependency>
+            <!-- END swagger -->
+
 
             <dependency>
                 <groupId>com.google.guava</groupId>

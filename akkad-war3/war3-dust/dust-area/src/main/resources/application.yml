@@ -3,6 +3,8 @@ server:
 # mysql数据源配置
 
 spring:
+  application:
+    name: dust-area
   redis:
     database: 0
     host: 127.0.0.1
@@ -33,3 +35,11 @@ spring:
 # mybatis配置
 mybatis:
   mapperLocations: classpath:mapper/**/*.xml
+
+# ===== 自定义swagger配置 ===== #
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: springfox swagger 3.0整合Demo
+  try-host: http://localhost:${server.port}

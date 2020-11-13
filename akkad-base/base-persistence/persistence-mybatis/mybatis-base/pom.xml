@@ -12,6 +12,10 @@
     <name>mybatis-base</name>
     <packaging>jar</packaging>
 
+    <properties>
+            <pagehelper.spring.boot.starter.version>1.3.0</pagehelper.spring.boot.starter.version>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -27,17 +31,13 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.3</version>
+            <version>${pagehelper.spring.boot.starter.version}</version>
         </dependency>
 
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
             <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
     </dependencies>

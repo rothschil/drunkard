@@ -1,7 +1,5 @@
 package xyz.wongs.drunkard.base.web;
 
-import xyz.wongs.drunkard.base.message.response.ResponseResult;
-
 /**
  *  ┏┓　　　┏┓
  *┏┛┻━━━┛┻┓
@@ -28,15 +26,15 @@ import xyz.wongs.drunkard.base.message.response.ResponseResult;
 */
 public abstract class BaseController {
 
-    /**
-     * @Description 初始化统一返回信息
-     * @param
-     * @return ResponseResult
-     * @throws
-     * @date 2019/11/7 9:58
-     */
-    public ResponseResult getResponseResult() {
-        return new ResponseResult();
-    }
+//    /**
+//     * @Description 初始化统一返回信息
+//     * @param
+//     * @return ResponseResult
+//     * @throws
+//     * @date 2019/11/7 9:58
+//     */
+//    public ResponseResult getResponseResult() {
+//        return new ResponseResult();
+//    }
 
 }

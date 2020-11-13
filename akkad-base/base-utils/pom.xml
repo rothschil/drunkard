@@ -11,12 +11,16 @@
     <artifactId>base-utils</artifactId>
     <name>base-utils</name>
     <packaging>jar</packaging>
-
+    <properties>
+        <commons.compress.version>1.20</commons.compress.version>
+        <commons.httpclient.version>3.1</commons.httpclient.version>
+        <javax.servlet.api.version>4.0.1</javax.servlet.api.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-compress</artifactId>
-            <version>1.20</version>
+            <version>${commons.compress.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -44,7 +48,7 @@
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
-            <version>3.1</version>
+            <version>${commons.httpclient.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -72,6 +76,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+<!--                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>-->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-json</artifactId>
+                </exclusion>
+            </exclusions>
+
         </dependency>
 
         <dependency>
@@ -82,8 +97,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-            <!--<scope>provided</scope>-->
+            <version>${javax.servlet.api.version}</version>
         </dependency>
 
         <dependency>
