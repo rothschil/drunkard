@@ -16,6 +16,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import xyz.wongs.drunkard.base.aop.annotion.ApplicationLog;
 import xyz.wongs.drunkard.base.aop.pojo.OperationLog;
 import xyz.wongs.drunkard.base.aop.service.OperationLogService;
+import xyz.wongs.drunkard.base.handler.impl.QueueTaskHandler;
+import xyz.wongs.drunkard.base.queue.AppLogQueue;
 import xyz.wongs.drunkard.base.utils.DateUtils;
 import xyz.wongs.drunkard.base.utils.IpUtils;
 
@@ -39,13 +41,13 @@ import java.util.Date;
 @Component
 public class ApplicationLogAop {
 
-    @Autowired
-    private OperationLogService operationLogService;
-
     private ThreadLocal<OperationLog> threadLocal = new ThreadLocal<OperationLog>();
 
     @Autowired
-    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+    private QueueTaskHandler queueTaskHandler;
+
+    @Autowired
+    private AppLogQueue appLogQueue;
 
     @Pointcut(value = "@annotation(xyz.wongs.drunkard.base.aop.annotion.ApplicationLog)")
     public void cutService() {}
@@ -59,14 +61,6 @@ public class ApplicationLogAop {
         OperationLog operationLog = getOperationLog(applicationLog,joinPoint);
         threadLocal.set(operationLog);
     }
-
-//    @After(value ="cutService()")
-//    public void after(JoinPoint point) throws Throwable {
-//        Date endTime = Date.from(Instant.now());
-//        OperationLog operationLog = threadLocal.get();
-//        operationLog.setEndTime(endTime);
-//        threadLocal.set(operationLog);
-//    }
 
     @AfterReturning(returning = "ret",pointcut = "cutService()")
     public void afterReturning(Object ret){
@@ -83,7 +77,7 @@ public class ApplicationLogAop {
         Date endTime = Date.from(Instant.now());
         OperationLog operationLog = threadLocal.get();
         if(null!=e){
-            sucess=1;
+            sucess=-1;
             operationLog.setErrMsg(e.getMessage());
         }
         if(null!=ret){
@@ -92,8 +86,9 @@ public class ApplicationLogAop {
         operationLog.setEndTime(endTime);
         operationLog.setIsSuccess(sucess);
         operationLog.setCost(DateUtils.getMills(operationLog.getBeginTime(),endTime));
-        //通过线 执行日志保存
-        threadPoolTaskExecutor.execute(new SaveLogThread(operationLog, operationLogService));
+
+        queueTaskHandler.setOperationLog(operationLog);
+        appLogQueue.addQueue(queueTaskHandler);
     }
 
     protected OperationLog getOperationLog(ApplicationLog applicationLog, JoinPoint joinPoint){
@@ -127,32 +122,6 @@ public class ApplicationLogAop {
             return method.getAnnotation(ApplicationLog.class);
         }
         return null;
-    }
-
-    /**
-     * @ClassName ApplicationLogAop
-     * @Description 日志更新线程
-     * @author WCNGS@QQ.COM
-     * @Github <a>https://github.com/rothschil</a>
-     * @date 2019/12/24 15:51
-     * @Version 1.0.0
-    */
-    private static class SaveLogThread implements Runnable{
-        private OperationLog operationLog;
-        private OperationLogService operationLogService;
-
-        public SaveLogThread() {
-        }
-
-        public SaveLogThread(OperationLog operationLog, OperationLogService operationLogService) {
-            this.operationLog = operationLog;
-            this.operationLogService = operationLogService;
-        }
-
-        @Override
-        public void run() {
-            operationLogService.insert(operationLog);
-        }
     }
 
 }

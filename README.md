@@ -1,5 +1,9 @@
 
+![Mozilla Add-on](https://img.shields.io/amo/dw/drunkard?color=fedcba&label=drunkard&logo=postwoman&logoColor=rgb&style=for-the-badge)
+
 # 1. 项目简介
+
+`drunkard：酒鬼; 醉鬼;`
 
 本项目是基于SpringBoot开发的脚手架模块，已经集成各种通用组件，适合构建项目所用。
 
