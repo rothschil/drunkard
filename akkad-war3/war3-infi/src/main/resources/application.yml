@@ -1,2 +1,8 @@
 server:
   port: 9090
+
+ip2region:
+  external: false
+  index-block-size: 4096
+  total-header-size: 8192
+  location: classpath:ipdb/ip2region.db

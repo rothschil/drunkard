@@ -18,7 +18,6 @@ import java.util.Map;
  */
 public abstract class BaseEntityAbstract<ID extends Serializable> extends AbstractIdEntity<ID> {
 
-//    @JsonIgnore
     @JSONField(serialize=false)
     private String dtype;
 

@@ -11,8 +11,7 @@
     <artifactId>akkad-war3</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>war3-addbook</module>
-        <module>war3-dust</module>
+        <module>war3-area</module>
         <module>war3-infi</module>
     </modules>
 

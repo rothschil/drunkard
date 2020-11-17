@@ -11,7 +11,7 @@
     <artifactId>akkad-base</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>base-persistence</module>
+        <module>persistence-mybatis</module>
         <module>base-utils</module>
     </modules>
 

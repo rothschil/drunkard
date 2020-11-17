@@ -37,13 +37,26 @@ public class R implements Serializable {
         this.message = resultCode.getMsg();
     }
 
-    // 返回成功
+    /** 返回成功
+     * @Description
+     * @param
+     * @return xyz.wongs.drunkard.base.message.response.R
+     * @throws
+     * @date 20/11/13 17:15
+     */
     public static R success() {
+
         R result = new R();
         result.setResultCode(ResultCode.SUCCESS);
         return result;
     }
-    // 返回成功
+    /** 返回成功
+     * @Description
+     * @param
+     * @return xyz.wongs.drunkard.base.message.response.R
+     * @throws
+     * @date 20/11/13 17:15
+     */
     public static R success(Object data) {
         R result = new R();
         result.setResultCode(ResultCode.SUCCESS);
@@ -51,19 +64,31 @@ public class R implements Serializable {
         return result;
     }
 
-    // 返回失败
+    /** 返回失败
+     * @Description
+     * @param
+     * @return xyz.wongs.drunkard.base.message.response.R
+     * @throws
+     * @date 20/11/13 17:15
+     */
     public static R fail(Integer code, String message) {
         R result = new R();
         result.setCode(code);
         result.setMessage(message);
         return result;
     }
-    // 返回失败
+
+    /** 返回失败
+     * @Description
+     * @param
+     * @return xyz.wongs.drunkard.base.message.response.R
+     * @throws
+     * @date 20/11/13 17:15
+     */
     public static R fail(ResultCode resultCode) {
         R result = new R();
         result.setResultCode(resultCode);
         return result;
     }
-
 
 }

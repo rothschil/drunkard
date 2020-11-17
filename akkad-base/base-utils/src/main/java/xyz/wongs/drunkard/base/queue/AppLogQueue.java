@@ -22,10 +22,12 @@ public class AppLogQueue {
 
     private final LinkedBlockingQueue<IQueueTaskHandler> queue = new LinkedBlockingQueue<IQueueTaskHandler>(500);
 
-    // 类似于一个线程总管 保证所有的任务都在队列之中
+    /**
+     * 线程池
+     */
     private ExecutorService service = new ThreadPoolExecutor(1, 1,
             0L, TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<Runnable>());
+            new LinkedBlockingQueue<Runnable>(),Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy());
     /**
      * 检查服务是否运行
      */
@@ -38,7 +40,7 @@ public class AppLogQueue {
 
     @PostConstruct
     public void init(){
-        threadStatus = service.submit(new Thread(
+        threadStatus = service.submit(
                 new Runnable() {
                     @Override
                     public void run() {
@@ -52,7 +54,7 @@ public class AppLogQueue {
                             }
                         }
                     }
-                },"Save App Log Thread"));
+                });
     }
 
     @PreDestroy
