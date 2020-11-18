@@ -47,8 +47,6 @@ public class ProcessServiceImpl implements ProcessService {
 	@Qualifier("locationService")
 	LocationService locationService;
 
-	@Autowired
-	IdClazzUtils idClazzUtils;
 
 
 	@Override
@@ -102,7 +100,7 @@ public class ProcessServiceImpl implements ProcessService {
 			}
 			for(Element target:eleHerf) {
 				String urls = target.attributes().asList().get(0).getValue();
-				Location location = Location.builder().id(idClazzUtils.getId(Location.class))
+				Location location = Location.builder().id(IdClazzUtils.getId(Location.class))
 						.localCode("0").url(urls).lv(0).localName(target.text())
 						.localCode(urls.substring(0, 2)).build();
 				locas.add(location);
@@ -193,7 +191,7 @@ public class ProcessServiceImpl implements ProcessService {
 				Location tempLocation = null;
 				for(Element e:es){
 					tempLocation = new Location(e.child(0).text(),e.child(2).text(),le.getLocalCode(),null,4);
-					tempLocation.setId(idClazzUtils.getId(Location.class));
+					tempLocation.setId(IdClazzUtils.getId(Location.class));
 					locations.add(tempLocation);
 				}
 				le.setFlag("Y");
@@ -233,7 +231,7 @@ public class ProcessServiceImpl implements ProcessService {
                 //针对市辖区 这种无URL的做特殊处理
                 if(!flag){
 					tempLocation = new Location(e.child(0).text(),e.child(1).text(),location.getLocalCode(),null,2);
-					tempLocation.setId(idClazzUtils.getId(Location.class));
+					tempLocation.setId(IdClazzUtils.getId(Location.class));
                     locas.add(tempLocation);
                     //标识位置为TURE
                     flag=true;
@@ -242,13 +240,13 @@ public class ProcessServiceImpl implements ProcessService {
 				es = e.getElementsByAttribute("href");
 				if(es.size()==0){
 					tempLocation = new Location(e.child(0).text(),e.child(1).text(),location.getLocalCode(),"",2);
-					tempLocation.setId(idClazzUtils.getId(Location.class));
+					tempLocation.setId(IdClazzUtils.getId(Location.class));
 					locas.add(tempLocation);
 					continue;
 				}
 				List<Attribute> attrs = es.get(0).attributes().asList();
 				tempLocation = new Location(es.get(0).text(),es.get(1).text(),location.getLocalCode(),attrs.get(0).getValue(),2);
-				tempLocation.setId(idClazzUtils.getId(Location.class));
+				tempLocation.setId(IdClazzUtils.getId(Location.class));
 				locas.add(tempLocation);
             }
 		} catch (Exception e) {
@@ -283,7 +281,7 @@ public class ProcessServiceImpl implements ProcessService {
 			eles = e.getElementsByAttribute("href");
 			List<Attribute> attrs = eles.get(0).attributes().asList();
 			location = new Location(eles.get(0).text(),eles.get(1).text(),pCode,attrs.get(0).getValue(),1);
-			location.setId(idClazzUtils.getId(Location.class));
+			location.setId(IdClazzUtils.getId(Location.class));
 			locas.add(location);
 		}
 		return locas;
@@ -302,7 +300,7 @@ public class ProcessServiceImpl implements ProcessService {
 			eles = e.getElementsByAttribute(cssClazz[1]);
 			List<Attribute> attrs = eles.get(0).attributes().asList();
 			location= new Location(eles.get(0).text(),eles.get(1).text(),parentCode,attrs.get(0).getValue(),lv,flag);
-			location.setId(idClazzUtils.getId(Location.class));
+			location.setId(IdClazzUtils.getId(Location.class));
 			locas.add(location);
 		}
 		return locas;
@@ -358,9 +356,6 @@ public class ProcessServiceImpl implements ProcessService {
 			// 获取返回实体
 			String content = EntityUtils.toString(entity, "GBK");
 			// ============================= 【Jsoup】 ====================================
-			//获取响应类型、内容
-//			Connection connection = HttpConnection.connect(new URL(url)).timeout(15000);
-//			Document doc = connection.get();
 			Document doc = Jsoup.parse(content);
 			return doc.getElementsByClass(clazzName);
 		} catch (ConnectTimeoutException e) {

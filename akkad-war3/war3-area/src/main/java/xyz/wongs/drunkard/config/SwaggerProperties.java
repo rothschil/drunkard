@@ -4,6 +4,14 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+/**
+ * @ClassName SwaggerProperties
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/11/18 11:02
+ * @Version 1.0.0
+*/
 @Data
 @Component
 @ConfigurationProperties("swagger")

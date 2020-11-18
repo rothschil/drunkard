@@ -68,7 +68,7 @@ public abstract class BaseEntityAbstract<ID extends Serializable> extends Abstra
 
     public Map<String, Object> getParams() {
         if (params == null) {
-            params = new HashMap<>();
+            params = new HashMap<>(6);
         }
         return params;
     }

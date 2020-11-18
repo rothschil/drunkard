@@ -16,6 +16,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @ClassName IndexController
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/11/18 11:00
+ * @Version 1.0.0
+*/
 @Slf4j
 @RestController
 @ResponseResult
@@ -46,15 +54,13 @@ public class IndexController {
     @ApplicationLog
     @GetMapping("/fail")
     public Integer error() {
-        int res = 0; // 查询结果数
+        // 查询结果数
+        int res = 0;
         if( res == 0 ) {
             throw new DrunkardException("没有数据");
         }
         return res;
     }
-
-//     @Autowired
-//    private Ip2regionSearcher ip2regionSearcher;
 
     @Autowired
     IP2regionTemplate template;
@@ -70,14 +76,6 @@ public class IndexController {
     public DataBlock convertDataBlock(@PathVariable String ip){
         DataBlock dataBlock = null;
         try {
-//            ip2regionSearcher.search(ip, Ip2regionSearcher.ALGORITHM.MEMORY_SEARCH);
-//            regionAddress = RegionAddress.builder()
-//                    .country(ip2regionSearcher.getCountry())
-//                    .city(ip2regionSearcher.getCity())
-//                    .isp(ip2regionSearcher.getISP())
-//                    .province(ip2regionSearcher.getProvince())
-//                    .region(ip2regionSearcher.getProvince()).build();
-
             dataBlock = template.binarySearch(ip);
         } catch (IOException e) {
             e.printStackTrace();

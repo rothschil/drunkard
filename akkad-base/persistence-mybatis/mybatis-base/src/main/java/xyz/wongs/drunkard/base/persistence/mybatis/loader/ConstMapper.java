@@ -1,5 +1,13 @@
 package xyz.wongs.drunkard.base.persistence.mybatis.loader;
 
+/**
+ * @ClassName ConstMapper
+ * @Description  用于Mybatis自动扫描常量字符
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/11/18 10:42
+ * @Version 1.0.0
+*/
 public class ConstMapper {
 
 

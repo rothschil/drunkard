@@ -22,6 +22,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @ClassName WebMvcConfig
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/11/18 11:02
+ * @Version 1.0.0
+*/
 @Slf4j
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {

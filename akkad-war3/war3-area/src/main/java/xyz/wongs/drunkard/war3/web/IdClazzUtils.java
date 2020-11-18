@@ -13,7 +13,6 @@ import xyz.wongs.drunkard.base.persistence.mybatis.service.RedisUidService;
  * @date 2020/9/9 15:28
  * @Version 1.0.0
 */
-@Component
 public class IdClazzUtils {
 
     private static RedisUidService redisUidService;

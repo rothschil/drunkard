@@ -21,6 +21,14 @@ import springfox.documentation.spring.web.plugins.Docket;
 import java.lang.reflect.Field;
 import java.util.*;
 
+/**
+ * @ClassName SwaggerConfiguration
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/11/18 11:02
+ * @Version 1.0.0
+*/
 @EnableOpenApi
 @Configuration
 public class SwaggerConfiguration implements WebMvcConfigurer {

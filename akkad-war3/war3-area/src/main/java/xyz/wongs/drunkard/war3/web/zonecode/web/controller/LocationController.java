@@ -11,6 +11,14 @@ import xyz.wongs.drunkard.war3.domain.service.LocationService;
 
 import java.util.*;
 
+/**
+ * @ClassName LocationController
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/11/18 11:04
+ * @Version 1.0.0
+*/
 @Api(value = "areas")
 @ResponseResult
 @RestController

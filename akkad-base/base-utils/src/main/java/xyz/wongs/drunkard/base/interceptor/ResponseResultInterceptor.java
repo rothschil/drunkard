@@ -26,7 +26,6 @@ public class ResponseResultInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.error(" ENTER ResponseResultInterceptor");
         if(handler instanceof HandlerMethod){
             final HandlerMethod handlerMethod = (HandlerMethod)handler;
             final Class<?> clazz = handlerMethod.getBeanType();
@@ -39,7 +38,5 @@ public class ResponseResultInterceptor implements HandlerInterceptor {
         }
         return true;
     }
-
-
 
 }
