@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.war3.web.utils;
+package xyz.wongs.drunkard.war3.web;
 
 /**
  * @author WCNGS@QQ.CO

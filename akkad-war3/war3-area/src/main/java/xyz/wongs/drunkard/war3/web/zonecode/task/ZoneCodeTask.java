@@ -5,8 +5,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
-import xyz.wongs.drunkard.war3.web.domain.area.entity.Location;
-import xyz.wongs.drunkard.war3.web.utils.HttpCrawlerUtil;
+import xyz.wongs.drunkard.war3.domain.entity.Location;
+import xyz.wongs.drunkard.war3.web.HttpCrawlerUtil;
 import xyz.wongs.drunkard.war3.web.zonecode.exception.NoIpAddressException;
 
 import java.io.IOException;

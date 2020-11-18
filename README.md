@@ -5,11 +5,17 @@
 
 `drunkard：酒鬼; 醉鬼;`
 
+想做一套后台管理系统，在此期间主要参考的开源项目 `RuoYi`，谁让自己前端知识储备不够，实在是写不出来那样的效果，没办法，只能抄。
+
 本项目是基于SpringBoot开发的脚手架模块，已经集成各种通用组件，适合构建项目所用。
+
+## 1.1. 内置功能
+
+## 1.2. 项目结构
 
 # 2. 技术选型
 
-SpringBoot、Maven、Jnuit、MySQL
+SpringBoot、Maven、Jnuit、MySQL、JDK8+
 
 # 3. 测试策略
 

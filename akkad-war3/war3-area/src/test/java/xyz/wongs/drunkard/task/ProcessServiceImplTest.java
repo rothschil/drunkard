@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import xyz.wongs.drunkard.base.BaseTest;
-import xyz.wongs.drunkard.war3.web.domain.area.entity.Location;
-import xyz.wongs.drunkard.war3.web.domain.area.service.LocationService;
-import xyz.wongs.drunkard.war3.web.utils.ZoneCodeStringUtils;
+import xyz.wongs.drunkard.war3.domain.entity.Location;
+import xyz.wongs.drunkard.war3.domain.service.LocationService;
+import xyz.wongs.drunkard.war3.web.ZoneCodeStringUtils;
 import xyz.wongs.drunkard.war3.web.zonecode.task.ProcessService;
 
 import java.util.Iterator;

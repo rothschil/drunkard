@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import xyz.wongs.drunkard.base.aop.annotion.ApplicationLog;
 import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
 import xyz.wongs.drunkard.base.message.exception.DrunkardException;
+import xyz.wongs.drunkard.war3.limit.RequestLimit;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -33,6 +34,7 @@ public class IndexController {
         return "I AM INDEX";
     }
 
+    @RequestLimit(maxCount=3,second=20)
     @ApplicationLog
     @GetMapping("/test")
     public Map<String, Object> test() {
@@ -90,6 +92,7 @@ public class IndexController {
      * @throws
      * @date 2020/8/17 18:26
      */
+    @RequestLimit(maxCount=3)
     @GetMapping(value = "/region/{ip}")
     public RegionAddress convert(@PathVariable String ip){
         RegionAddress regionAddress = null;

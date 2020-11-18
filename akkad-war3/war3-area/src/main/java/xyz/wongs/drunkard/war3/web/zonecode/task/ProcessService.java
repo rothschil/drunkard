@@ -1,6 +1,6 @@
 package xyz.wongs.drunkard.war3.web.zonecode.task;
 
-import xyz.wongs.drunkard.war3.web.domain.area.entity.Location;
+import xyz.wongs.drunkard.war3.domain.entity.Location;
 import java.util.List;
 
 /**

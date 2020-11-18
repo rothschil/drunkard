@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.war3.web.domain.area.entity;
+package xyz.wongs.drunkard.war3.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

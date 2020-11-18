@@ -1,22 +1,18 @@
 package xyz.wongs.drunkard.war3.web.zonecode.web.controller;
 
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
 import xyz.wongs.drunkard.base.web.BaseController;
-import xyz.wongs.drunkard.war3.web.domain.area.entity.Location;
-import xyz.wongs.drunkard.war3.web.domain.area.service.LocationService;
-import xyz.wongs.drunkard.war3.web.utils.ZoneCodeStringUtils;
-import xyz.wongs.drunkard.war3.web.zonecode.task.ProcessService;
+import xyz.wongs.drunkard.war3.domain.entity.Location;
+import xyz.wongs.drunkard.war3.domain.service.LocationService;
+
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 @Api(value = "areas")
+@ResponseResult
 @RestController
 @RequestMapping(value = "/areas")
 public class LocationController extends BaseController {
@@ -43,8 +39,7 @@ public class LocationController extends BaseController {
     )
     @RequestMapping(value = "/{lv}", method = RequestMethod.GET)
     public List<Location> getLocationListByLevel(@PathVariable(value = "lv") Integer lv) {
-        List<Location> r = locationService.getLocationListByLevel(lv);
-        return r;
+        return locationService.getLocationListByLevel(lv);
     }
 
 }

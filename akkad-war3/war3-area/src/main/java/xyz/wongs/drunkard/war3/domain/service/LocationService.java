@@ -1,20 +1,16 @@
-package xyz.wongs.drunkard.war3.web.domain.area.service;
+package xyz.wongs.drunkard.war3.domain.service;
 
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
 import xyz.wongs.drunkard.base.persistence.mybatis.service.BaseService;
-import xyz.wongs.drunkard.war3.web.domain.area.entity.Location;
-import xyz.wongs.drunkard.war3.web.domain.area.mapper.LocationMapper;
+import xyz.wongs.drunkard.war3.domain.entity.Location;
+import xyz.wongs.drunkard.war3.domain.mapper.LocationMapper;
 
 import java.util.List;
 

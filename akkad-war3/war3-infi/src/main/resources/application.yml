@@ -1,6 +1,12 @@
 server:
   port: 9090
 
+spring:
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+
 ip2region:
   external: false
   index-block-size: 4096

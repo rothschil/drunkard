@@ -19,10 +19,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import xyz.wongs.drunkard.base.constant.Constant;
-import xyz.wongs.drunkard.war3.web.domain.area.entity.Location;
-import xyz.wongs.drunkard.war3.web.domain.area.service.LocationService;
-import xyz.wongs.drunkard.war3.web.utils.IdClazzUtils;
-import xyz.wongs.drunkard.war3.web.utils.ZoneCodeStringUtils;
+import xyz.wongs.drunkard.war3.domain.entity.Location;
+import xyz.wongs.drunkard.war3.domain.service.LocationService;
+import xyz.wongs.drunkard.war3.web.IdClazzUtils;
+import xyz.wongs.drunkard.war3.web.ZoneCodeStringUtils;
 import xyz.wongs.drunkard.war3.web.zonecode.task.ProcessService;
 
 import java.io.IOException;

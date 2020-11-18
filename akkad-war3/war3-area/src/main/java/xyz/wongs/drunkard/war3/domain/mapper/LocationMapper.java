@@ -1,7 +1,7 @@
-package xyz.wongs.drunkard.war3.web.domain.area.mapper;
+package xyz.wongs.drunkard.war3.domain.mapper;
 
 import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
-import xyz.wongs.drunkard.war3.web.domain.area.entity.Location;
+import xyz.wongs.drunkard.war3.domain.entity.Location;
 
 import java.util.List;
 
