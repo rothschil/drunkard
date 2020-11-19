@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @Version 1.0.0
  */
 @Data
-public class R implements Serializable {
+public class Result implements Serializable {
     private static final long serialVersionUID = -4505655308965878999L;
 
     private Integer code;
@@ -23,10 +23,10 @@ public class R implements Serializable {
 
     private Object data;
 
-    private R() {
+    private Result() {
     }
 
-    public R(ResultCode resultCode, Object data) {
+    public Result(ResultCode resultCode, Object data) {
         this.code = resultCode.getCode();
         this.message = resultCode.getMsg();
         this.data = data;
@@ -44,9 +44,9 @@ public class R implements Serializable {
      * @throws
      * @date 20/11/13 17:15
      */
-    public static R success() {
+    public static Result success() {
 
-        R result = new R();
+        Result result = new Result();
         result.setResultCode(ResultCode.SUCCESS);
         return result;
     }
@@ -57,8 +57,8 @@ public class R implements Serializable {
      * @throws
      * @date 20/11/13 17:15
      */
-    public static R success(Object data) {
-        R result = new R();
+    public static Result success(Object data) {
+        Result result = new Result();
         result.setResultCode(ResultCode.SUCCESS);
         result.setData(data);
         return result;
@@ -71,8 +71,8 @@ public class R implements Serializable {
      * @throws
      * @date 20/11/13 17:15
      */
-    public static R fail(Integer code, String message) {
-        R result = new R();
+    public static Result fail(Integer code, String message) {
+        Result result = new Result();
         result.setCode(code);
         result.setMessage(message);
         return result;
@@ -85,8 +85,8 @@ public class R implements Serializable {
      * @throws
      * @date 20/11/13 17:15
      */
-    public static R fail(ResultCode resultCode) {
-        R result = new R();
+    public static Result fail(ResultCode resultCode) {
+        Result result = new Result();
         result.setResultCode(resultCode);
         return result;
     }

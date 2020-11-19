@@ -14,12 +14,15 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ClassUtils;
+import xyz.wongs.drunkard.base.constant.Constant;
+import xyz.wongs.drunkard.base.thread.ThreadPoolUtils;
 import xyz.wongs.drunkard.base.utils.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -133,6 +136,60 @@ public class MapperAutoRefresh implements ApplicationContextAware {
         return resourcePatternResolver.getResources(packageSearchPath);
     }
 
+    class MyBatisThreadRefresh implements Runnable{
+
+        private MapperAutoRefresh mapperAutoRefresh;
+
+        MyBatisThreadRefresh(MapperAutoRefresh mapperAutoRefresh){
+            this.mapperAutoRefresh = mapperAutoRefresh;
+        }
+
+        @Override
+        public void run() {
+            // 解析资源
+            if(null==location){
+                location = Sets.newHashSet();
+                log.debug("MapperLocation's length:" + mapperLocations.length);
+                for (Resource mapperLocation : mapperLocations) {
+                    String s = mapperLocation.toString().replaceAll("\\\\", "/");
+                    s = s.substring("file [".length(), s.lastIndexOf(mappingPath) + mappingPath.length());
+                    if (!location.contains(s)) {
+                        location.add(s);
+                        log.info("Location:" + s);
+                    }
+                }
+                log.info("Locarion's size:" + location.size());
+            }
+
+            // 暂定时间
+            try {
+                TimeUnit.SECONDS.sleep(delaySeconds);
+            } catch (InterruptedException e2) {
+                e2.printStackTrace();
+            }
+
+            refresh = true;
+            log.info("========= Enabled refresh mybatis mapper =========");
+
+            // 开始执行刷新操作
+            while (true) {
+                try {
+                    for (String s : location) {
+                        mapperAutoRefresh.refresh(s, beforeTime);
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    TimeUnit.SECONDS.sleep(sleepSeconds);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+    }
+
     /** 执行资源刷新任务
      * @Description
      * @param
@@ -148,52 +205,10 @@ public class MapperAutoRefresh implements ApplicationContextAware {
         if(enabled){
             // 启动刷新线程
             final MapperAutoRefresh runnable = this;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // 解析资源
-                    if(null==location){
-                        location = Sets.newHashSet();
-                        log.debug("MapperLocation's length:" + mapperLocations.length);
-                        for (Resource mapperLocation : mapperLocations) {
-                            String s = mapperLocation.toString().replaceAll("\\\\", "/");
-                            s = s.substring("file [".length(), s.lastIndexOf(mappingPath) + mappingPath.length());
-                            if (!location.contains(s)) {
-                                location.add(s);
-                                log.info("Location:" + s);
-                            }
-                        }
-                        log.info("Locarion's size:" + location.size());
-                    }
 
-                    // 暂定时间
-                    try {
-                        TimeUnit.SECONDS.sleep(delaySeconds);
-                    } catch (InterruptedException e2) {
-                        e2.printStackTrace();
-                    }
-
-                    refresh = true;
-                    log.info("========= Enabled refresh mybatis mapper =========");
-
-                    // 开始执行刷新操作
-                    while (true) {
-                        try {
-                            for (String s : location) {
-                                runnable.refresh(s, beforeTime);
-                            }
-                        } catch (Exception e1) {
-                            e1.printStackTrace();
-                        }
-                        try {
-                            TimeUnit.SECONDS.sleep(sleepSeconds);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }
-            },ConstMapper.MYBATIS_THREAD_NAME).start();
+            ExecutorService es = ThreadPoolUtils.doCreate(1,1,"Mybatis-Refresh");
+            MyBatisThreadRefresh mtr = new MyBatisThreadRefresh(this);
+            es.execute(mtr);
         }
     }
 
@@ -334,6 +349,7 @@ public class MapperAutoRefresh implements ApplicationContextAware {
         }
 
         @SuppressWarnings("unchecked")
+        @Override
         public V put(String key, V value) {
             // ThinkGem 如果现在状态为刷新，则刷新(先删除后添加)
             if (MapperAutoRefresh.isRefresh()) {
@@ -343,7 +359,7 @@ public class MapperAutoRefresh implements ApplicationContextAware {
             if (containsKey(key)) {
                 throw new IllegalArgumentException(name + " already contains value for " + key);
             }
-            if (key.contains(".")) {
+            if (key.contains(Constant.POINT)) {
                 final String shortKey = getShortName(key);
                 if (super.get(shortKey) == null) {
                     super.put(shortKey, value);
@@ -354,6 +370,7 @@ public class MapperAutoRefresh implements ApplicationContextAware {
             return super.put(key, value);
         }
 
+        @Override
         public V get(Object key) {
             V value = super.get(key);
             if (value == null) {

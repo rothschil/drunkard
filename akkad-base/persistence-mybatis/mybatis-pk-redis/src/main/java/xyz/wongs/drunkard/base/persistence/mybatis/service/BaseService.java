@@ -2,7 +2,7 @@ package xyz.wongs.drunkard.base.persistence.mybatis.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import xyz.wongs.drunkard.base.entity.BaseEntityAbstract;
+import xyz.wongs.drunkard.base.entity.AbstractEntity;
 import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
 
 import java.io.Serializable;
@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @Version 1.0.0
  */
 @Transactional(readOnly = true)
-public abstract class BaseService<T extends BaseEntityAbstract,ID extends Serializable> extends RootServiceImpl<T,ID> implements IBaseService<T,ID>  {
+public abstract class BaseService<T extends AbstractEntity,ID extends Serializable> extends AbstractRootService<T,ID> implements IBaseService<T,ID>  {
 
     /** 待补充
      * @Description
@@ -25,6 +25,7 @@ public abstract class BaseService<T extends BaseEntityAbstract,ID extends Serial
      * @throws
      * @date 2020/8/2 14:12
      */
+    @Override
     protected abstract BaseMapper<T,ID> getMapper();
 
     @Autowired

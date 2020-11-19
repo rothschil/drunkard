@@ -19,6 +19,11 @@ public class Constant {
     /**
      * 斜杠
      */
+    public static final String POINT=".";
+
+    /**
+     * 斜杠
+     */
     public static final String SLASH="/";
 
     /**

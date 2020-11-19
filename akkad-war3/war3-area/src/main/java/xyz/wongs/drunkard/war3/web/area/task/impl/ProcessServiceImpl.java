@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.war3.web.zonecode.task.impl;
+package xyz.wongs.drunkard.war3.web.area.task.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
@@ -22,8 +22,8 @@ import xyz.wongs.drunkard.base.constant.Constant;
 import xyz.wongs.drunkard.war3.domain.entity.Location;
 import xyz.wongs.drunkard.war3.domain.service.LocationService;
 import xyz.wongs.drunkard.war3.web.IdClazzUtils;
-import xyz.wongs.drunkard.war3.web.ZoneCodeStringUtils;
-import xyz.wongs.drunkard.war3.web.zonecode.task.ProcessService;
+import xyz.wongs.drunkard.war3.web.AreaCodeStringUtils;
+import xyz.wongs.drunkard.war3.web.area.task.ProcessService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -172,7 +172,7 @@ public class ProcessServiceImpl implements ProcessService {
 		for(Location le:thridLevelLocas){
 			try {
 				List<Location> locations = new ArrayList<Location>(12);
-				String suffix = new StringBuilder().append(url).append(ZoneCodeStringUtils.getUrlStrByLocationCode(le.getLocalCode(), 3)).append(le.getUrl()).toString();
+				String suffix = new StringBuilder().append(url).append(AreaCodeStringUtils.getUrlStrByLocationCode(le.getLocalCode(), 3)).append(le.getUrl()).toString();
 				Elements es = null;
 				try {
 					es = getElementsByConnection(suffix,"villagetr");

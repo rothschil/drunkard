@@ -20,7 +20,7 @@ import java.util.Map;
  * @Version 1.0.0
  */
 @Data
-public abstract class BaseEntityAbstract<ID extends Serializable> extends AbstractIdEntity<ID> {
+public abstract class AbstractEntity<ID extends Serializable> extends BaseEntity<ID> {
 
     @JSONField(serialize = false)
     private String dtype;

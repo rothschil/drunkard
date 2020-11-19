@@ -13,9 +13,10 @@ package xyz.wongs.drunkard.base.message.enums;
  */
 public enum ResultCode {
 
-
+    /** 成功 **/
     SUCCESS(1,"成功"),
-    FAILURE(0,"成功"),
+    /** 失败 **/
+    FAILURE(0,"失败"),
 
     /**
      * 1000～1999 区间表示参数错误

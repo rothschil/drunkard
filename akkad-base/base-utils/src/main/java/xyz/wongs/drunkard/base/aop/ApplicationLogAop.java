@@ -86,7 +86,7 @@ public class ApplicationLogAop {
         operationLog.setEndTime(endTime);
         operationLog.setIsSuccess(sucess);
         operationLog.setCost(DateUtils.getMills(operationLog.getBeginTime(),endTime));
-
+        threadLocal.remove();
         queueTaskHandler.setOperationLog(operationLog);
         appLogQueue.addQueue(queueTaskHandler);
     }

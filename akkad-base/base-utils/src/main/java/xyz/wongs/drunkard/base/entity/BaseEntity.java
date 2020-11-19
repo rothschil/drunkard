@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @date 2020/8/2 13:32
  * @Version 1.0.0
 */
-public abstract class AbstractIdEntity<ID extends Serializable> implements Serializable {
+public abstract class BaseEntity<ID extends Serializable> implements Serializable {
 
     /** 无
      * @Description

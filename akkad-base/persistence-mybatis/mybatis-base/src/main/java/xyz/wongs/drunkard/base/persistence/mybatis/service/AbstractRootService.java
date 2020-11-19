@@ -3,7 +3,7 @@ package xyz.wongs.drunkard.base.persistence.mybatis.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.transaction.annotation.Transactional;
-import xyz.wongs.drunkard.base.entity.BaseEntityAbstract;
+import xyz.wongs.drunkard.base.entity.AbstractEntity;
 import xyz.wongs.drunkard.base.persistence.mybatis.mapper.RootMapper;
 import xyz.wongs.drunkard.base.persistence.mybatis.page.PaginationInfo;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * @Version 1.0.0
  */
 @Transactional(readOnly = true)
-public abstract class RootServiceImpl<T extends BaseEntityAbstract,ID extends Serializable> implements RootService<T,ID> {
+public abstract class AbstractRootService<T extends AbstractEntity,ID extends Serializable> implements RootService<T,ID> {
 
 
     /** 待补充

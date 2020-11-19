@@ -90,6 +90,13 @@ public class IpUtils {
             return null;
         }
 
+        long bic = 2;
+        long bic2 = 4L;
+        long bic4 = 8L;
+        long bic7 = 255L;
+        long bic15 = 65535L;
+        long bic31 = 16777215L;
+        long bic63 = 4294967295L;
         byte[] bytes = new byte[4];
         String[] elements = text.split("\\.", -1);
         try {
@@ -98,7 +105,7 @@ public class IpUtils {
             switch (elements.length) {
                 case 1:
                     l = Long.parseLong(elements[0]);
-                    if ((l < 0L) || (l > 4294967295L)) {
+                    if ((l < 0L) || (l > bic63)) {
                         return null;
                     }
                     bytes[0] = (byte) (int) (l >> 24 & 0xFF);
@@ -108,12 +115,12 @@ public class IpUtils {
                     break;
                 case 2:
                     l = Integer.parseInt(elements[0]);
-                    if ((l < 0L) || (l > 255L)) {
+                    if ((l < 0L) || (l > bic7)) {
                         return null;
                     }
                     bytes[0] = (byte) (int) (l & 0xFF);
                     l = Integer.parseInt(elements[1]);
-                    if ((l < 0L) || (l > 16777215L)) {
+                    if ((l < 0L) || (l > bic31)) {
                         return null;
                     }
                     bytes[1] = (byte) (int) (l >> 16 & 0xFF);
@@ -121,7 +128,7 @@ public class IpUtils {
                     bytes[3] = (byte) (int) (l & 0xFF);
                     break;
                 case 3:
-                    for (i = 0; i < 2; ++i) {
+                    for (i = 0; i < bic; ++i) {
                         l = Integer.parseInt(elements[i]);
                         if ((l < 0L) || (l > 255L)) {
                             return null;
@@ -129,14 +136,14 @@ public class IpUtils {
                         bytes[i] = (byte) (int) (l & 0xFF);
                     }
                     l = Integer.parseInt(elements[2]);
-                    if ((l < 0L) || (l > 65535L)) {
+                    if ((l < 0L) || (l > bic15)) {
                         return null;
                     }
                     bytes[2] = (byte) (int) (l >> 8 & 0xFF);
                     bytes[3] = (byte) (int) (l & 0xFF);
                     break;
                 case 4:
-                    for (i = 0; i < 4; ++i) {
+                    for (i = 0; i < bic2; ++i) {
                         l = Integer.parseInt(elements[i]);
                         if ((l < 0L) || (l > 255L)) {
                             return null;

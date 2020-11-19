@@ -1,10 +1,12 @@
-package xyz.wongs.drunkard.war3.web.zonecode.web.controller;
+package xyz.wongs.drunkard.war3.web.area.controller;
 
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+import xyz.wongs.drunkard.base.aop.annotion.ApplicationLog;
 import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
+import xyz.wongs.drunkard.base.message.exception.DrunkardException;
 import xyz.wongs.drunkard.base.web.BaseController;
 import xyz.wongs.drunkard.war3.domain.entity.Location;
 import xyz.wongs.drunkard.war3.domain.service.LocationService;
@@ -48,6 +50,25 @@ public class LocationController extends BaseController {
     @RequestMapping(value = "/{lv}", method = RequestMethod.GET)
     public List<Location> getLocationListByLevel(@PathVariable(value = "lv") Integer lv) {
         return locationService.getLocationListByLevel(lv);
+    }
+
+    @ApplicationLog
+    @GetMapping("/test")
+    public Map<String, Object> test() {
+        HashMap<String, Object> data = new HashMap<>(3);
+        data.put("info", "测试成功");
+        return data;
+    }
+
+    @ApplicationLog
+    @GetMapping("/fail")
+    public Integer error() {
+        // 查询结果数
+        int res = 0;
+        if( res == 0 ) {
+            throw new DrunkardException("没有数据");
+        }
+        return res;
     }
 
 }

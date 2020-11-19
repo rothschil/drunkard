@@ -16,10 +16,10 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 @MapperScan(basePackages = {"xyz.wongs.drunkard.**.mapper"})
 @SpringBootApplication
-public class DustAreaApplication {
+public class AreaApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DustAreaApplication.class,args);
+        SpringApplication.run(AreaApplication.class,args);
     }
 
 }

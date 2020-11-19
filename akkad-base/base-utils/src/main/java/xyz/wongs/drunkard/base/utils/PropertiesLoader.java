@@ -5,10 +5,12 @@
  */
 package xyz.wongs.drunkard.base.utils;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.NoSuchElementException;
 import java.util.Properties;
+import java.util.function.Consumer;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -141,10 +143,11 @@ public class PropertiesLoader {
 				Resource resource = resourceLoader.getResource(location);
 				is = resource.getInputStream();
 				props.load(is);
+				is.close();
 			} catch (IOException ex) {
 				logger.info("Could not load properties from path:" + location + ", " + ex.getMessage());
 			} finally {
-				IOUtils.closeQuietly(is);
+				IOUtils.closeQuietly((Closeable) is, (Consumer<IOException>) null);
 			}
 		}
 		return props;

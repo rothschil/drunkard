@@ -8,7 +8,7 @@ package xyz.wongs.drunkard.war3.web;
  * @Description: TODO
  * @date 2018/7/1 1:03
  **/
-public class ZoneCodeStringUtils {
+public class AreaCodeStringUtils {
 
 
     public static String RESULT_KEY_FLAG = "flag";
@@ -60,6 +60,6 @@ public class ZoneCodeStringUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(ZoneCodeStringUtils.getUrlStrByLocationCode("110102001000",3));
+        System.out.println(AreaCodeStringUtils.getUrlStrByLocationCode("110102001000",3));
     }
 }

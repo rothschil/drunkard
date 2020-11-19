@@ -1,6 +1,6 @@
 package xyz.wongs.drunkard.base.persistence.mybatis.mapper;
 
-import xyz.wongs.drunkard.base.entity.BaseEntityAbstract;
+import xyz.wongs.drunkard.base.entity.AbstractEntity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2020/8/19 20:54
  * @Version 1.0.0
 */
-public interface RootMapper<T extends BaseEntityAbstract,ID extends Serializable> {
+public interface RootMapper<T extends AbstractEntity,ID extends Serializable> {
 
     /** 获取一个对象List集合
      * @author WCNGS@QQ.COM

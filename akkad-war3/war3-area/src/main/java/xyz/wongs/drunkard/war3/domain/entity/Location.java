@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import xyz.wongs.drunkard.base.entity.BaseEntityAbstract;
+import xyz.wongs.drunkard.base.entity.AbstractEntity;
 
 /** 行政区域实体类
  * @ClassName Location
@@ -18,7 +18,7 @@ import xyz.wongs.drunkard.base.entity.BaseEntityAbstract;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Location extends BaseEntityAbstract<Long> {
+public class Location extends AbstractEntity<Long> {
 
     private Long id;
 

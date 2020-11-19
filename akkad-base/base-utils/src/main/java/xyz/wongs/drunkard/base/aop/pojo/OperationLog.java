@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import xyz.wongs.drunkard.base.entity.BaseEntityAbstract;
+import xyz.wongs.drunkard.base.entity.AbstractEntity;
 
 import java.util.Date;
 /**
@@ -19,7 +19,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OperationLog extends BaseEntityAbstract<Long> {
+public class OperationLog extends AbstractEntity<Long> {
     private Long id;
 
     private String ipAddr;

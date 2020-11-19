@@ -25,7 +25,7 @@ public interface LocationMapper extends BaseMapper<Location,Long> {
     @Override
     int deleteByPrimaryKey(Long id);
 
-    /**
+    /** 写入
      * @Description
      * @param record
      * @return
@@ -35,7 +35,7 @@ public interface LocationMapper extends BaseMapper<Location,Long> {
     @Override
     int insert(Location record);
 
-    /**
+    /** 按照条件依次写入
      * @Description
      * @param record
      * @return
@@ -45,7 +45,7 @@ public interface LocationMapper extends BaseMapper<Location,Long> {
     @Override
     int insertSelective(Location record);
 
-    /**
+    /** 根据主键查询
      * @Description
      * @param id
      * @return
@@ -55,7 +55,7 @@ public interface LocationMapper extends BaseMapper<Location,Long> {
     @Override
     Location selectByPrimaryKey(Long id);
 
-    /**
+    /** 根据主键修改 所选中的信息
      * @Description
      * @param record
      * @return
@@ -65,7 +65,7 @@ public interface LocationMapper extends BaseMapper<Location,Long> {
     @Override
     int updateByPrimaryKeySelective(Location record);
 
-    /**
+    /** 根据属性获取数量
      * @Description
      * @param location
      * @return
@@ -74,16 +74,17 @@ public interface LocationMapper extends BaseMapper<Location,Long> {
      */
     int getCount(Location location);
 
-    /**
+    /** 根据属性获取结果列表
      * @Description
      * @param location
      * @return
      * @throws
      * @date 2020/9/9 15:12
      */
+    @Override
     List<Location> getList(Location location);
 
-    /**
+    /** 批量插入
      * @Description
      * @param locations
      * @return
@@ -92,7 +93,7 @@ public interface LocationMapper extends BaseMapper<Location,Long> {
      */
     int insertBatchByOn(List<Location> locations);
 
-    /**
+    /** 根据属性获取结果列表
      * @Description
      * @param location
      * @return

@@ -1,7 +1,7 @@
 package xyz.wongs.drunkard.base.persistence.mybatis.service;
 
 import com.github.pagehelper.PageInfo;
-import xyz.wongs.drunkard.base.entity.BaseEntityAbstract;
+import xyz.wongs.drunkard.base.entity.AbstractEntity;
 import xyz.wongs.drunkard.base.persistence.mybatis.page.PaginationInfo;
 
 import java.io.Serializable;
@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @date 2020/8/19 20:58
  * @Version 1.0.0
 */
-public interface RootService<T extends BaseEntityAbstract,ID extends Serializable> {
+public interface RootService<T extends AbstractEntity,ID extends Serializable> {
 
     /**  待补充
      * @Description

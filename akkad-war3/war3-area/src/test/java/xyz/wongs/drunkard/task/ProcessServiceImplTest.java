@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import xyz.wongs.drunkard.base.BaseTest;
 import xyz.wongs.drunkard.war3.domain.entity.Location;
 import xyz.wongs.drunkard.war3.domain.service.LocationService;
-import xyz.wongs.drunkard.war3.web.ZoneCodeStringUtils;
-import xyz.wongs.drunkard.war3.web.zonecode.task.ProcessService;
+import xyz.wongs.drunkard.war3.web.AreaCodeStringUtils;
+import xyz.wongs.drunkard.war3.web.area.task.ProcessService;
 
 import java.util.Iterator;
 import java.util.List;
@@ -130,7 +130,7 @@ public class ProcessServiceImplTest extends BaseTest {
         Location location = null;
         while(iter.hasNext()){
             location = iter.next();
-            String url2 = new StringBuilder().append(URL).append(ZoneCodeStringUtils.getUrlStrByLocationCode(location.getLocalCode(), 2)).append(location.getUrl()).toString();
+            String url2 = new StringBuilder().append(URL).append(AreaCodeStringUtils.getUrlStrByLocationCode(location.getLocalCode(), 2)).append(location.getUrl()).toString();
             processService.initLevelThrid(url2, location, "D");
             try {
                 int times = new Random().nextInt(2000);

@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.war3.web.zonecode.task;
+package xyz.wongs.drunkard.war3.web.area.task;
 
 import org.apache.http.conn.ConnectTimeoutException;
 import org.jsoup.nodes.Document;
@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 import xyz.wongs.drunkard.war3.domain.entity.Location;
 import xyz.wongs.drunkard.war3.web.HttpCrawlerUtil;
-import xyz.wongs.drunkard.war3.web.zonecode.exception.NoIpAddressException;
+import xyz.wongs.drunkard.war3.web.area.exception.NoIpAddressException;
 
 import java.io.IOException;
 import java.util.*;

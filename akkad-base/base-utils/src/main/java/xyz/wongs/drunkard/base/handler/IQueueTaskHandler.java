@@ -10,5 +10,11 @@ package xyz.wongs.drunkard.base.handler;
 */
 public interface IQueueTaskHandler {
 
+    /**  这里也就是我们实现QueueTaskHandler的处理接口
+     * @Description
+     * @return
+     * @throws 
+     * @date 20/11/19 17:09
+    */
     void processData();
 }

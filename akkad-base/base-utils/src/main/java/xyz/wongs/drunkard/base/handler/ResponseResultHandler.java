@@ -11,7 +11,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
-import xyz.wongs.drunkard.base.message.response.R;
+import xyz.wongs.drunkard.base.message.response.Result;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -49,9 +49,9 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectContentType, Class<? extends HttpMessageConverter<?>> selectConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         log.error(" ENTER MSG .... Excu");
-        if(body instanceof R){
-            return (R) body;
+        if(body instanceof Result){
+            return (Result) body;
         }
-        return R.success(body);
+        return Result.success(body);
     }
 }

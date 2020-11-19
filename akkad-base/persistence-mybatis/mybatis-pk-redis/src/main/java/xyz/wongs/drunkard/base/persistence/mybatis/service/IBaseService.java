@@ -1,7 +1,7 @@
 package xyz.wongs.drunkard.base.persistence.mybatis.service;
 
 
-import xyz.wongs.drunkard.base.entity.BaseEntityAbstract;
+import xyz.wongs.drunkard.base.entity.AbstractEntity;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @date 2020/8/2 13:31
  * @Version 1.0.0
  */
-public interface IBaseService<T extends BaseEntityAbstract,ID extends Serializable> extends RootService<T,ID>{
+public interface IBaseService<T extends AbstractEntity,ID extends Serializable> extends RootService<T,ID>{
 
     /**  待补充
      * @Description

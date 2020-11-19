@@ -2,6 +2,7 @@ package xyz.wongs.drunkard.base.utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,59 +16,50 @@ import java.util.Map;
  * @date 2020/9/9 14:50
  * @Version 1.0.0
 */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Slf4j
 public class ThreadLocalMap {
-	/**
-	 * The constant threadContext.
-	 */
-	private final static ThreadLocal<Map<String, Object>> THREAD_CONTEXT = new MapThreadLocal();
+	protected final static ThreadLocal<Map<Object,Object>> THREAD_CONTEXT = new MapThreadLocal();
 
-	/**
-	 * Put.
-	 *
-	 * @param key   the key
-	 * @param value the value
-	 */
-	public static void put(String key, Object value) {
-		getContextMap().put(key, value);
+	private ThreadLocalMap(){};
+
+	public static void put(Object key,Object value){
+		//写入前remove之前
+		getContextMap().remove(key);
+
+		getContextMap().put(key,value);
 	}
 
-	/**
-	 * Remove object.
-	 *
-	 * @param key the key
-	 *
-	 * @return the object
-	 */
-	public static Object remove(String key) {
+	public static Object remove(Object key){
 		return getContextMap().remove(key);
 	}
 
-	/**
-	 * Get object.
-	 *
-	 * @param key the key
-	 *
-	 * @return the object
-	 */
-	public static Object get(String key) {
+	public static Object get(Object key){
 		return getContextMap().get(key);
 	}
 
-	private static class MapThreadLocal extends ThreadLocal<Map<String, Object>> {
-		/**
-		 * Initial value map.
-		 *
-		 * @return the map
-		 */
+	public static boolean containsKey(Object key){
+		return getContextMap().containsKey(key);
+	}
+
+	private static class MapThreadLocal extends ThreadLocal<Map<Object,Object>> {
 		@Override
-		protected Map<String, Object> initialValue() {
-			return new HashMap<String, Object>(8) {
+		protected Map<Object,Object> initialValue() {
+			return new HashMap<Object,Object>() {
 
 				private static final long serialVersionUID = 3637958959138295593L;
 
 				@Override
-				public Object put(String key, Object value) {
+				public Object put(Object key, Object value) {
+					if (log.isDebugEnabled()) {
+						if (containsKey(key)) {
+							log.debug("Overwritten attribute to thread context: " + key
+									+ " = " + value);
+						} else {
+							log.debug("Added attribute to thread context: " + key + " = "
+									+ value);
+						}
+					}
+
 					return super.put(key, value);
 				}
 			};
@@ -79,14 +71,16 @@ public class ThreadLocalMap {
 	 *
 	 * @return thread context Map的实例
 	 */
-	private static Map<String, Object> getContextMap() {
-		return THREAD_CONTEXT.get();
+	protected static Map<Object,Object> getContextMap() {
+		return (Map<Object,Object>) THREAD_CONTEXT.get();
 	}
+
 
 	/**
 	 * 清理线程所有被hold住的对象。以便重用！
 	 */
-	public static void remove() {
+
+	public static void reset(){
 		getContextMap().clear();
 	}
 }

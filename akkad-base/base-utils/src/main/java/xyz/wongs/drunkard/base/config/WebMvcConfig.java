@@ -55,7 +55,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
         fastJsonHttpMessageConverter.setFastJsonConfig(config);
         List<MediaType> fastMediaTypes = new ArrayList<>();
-        fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+        fastMediaTypes.add(MediaType.APPLICATION_JSON);
         fastJsonHttpMessageConverter.setSupportedMediaTypes(fastMediaTypes);
         converters.add(fastJsonHttpMessageConverter);
         // 添加 StringHttpMessageConverter，解决中文乱码问题
