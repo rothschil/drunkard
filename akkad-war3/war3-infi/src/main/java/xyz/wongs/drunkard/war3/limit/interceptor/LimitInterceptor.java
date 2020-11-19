@@ -67,9 +67,8 @@ public class LimitInterceptor implements HandlerInterceptor {
     private void resonseOut(HttpServletResponse response, ErrorResult result) throws IOException {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
-        PrintWriter out = null ;
         String json = JSONObject.toJSON(result).toString();
-        out = response.getWriter();
+        PrintWriter out = response.getWriter();
         out.append(json);
     }
 
