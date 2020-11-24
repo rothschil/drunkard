@@ -15,6 +15,7 @@ import xyz.wongs.drunkard.war3.web.area.task.ProcessService;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @ClassName ProcessServiceImplTest
@@ -24,10 +25,10 @@ import java.util.Random;
  * @date 2020/9/9 15:26
  * @Version 1.0.0
 */
-public class ProcessServiceImplTest extends BaseTest {
+public class ProcessServiceTest extends BaseTest {
 
-    private static final String URL = "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2019/";
-    private final static Logger logger = LoggerFactory.getLogger(ProcessServiceImplTest.class);
+    private static final String URL = "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2020/";
+    private final static Logger logger = LoggerFactory.getLogger(ProcessServiceTest.class);
 
     static final int counts = 200;
 
@@ -51,7 +52,7 @@ public class ProcessServiceImplTest extends BaseTest {
     }
 
 
-    /** 解析所有省直辖的城市
+    /** 解析所有省、直辖的城市
      * @Description
      * @return void
      * @throws
@@ -121,10 +122,11 @@ public class ProcessServiceImplTest extends BaseTest {
     }
 
     public void three(int pageNum){
-        PageInfo<Location> pageInfo = locationService.getLocationsByLv(2,pageNum,100);
+        PageInfo<Location> pageInfo = locationService.getLocationsByLv(2,pageNum,30);
         if(pageInfo.getPages()==0 || pageInfo.getPageNum()>pageInfo.getPages()){
             return;
         }
+        uot++ ;
         List<Location> locations = pageInfo.getList();
         Iterator<Location> iter = locations.iterator();
         Location location = null;
@@ -139,9 +141,13 @@ public class ProcessServiceImplTest extends BaseTest {
                 e.printStackTrace();
             }
         }
+        if(uot==COT){
+            return;
+        }
         three(pageNum+1);
     }
-
+    private static int COT = 300;
+    private static int uot = 0;
 
     /** 根据乡镇 街道，解析并初始化社区村
      * @Description
@@ -158,19 +164,18 @@ public class ProcessServiceImplTest extends BaseTest {
     }
 
     public void village(int pageNum,Location location){
-//        int sc=0;
-//        if(sc==counts){
-//            return;
-//        }
-        PageInfo<Location> pageInfo = locationService.getLocationsByLvAndFlag(pageNum,10,location);
+        PageInfo<Location> pageInfo = locationService.getLocationsByLvAndFlag(pageNum,50,location);
         if(pageInfo.getPages()==0 || pageInfo.getPageNum()>pageInfo.getPages()){
             return;
         }
+        uot++ ;
         List<Location> locations = pageInfo.getList();
         if(!locations.isEmpty()){
             processService.initLevelFour(URL, locations);
         }
-//        sc++;
+        if(uot==COT){
+            return;
+        }
         village(pageNum+1,location);
     }
 

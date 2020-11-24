@@ -15,9 +15,9 @@ import xyz.wongs.drunkard.base.persistence.mybatis.service.RedisUidService;
 */
 public class IdClazzUtils {
 
-    private static RedisUidService redisUidService;
+    private final static RedisUidService redisUidService;
 
-    public IdClazzUtils(){
+    static {
         redisUidService = SpringContextHolder.getBean(RedisUidService.class);
     }
 

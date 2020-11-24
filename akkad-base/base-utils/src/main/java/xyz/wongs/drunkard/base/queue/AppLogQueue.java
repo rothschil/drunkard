@@ -46,8 +46,11 @@ public class AppLogQueue {
                     public void run() {
                         while(running){
                             try {
-                                IQueueTaskHandler taskHandler = queue.take();
-                                taskHandler.processData();
+                                // 队列中不存在元素 则不处理
+                                if(!queue.isEmpty()){
+                                    IQueueTaskHandler taskHandler = queue.take();
+                                    taskHandler.processData();
+                                }
                             } catch (InterruptedException e) {
                                 log.error("服务停止，退出", e);
                                 running = false;

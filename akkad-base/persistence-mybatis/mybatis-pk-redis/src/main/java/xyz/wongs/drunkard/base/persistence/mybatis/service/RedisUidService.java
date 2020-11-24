@@ -3,6 +3,7 @@ package xyz.wongs.drunkard.base.persistence.mybatis.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicLong;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -16,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2020/8/2 14:13
  * @Version 1.0.0
 */
-@Service
+@Component
 public class RedisUidService {
 
     @Autowired
