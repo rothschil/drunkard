@@ -1,4 +1,6 @@
-package xyz.wongs.drunkard.war3.web;
+package xyz.wongs.drunkard.war3.web.util;
+
+import java.util.Random;
 
 /**
  * @author WCNGS@QQ.CO
@@ -57,6 +59,10 @@ public class AreaCodeStringUtils {
             }
         }
         return sb.toString();
+    }
+
+    public static int getSecond(int bound){
+        return new Random().nextInt(bound);
     }
 
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.war3.web;
+package xyz.wongs.drunkard.war3.web.util;
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;

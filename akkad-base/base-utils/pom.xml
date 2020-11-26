@@ -17,6 +17,12 @@
         <javax.servlet.api.version>4.0.1</javax.servlet.api.version>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-compress</artifactId>

@@ -2,6 +2,7 @@ package xyz.wongs.drunkard.war3.web.area.task.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
+import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -21,15 +22,17 @@ import org.springframework.util.StringUtils;
 import xyz.wongs.drunkard.base.constant.Constant;
 import xyz.wongs.drunkard.war3.domain.entity.Location;
 import xyz.wongs.drunkard.war3.domain.service.LocationService;
-import xyz.wongs.drunkard.war3.web.IdClazzUtils;
-import xyz.wongs.drunkard.war3.web.AreaCodeStringUtils;
+import xyz.wongs.drunkard.war3.web.util.IdClazzUtils;
+import xyz.wongs.drunkard.war3.web.util.AreaCodeStringUtils;
 import xyz.wongs.drunkard.war3.web.area.task.ProcessService;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -51,7 +54,12 @@ public class ProcessServiceImpl implements ProcessService {
 
 	@Override
 	public void initLevelOne(String url, Location parentLocation) {
-		List<Location> levelOne = getLevelOneByRoot(url,parentLocation.getLocalCode());
+		List<Location> levelOne = null;
+		try {
+			levelOne = getLevelOneByRoot(url,parentLocation.getLocalCode());
+		} catch (IOException e) {
+			log.error(" IOException pCode={}",parentLocation.getLocalCode(),e.getMessage(),url);
+		}
 		save(levelOne);
 	}
 
@@ -92,19 +100,23 @@ public class ProcessServiceImpl implements ProcessService {
 
 	public List<Location> getLocationRoot(String url,String pCode){
 		List<Location> locas = new ArrayList<Location>(35);
-		Elements eleProv = getElementsByConnection(url,"provincetr");
-		for(Element e:eleProv){
-			Elements eleHerf = e.getElementsByTag("td").select("a[href]");
-			if(null==eleHerf || eleHerf.size()==0){
-				continue;
+		try {
+			Elements eleProv = getElementsByConnection(url,"provincetr");
+			for(Element e:eleProv){
+				Elements eleHerf = e.getElementsByTag("td").select("a[href]");
+				if(null==eleHerf || eleHerf.size()==0){
+					continue;
+				}
+				for(Element target:eleHerf) {
+					String urls = target.attributes().asList().get(0).getValue();
+					Location location = Location.builder().id(IdClazzUtils.getId(Location.class))
+							.localCode("0").url(urls).lv(0).localName(target.text())
+							.localCode(urls.substring(0, 2)).build();
+					locas.add(location);
+				}
 			}
-			for(Element target:eleHerf) {
-				String urls = target.attributes().asList().get(0).getValue();
-				Location location = Location.builder().id(IdClazzUtils.getId(Location.class))
-						.localCode("0").url(urls).lv(0).localName(target.text())
-						.localCode(urls.substring(0, 2)).build();
-				locas.add(location);
-			}
+		} catch (IOException e) {
+			log.error(" IOException pCode={}",pCode,e.getMessage(),url);
 		}
 		return locas;
 	}
@@ -170,24 +182,11 @@ public class ProcessServiceImpl implements ProcessService {
 	@Override
 	public void initLevelFour(String url,List<Location> thridLevelLocas){
 		for(Location le:thridLevelLocas){
+			List<Location> locations = new ArrayList<Location>(12);
+			String suffix = new StringBuilder().append(url).append(AreaCodeStringUtils.getUrlStrByLocationCode(le.getLocalCode(), 3)).append(le.getUrl()).toString();
+			Elements es = null;
 			try {
-				List<Location> locations = new ArrayList<Location>(12);
-				String suffix = new StringBuilder().append(url).append(AreaCodeStringUtils.getUrlStrByLocationCode(le.getLocalCode(), 3)).append(le.getUrl()).toString();
-				Elements es = null;
-				try {
-					es = getElementsByConnection(suffix,"villagetr");
-				} catch (Exception e) {
-					log.error("");
-				}
-				if(null==es){
-					try {
-						int times = new Random().nextInt(2000);
-						Thread.sleep(times);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					continue;
-				}
+				es = getElementsByConnection(suffix,"villagetr");
 				Location tempLocation = null;
 				for(Element e:es){
 					tempLocation = new Location(e.child(0).text(),e.child(2).text(),le.getLocalCode(),null,4);
@@ -197,8 +196,17 @@ public class ProcessServiceImpl implements ProcessService {
 				le.setFlag("Y");
 				locationService.updateByPrimaryKey(le);
 				save(locations);
+			} catch (IOException e) {
+				log.error(" IOException code={},msg={},url={}",le.getLocalCode(),e.getMessage(),suffix);
+				int times = AreaCodeStringUtils.getSecond(3);
+				try {
+					TimeUnit.SECONDS.sleep(times);
+				} catch (InterruptedException interruptedException) {
+					log.error("msg={} ",interruptedException.getMessage());
+				}
+				continue;
 			} catch (Exception e) {
-				log.error("le={}",le.toString());
+				log.error("Exception code={},msg={}",le.getLocalCode(),e.getMessage());
 				continue;
 			}
 		}
@@ -268,7 +276,7 @@ public class ProcessServiceImpl implements ProcessService {
 	 * @return
 	 * @return: List<Location>
 	 */
-	public List<Location> getLevelOneByRoot(String url,String pCode){
+	public List<Location> getLevelOneByRoot(String url,String pCode)  throws IOException{
 
 		List<Location> locas = new ArrayList<Location>(20);
 		Elements eles = getElementsByConnection(url,"citytr");
@@ -288,7 +296,7 @@ public class ProcessServiceImpl implements ProcessService {
 	}
 
 
-	public List<Location> getLocation(String url,String[] cssClazz,String parentCode,Integer lv,String flag){
+	public List<Location> getLocation(String url,String[] cssClazz,String parentCode,Integer lv,String flag)  throws IOException{
 		List<Location> locas = new ArrayList<Location>(20);
 		Elements eles = getElementsByConnection(url,cssClazz[0]);
 		if(null==eles){
@@ -335,10 +343,15 @@ public class ProcessServiceImpl implements ProcessService {
 	 * @exception
 	 * @date        2018/7/2 11:28
 	 */
-	public Elements getElementsByConnection(String url,String clazzName){
+	public Elements getElementsByConnection(String url,String clazzName) throws IOException{
 
 		try {
-			CloseableHttpClient httpclient = HttpClients.createDefault();
+			/** CloseableHttpClient httpclient = HttpClients.createDefault(); **/
+			//设置CookieSpecs.STANDARD的cookie解析模式，下面为源码，对应解析格式我给出了备注
+			CloseableHttpClient httpclient= HttpClients.custom()
+					.setDefaultRequestConfig(RequestConfig.custom()
+							.setCookieSpec(CookieSpecs.STANDARD).build())
+					.build();
 			HttpGet httpget = new HttpGet(url);
 			httpget.setHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:50.0) Gecko/20100101 Firefox/50.0");
 			RequestConfig config = RequestConfig.custom()
@@ -360,9 +373,8 @@ public class ProcessServiceImpl implements ProcessService {
 			return doc.getElementsByClass(clazzName);
 		} catch (ConnectTimeoutException e) {
 			log.error(" ConnectTimeoutException URL={},clazzName={},errMsg={}",url,clazzName,e.getMessage());
-		} catch (IOException e) {
-			log.error(" IOException URL={},clazzName={},errMsg={}",url,clazzName,e.getMessage());
 		}
+
 		return null;
 	}
 
@@ -381,12 +393,10 @@ public class ProcessServiceImpl implements ProcessService {
 			Location cation =it.next();
 			String str= cation.getUrl();
 			if (cation.getLv()==3){
-//				url=str;
 				sb.append(str);
 			} else{
 				int i = cation.getUrl().indexOf(Constant.SLASH);
 				sb.append(str.substring(0, i)).append(Constant.SLASH).append(sb);
-				// url = str.substring(0, i)+"/"+url;
 			}
 		}
 		return url;

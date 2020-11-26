@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.war3.web;
+package xyz.wongs.drunkard.war3.web.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

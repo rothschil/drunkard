@@ -13,6 +13,7 @@ import xyz.wongs.drunkard.base.message.enums.ResultCode;
 import xyz.wongs.drunkard.base.message.response.ErrorResult;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 /**
@@ -27,6 +28,22 @@ import java.util.List;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    /** 参数校验不通过
+     * @author WCNGS@QQ.COM
+     * @See
+     * @date 2019/9/23 17:53
+     * @param ex
+     * @return xyz.wongs.drunkard.base.message.response.ErrorResult
+     * @throws
+     * @since
+     */
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    @ResponseBody
+    public ErrorResult handleConstraintViolationException(ConstraintViolationException ex) {
+        log.error("ConstraintViolationException msg:{}",ex.getMessage());
+        return ErrorResult.fail(ResultCode.PARAMS_IS_INVALID,ex);
+    }
+
 
     /** 自定义异常
      * @author WCNGS@QQ.COM
@@ -34,7 +51,7 @@ public class GlobalExceptionHandler {
      * @date 2019/9/23 17:53
      * @param request
      * @param ex
-     * @return xyz.wongs.drunkard.base.message.response.Response
+     * @return xyz.wongs.drunkard.base.message.response.ErrorResult
      * @throws
      * @since
      */

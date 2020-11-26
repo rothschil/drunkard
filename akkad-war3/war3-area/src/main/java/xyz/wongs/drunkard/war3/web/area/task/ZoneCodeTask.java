@@ -6,7 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 import xyz.wongs.drunkard.war3.domain.entity.Location;
-import xyz.wongs.drunkard.war3.web.HttpCrawlerUtil;
+import xyz.wongs.drunkard.war3.web.util.HttpCrawlerUtil;
 import xyz.wongs.drunkard.war3.web.area.exception.NoIpAddressException;
 
 import java.io.IOException;

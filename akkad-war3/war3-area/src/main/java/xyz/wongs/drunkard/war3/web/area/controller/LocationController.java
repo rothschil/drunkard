@@ -3,6 +3,7 @@ package xyz.wongs.drunkard.war3.web.area.controller;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import xyz.wongs.drunkard.base.aop.annotion.ApplicationLog;
 import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
@@ -11,6 +12,7 @@ import xyz.wongs.drunkard.base.web.BaseController;
 import xyz.wongs.drunkard.war3.domain.entity.Location;
 import xyz.wongs.drunkard.war3.domain.service.LocationService;
 
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 /**
@@ -21,6 +23,7 @@ import java.util.*;
  * @date 20/11/18 11:04
  * @Version 1.0.0
 */
+@Validated
 @Api(value = "areas")
 @ResponseResult
 @RestController
@@ -71,5 +74,12 @@ public class LocationController extends BaseController {
         return res;
     }
 
+    @ApplicationLog
+    @GetMapping("/vali")
+    public Map<String, Object> testValidator(@NotNull(message = "userId不能为空") Integer userId) {
+        HashMap<String, Object> data = new HashMap<>(3);
+        data.put("info", "测试成功");
+        return data;
+    }
 }
 

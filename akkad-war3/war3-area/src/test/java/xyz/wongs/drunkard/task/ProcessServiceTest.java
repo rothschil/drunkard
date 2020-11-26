@@ -1,6 +1,7 @@
 package xyz.wongs.drunkard.task;
 
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,13 +10,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import xyz.wongs.drunkard.base.BaseTest;
 import xyz.wongs.drunkard.war3.domain.entity.Location;
 import xyz.wongs.drunkard.war3.domain.service.LocationService;
-import xyz.wongs.drunkard.war3.web.AreaCodeStringUtils;
+import xyz.wongs.drunkard.war3.web.util.AreaCodeStringUtils;
 import xyz.wongs.drunkard.war3.web.area.task.ProcessService;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName ProcessServiceImplTest
@@ -25,12 +26,11 @@ import java.util.concurrent.CountDownLatch;
  * @date 2020/9/9 15:26
  * @Version 1.0.0
 */
+@Slf4j
 public class ProcessServiceTest extends BaseTest {
 
     private static final String URL = "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2020/";
     private final static Logger logger = LoggerFactory.getLogger(ProcessServiceTest.class);
-
-    static final int counts = 200;
 
     @Autowired
     @Qualifier("processService")
@@ -122,7 +122,7 @@ public class ProcessServiceTest extends BaseTest {
     }
 
     public void three(int pageNum){
-        PageInfo<Location> pageInfo = locationService.getLocationsByLv(2,pageNum,30);
+        PageInfo<Location> pageInfo = locationService.getLocationsByLv(2,pageNum,100);
         if(pageInfo.getPages()==0 || pageInfo.getPageNum()>pageInfo.getPages()){
             return;
         }
@@ -135,10 +135,10 @@ public class ProcessServiceTest extends BaseTest {
             String url2 = new StringBuilder().append(URL).append(AreaCodeStringUtils.getUrlStrByLocationCode(location.getLocalCode(), 2)).append(location.getUrl()).toString();
             processService.initLevelThrid(url2, location, "D");
             try {
-                int times = new Random().nextInt(2000);
-                Thread.sleep(times);
+                int times = AreaCodeStringUtils.getSecond(3);
+                TimeUnit.SECONDS.sleep(times);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error("msg={} ",e.getMessage());
             }
         }
         if(uot==COT){
@@ -146,13 +146,13 @@ public class ProcessServiceTest extends BaseTest {
         }
         three(pageNum+1);
     }
-    private static int COT = 300;
+    private static int COT = 100;
     private static int uot = 0;
 
     /** 根据乡镇 街道，解析并初始化社区村
      * @Description
      * @return
-     * @throws
+     * @throwsOperationImplicitParameterReader
      * @date 2020/4/30 0:27
      */
     @Test
@@ -160,11 +160,12 @@ public class ProcessServiceTest extends BaseTest {
         Location location = new Location();
         location.setLv(3);
         location.setFlag("D");
-        village(1,location);
+        village(0,location);
     }
 
     public void village(int pageNum,Location location){
-        PageInfo<Location> pageInfo = locationService.getLocationsByLvAndFlag(pageNum,50,location);
+        PageInfo<Location> pageInfo = locationService.getLocationsByLvAndFlag(pageNum,2,location);
+        log.error(pageInfo.toString());
         if(pageInfo.getPages()==0 || pageInfo.getPageNum()>pageInfo.getPages()){
             return;
         }
