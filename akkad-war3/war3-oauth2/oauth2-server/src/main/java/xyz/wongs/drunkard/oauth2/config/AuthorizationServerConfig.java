@@ -122,11 +122,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.tokenKeyAccess("permitAll()")
                 //允许check_token访问
-                .checkTokenAccess("isAuthenticated()")
+                .checkTokenAccess("permitAll()")
                 //允许表单登录
                 .allowFormAuthenticationForClients()
                 //oauth/token端点过滤器
-                .addTokenEndpointAuthenticationFilter(oAuthTokenAuthenticationFilter);
+//                .addTokenEndpointAuthenticationFilter(oAuthTokenAuthenticationFilter)
+        ;
     }
 
     @Override
