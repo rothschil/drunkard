@@ -1,20 +1,18 @@
 package xyz.wongs.drunkard.base.message.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
-import org.springframework.validation.FieldError;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
-import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import xyz.wongs.drunkard.base.message.enums.ResultCode;
 import xyz.wongs.drunkard.base.message.response.ErrorResult;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
-import java.util.List;
 
 /**
  * @ClassName GlobalExceptionHandler
@@ -74,7 +72,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Throwable.class)
     public ErrorResult handlerThrowable(Throwable e, HttpServletRequest request) {
         log.error("发生未知异常！原因是: ", e);
-        ErrorResult error = ErrorResult.fail(ResultCode.SYSTEM_ERROR, e);
+        ErrorResult error = ErrorResult.fail(ResultCode.RUNTIME_EXCEPTION, e);
         return error;
     }
     /**
@@ -88,14 +86,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BindException.class)
     public ErrorResult handleBindExcpetion(BindException e, HttpServletRequest request) {
         log.error("发生参数校验异常！原因是：",e);
-        ErrorResult error = ErrorResult.fail(ResultCode.VALID_ENTITY_PARAMS, e, e.getAllErrors().get(0).getDefaultMessage());
+        ErrorResult error = ErrorResult.fail(ResultCode.API_PARAM_EXCEPTION, e, e.getAllErrors().get(0).getDefaultMessage());
         return error;
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResult handleMethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest request) {
         log.error("发生参数校验异常！原因是：",e);
-        ErrorResult error = ErrorResult.fail(ResultCode.VALID_ENTITY_PARAMS,e,e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+        ErrorResult error = ErrorResult.fail(ResultCode.API_PARAM_EXCEPTION,e,e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
         return error;
     }
 //

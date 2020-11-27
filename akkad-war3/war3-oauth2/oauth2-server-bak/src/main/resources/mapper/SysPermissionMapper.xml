@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.wongs.drunkard.oauth2.domain.mapper.SysPermissionMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.oauth2.domain.entity.SysPermission" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="perm_name" property="permName" jdbcType="VARCHAR" />
+    <result column="descritpion" property="descritpion" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, perm_name, descritpion, url, pid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_permission
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="findByAdminUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+	t5.id,t5.perm_name,t5.descritpion,t5.url,t5.pid
+    from oauth_user t1
+		left join sys_role_user t2 on(t1.u_id=t2.user_id)
+		left join Sys_Role t3 on(t2.role_id=t3.id)
+		left join Sys_permission_role t4 on(t3.id=t4.role_id)
+		left join Sys_permission t5 on(t4.permission_id=t5.id)
+    where t1.u_id=#{uId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_permission
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="xyz.wongs.drunkard.oauth2.domain.entity.SysPermission" >
+    insert into sys_permission (id, perm_name, descritpion, 
+      url, pid)
+    values (#{id,jdbcType=BIGINT}, #{permName,jdbcType=VARCHAR}, #{descritpion,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="xyz.wongs.drunkard.oauth2.domain.entity.SysPermission" >
+    insert into sys_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="permName != null" >
+        perm_name,
+      </if>
+      <if test="descritpion != null" >
+        descritpion,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="permName != null" >
+        #{permName,jdbcType=VARCHAR},
+      </if>
+      <if test="descritpion != null" >
+        #{descritpion,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunkard.oauth2.domain.entity.SysPermission" >
+    update sys_permission
+    <set >
+      <if test="permName != null" >
+        perm_name = #{permName,jdbcType=VARCHAR},
+      </if>
+      <if test="descritpion != null" >
+        descritpion = #{descritpion,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunkard.oauth2.domain.entity.SysPermission" >
+    update sys_permission
+    set perm_name = #{permName,jdbcType=VARCHAR},
+      descritpion = #{descritpion,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

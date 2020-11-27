@@ -7,7 +7,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
 import xyz.wongs.drunkard.base.message.enums.ResultCode;
 import xyz.wongs.drunkard.base.message.exception.DrunkardException;
 import xyz.wongs.drunkard.base.message.response.ErrorResult;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -50,7 +48,7 @@ public class LimitInterceptor implements HandlerInterceptor {
             RequestLimit requestLimit = methodAnnotation != null?methodAnnotation:classAnnotation;
             if(requestLimit != null){
                 if(isLimit(request,requestLimit)){
-                    resonseOut(response, ErrorResult.fail(ResultCode.INTF_REQ_MORE_THAN_SET,new DrunkardException(ResultCode.INTF_REQ_MORE_THAN_SET)));
+                    resonseOut(response, ErrorResult.fail(ResultCode.API_REQ_MORE_THAN_SET,new DrunkardException(ResultCode.API_REQ_MORE_THAN_SET)));
                     return false;
                 }
             }

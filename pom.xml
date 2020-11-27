@@ -93,7 +93,7 @@
             </dependency>
             <dependency>
                 <groupId>xyz.wongs.drunkard</groupId>
-                <artifactId>persistence-domain</artifactId>
+                <artifactId>war3-oauth2</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

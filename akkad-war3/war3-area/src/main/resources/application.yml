@@ -39,6 +39,21 @@ spring:
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=6000
       login-username: admin
       login-password: 123456
+  resources:
+    static-locations: classpath:/static/,classpath:/templates/,classpath:/pages/
+  mvc:
+    static-path-pattern: /resources/**
+  thymeleaf:
+    servlet:
+      contentType: text/html; charset=utf-8
+    cache: false
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    enabled: true
+    prefix: classpath:/pages/
+    suffix: .html
+  main:
+    allow-bean-definition-overriding: true
 # mybatis配置
 mybatis:
   mapperLocations: classpath:mapper/**/*.xml

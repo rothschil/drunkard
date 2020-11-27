@@ -14,9 +14,17 @@ package xyz.wongs.drunkard.base.message.enums;
 public enum ResultCode {
 
     /** 成功 **/
-    SUCCESS(1,"成功"),
+    SUCCESS(0,"成功"),
     /** 失败 **/
-    FAILURE(0,"失败"),
+    FAILURE(-1,"失败"),
+
+    EXCEPTION(201, "未知异常"),
+    RUNTIME_EXCEPTION(202, "运行时异常"),
+    NULL_POINTER_EXCEPTION(203, "空指针异常"),
+    CLASS_CAST_EXCEPTION(204, "类型转换异常"),
+    IO_EXCEPTION(205, "IO异常"),
+    SYSTEM_EXCEPTION(210, "系统异常"),
+    NOT_FOUND(404, "Not Found"),
 
     /**
      * 1000～1999 区间表示参数错误
@@ -49,40 +57,70 @@ public enum ResultCode {
     /**
      * 3000～3999 区间表示接口异常
      */
-    INTF_REQ_MORE_THAN_SET(3001,"接口请求超过设置值"),
+    API_EXCEPTION(3000, "接口异常"),
+    API_NOT_FOUND_EXCEPTION(3002, "接口不存在"),
+    API_REQ_MORE_THAN_SET(3003, "接口访问过于频繁，请稍后再试"),
+    API_IDEMPOTENT_EXCEPTION(3004, "接口不可以重复提交，请稍后再试"),
+    API_PARAM_EXCEPTION(3005, "参数异常"),
+    API_PARAM_MISSING_EXCEPTION(3006, "缺少参数"),
+    API_METHOD_NOT_SUPPORTED_EXCEPTION(3007, "不支持的Method类型"),
+    API_METHOD_PARAM_TYPE_EXCEPTIION(3008, "参数类型不匹配"),
 
-    FAILED(400,"请求失败"),
-    ERROR(500,"应用服务不知名错误"),
-    ERROR_NULL(501,"空指针异常"),
-    ERROR_CLASS_CAST(502,"类型转换异常"),
-    ERROR_RUNTION(503,"运行时异常"),
+    ARRAY_EXCEPTION(11001, "数组异常"),
+    ARRAY_OUT_OF_BOUNDS_EXCEPTION(11002, "数组越界异常"),
 
-    ERROR_MOTHODNOTSUPPORT(505,"没有匹配请求方法"),
+    JSON_SERIALIZE_EXCEPTION(30000, "序列化数据异常"),
+    JSON_DESERIALIZE_EXCEPTION(30001, "反序列化数据异常"),
 
+    READ_RESOURSE_EXCEPTION(31002, "读取资源异常"),
+    READ_RESOURSE_NOT_FOUND_EXCEPTION(31003, "资源不存在异常"),
 
+    DATA_EXCEPTION(32004, "数据异常"),
+    DATA_NOT_FOUND_EXCEPTION(32005, "未找到符合条件的数据异常"),
+    DATA_CALCULATION_EXCEPTION(32006, "数据计算异常"),
+    DATA_COMPRESS_EXCEPTION(32007, "数据压缩异常"),
+    DATA_DE_COMPRESS_EXCEPTION(32008, "数据解压缩异常"),
+    DATA_PARSE_EXCEPTION(32009, "数据转换异常"),
 
+    ENCODING_EXCEPTION(33006, "编码异常"),
+    ENCODING_UNSUPPORTED_EXCEPTION(33006, "编码不支持异常"),
 
-    ALGORITHM_CAN_NOT_NULL(10003,"加密方式不能为空，可选 RS256、HS256"),
-    VALID_ENTITY_PARAMS(10004,"请求参数校验不匹配"),
-    VALID_UNION_PARAMS(10005,"实体对象传参不匹配"),
-    PARAM_ERROR(12001,"参数不合规"),
+    DATE_PARSE_EXCEPTION(34001, "日期转换异常"),
 
-
-    GET_LOCK_FAIL(33333,"获取分布式锁失败"),
-    RELEASE_LOCK_FAIL(33334,"释放分布式失败"),
-
-    UPLOAD_FAIL(34000,"上传文件失败"),
-    FILE_TOO_LARGE(34001,"文件过大"),
-
-
-    ATTR_COPY_ERROR(13001,"属性COPY异常"),
-
-    RESOURCE_EXIST(14001,"资源已经存在"),
-    RESOURCE_NOT_EXIST(14002, "资源不存在"),
-    INSUFFICIENT_RESOURCE(14003, "资源不符合规范"),
-
-    SYSTEM_ERROR(10000, "系统异常，请稍后重试"),
-    NETWORK_ERROR(99999, "网络错误，待会重试");
+    MAILE_SEND_EXCEPTION(35001, "邮件发送异常");
+//
+//    FAILED(400,"请求失败"),
+//    ERROR(500,"应用服务不知名错误"),
+//    ERROR_NULL(501,"空指针异常"),
+//    ERROR_CLASS_CAST(502,"类型转换异常"),
+//    ERROR_RUNTION(503,"运行时异常"),
+//
+//    ERROR_MOTHODNOTSUPPORT(505,"没有匹配请求方法"),
+//
+//
+//
+//
+//    ALGORITHM_CAN_NOT_NULL(10003,"加密方式不能为空，可选 RS256、HS256"),
+//    VALID_ENTITY_PARAMS(10004,"请求参数校验不匹配"),
+//    VALID_UNION_PARAMS(10005,"实体对象传参不匹配"),
+//    PARAM_ERROR(12001,"参数不合规"),
+//
+//
+//    GET_LOCK_FAIL(33333,"获取分布式锁失败"),
+//    RELEASE_LOCK_FAIL(33334,"释放分布式失败"),
+//
+//    UPLOAD_FAIL(34000,"上传文件失败"),
+//    FILE_TOO_LARGE(34001,"文件过大"),
+//
+//
+//    ATTR_COPY_ERROR(13001,"属性COPY异常"),
+//
+//    RESOURCE_EXIST(14001,"资源已经存在"),
+//    RESOURCE_NOT_EXIST(14002, "资源不存在"),
+//    INSUFFICIENT_RESOURCE(14003, "资源不符合规范"),
+//
+//    SYSTEM_ERROR(10000, "系统异常，请稍后重试"),
+//    NETWORK_ERROR(99999, "网络错误，待会重试");
 
     /**
      *
