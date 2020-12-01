@@ -88,39 +88,6 @@ public enum ResultCode {
     DATE_PARSE_EXCEPTION(34001, "日期转换异常"),
 
     MAILE_SEND_EXCEPTION(35001, "邮件发送异常");
-//
-//    FAILED(400,"请求失败"),
-//    ERROR(500,"应用服务不知名错误"),
-//    ERROR_NULL(501,"空指针异常"),
-//    ERROR_CLASS_CAST(502,"类型转换异常"),
-//    ERROR_RUNTION(503,"运行时异常"),
-//
-//    ERROR_MOTHODNOTSUPPORT(505,"没有匹配请求方法"),
-//
-//
-//
-//
-//    ALGORITHM_CAN_NOT_NULL(10003,"加密方式不能为空，可选 RS256、HS256"),
-//    VALID_ENTITY_PARAMS(10004,"请求参数校验不匹配"),
-//    VALID_UNION_PARAMS(10005,"实体对象传参不匹配"),
-//    PARAM_ERROR(12001,"参数不合规"),
-//
-//
-//    GET_LOCK_FAIL(33333,"获取分布式锁失败"),
-//    RELEASE_LOCK_FAIL(33334,"释放分布式失败"),
-//
-//    UPLOAD_FAIL(34000,"上传文件失败"),
-//    FILE_TOO_LARGE(34001,"文件过大"),
-//
-//
-//    ATTR_COPY_ERROR(13001,"属性COPY异常"),
-//
-//    RESOURCE_EXIST(14001,"资源已经存在"),
-//    RESOURCE_NOT_EXIST(14002, "资源不存在"),
-//    INSUFFICIENT_RESOURCE(14003, "资源不符合规范"),
-//
-//    SYSTEM_ERROR(10000, "系统异常，请稍后重试"),
-//    NETWORK_ERROR(99999, "网络错误，待会重试");
 
     /**
      *

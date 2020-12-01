@@ -29,19 +29,6 @@ import java.util.Map;
 @ResponseResult
 public class IndexController {
 
-    /**
-     * @Description
-     * @param regUserVo
-     * @return void
-     * @throws
-     * @date 2020/8/4 19:14
-     */
-    @GetMapping("/index")
-    public String index(){
-        log.error("=====");
-        return "I AM INDEX";
-    }
-
     @RequestLimit(maxCount=3,second=20)
     @ApplicationLog
     @GetMapping("/test")
@@ -101,4 +88,16 @@ public class IndexController {
         }
         return regionAddress;
     }
+
+    @GetMapping(value = "/region/ip={ip}")
+    public RegionAddress caseInsensitive(@PathVariable String ip){
+        RegionAddress regionAddress = null;
+        try {
+            regionAddress = template.getRegionAddress(ip);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return regionAddress;
+    }
+
 }

@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
 /**
+ * @author WCNGS@QQ.COM
  * @ClassName ResponseResultInterceptor
  * @Description 请求的拦截器
- * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 20/10/30 22:08
  * @Version 1.0.0
-*/
+ */
 @Slf4j
 @Component
 public class ResponseResultInterceptor implements HandlerInterceptor {
@@ -26,14 +26,14 @@ public class ResponseResultInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(handler instanceof HandlerMethod){
-            final HandlerMethod handlerMethod = (HandlerMethod)handler;
+        if (handler instanceof HandlerMethod) {
+            final HandlerMethod handlerMethod = (HandlerMethod) handler;
             final Class<?> clazz = handlerMethod.getBeanType();
             final Method method = handlerMethod.getMethod();
-            if(clazz.isAnnotationPresent(ResponseResult.class)){
-                request.setAttribute(RESPONSE_RESULT_ANN,clazz.getAnnotation(ResponseResult.class));
-            } else if(method.isAnnotationPresent(ResponseResult.class)){
-                request.setAttribute(RESPONSE_RESULT_ANN,method.getAnnotation(ResponseResult.class));
+            if (clazz.isAnnotationPresent(ResponseResult.class)) {
+                request.setAttribute(RESPONSE_RESULT_ANN, clazz.getAnnotation(ResponseResult.class));
+            } else if (method.isAnnotationPresent(ResponseResult.class)) {
+                request.setAttribute(RESPONSE_RESULT_ANN, method.getAnnotation(ResponseResult.class));
             }
         }
         return true;
