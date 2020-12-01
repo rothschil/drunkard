@@ -19,13 +19,13 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @ClassName ProcessServiceImplTest
- * @Description 
  * @author WCNGS@QQ.COM
+ * @ClassName ProcessServiceImplTest
+ * @Description
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/9/9 15:26
  * @Version 1.0.0
-*/
+ */
 @Slf4j
 public class ProcessServiceTest extends BaseTest {
 
@@ -40,22 +40,26 @@ public class ProcessServiceTest extends BaseTest {
     private LocationService locationService;
 
 
-    /** 获取所有省，作为Root根节点
-     * @Description
+    /**
+     * 获取所有省，作为Root根节点
+     *
      * @return
      * @throws
+     * @Description
      * @date 2020/4/30 0:41
-    */
+     */
     @Test
-    public void initRoot(){
+    public void initRoot() {
         processService.intiRootUrl(URL);
     }
 
 
-    /** 解析所有省、直辖的城市
-     * @Description
+    /**
+     * 解析所有省、直辖的城市
+     *
      * @return void
      * @throws
+     * @Description
      * @date 2020/9/4 22:03
      */
     @Test
@@ -64,28 +68,30 @@ public class ProcessServiceTest extends BaseTest {
     }
 
 
-    public void city(int pageNum){
-        PageInfo<Location> pageInfo = locationService.getLocationsByLv(0,pageNum,30);
-        if(pageInfo.getPages()==0 || pageInfo.getPageNum()>pageInfo.getPages()){
+    public void city(int pageNum) {
+        PageInfo<Location> pageInfo = locationService.getLocationsByLv(0, pageNum, 30);
+        if (pageInfo.getPages() == 0 || pageInfo.getPageNum() > pageInfo.getPages()) {
             return;
         }
         List<Location> locations = pageInfo.getList();
         Iterator<Location> iter = locations.iterator();
-        while(iter.hasNext()){
+        while (iter.hasNext()) {
             Location location = iter.next();
-            String uls =  URL+location.getUrl();
-            processService.initLevelOne(uls,location);
+            String uls = URL + location.getUrl();
+            processService.initLevelOne(uls, location);
             location.setFlag("Y");
             locationService.updateByPrimaryKey(location);
         }
-        city(pageNum+1);
+        city(pageNum + 1);
     }
 
 
-    /** 根据地市，解析并初始化区县
-     * @Description
+    /**
+     * 根据地市，解析并初始化区县
+     *
      * @return void
      * @throws
+     * @Description
      * @date 2020/9/5 10:21
      */
     @Test
@@ -93,44 +99,46 @@ public class ProcessServiceTest extends BaseTest {
         exet(1);
     }
 
-    public void exet(int pageNum){
-        PageInfo<Location> pageInfo = locationService.getLocationsByLv(1,pageNum,30);
-        if(pageInfo.getPages()==0 || pageInfo.getPageNum()>pageInfo.getPages()){
+    public void exet(int pageNum) {
+        PageInfo<Location> pageInfo = locationService.getLocationsByLv(1, pageNum, 30);
+        if (pageInfo.getPages() == 0 || pageInfo.getPageNum() > pageInfo.getPages()) {
             return;
         }
         List<Location> locations = pageInfo.getList();
         Iterator<Location> iter = locations.iterator();
-        while(iter.hasNext()){
+        while (iter.hasNext()) {
             Location location = iter.next();
             String url2 = new StringBuilder().append(URL).append(location.getUrl()).toString();
-            processService.initLevelTwo(url2,location);
+            processService.initLevelTwo(url2, location);
             location.setFlag("Y");
             locationService.updateByPrimaryKey(location);
         }
-        exet(pageNum+1);
+        exet(pageNum + 1);
     }
 
-    /** 根据区县，解析并初始化乡镇 街道
-     * @Description
+    /**
+     * 根据区县，解析并初始化乡镇 街道
+     *
      * @return
-     * @throws 
+     * @throws
+     * @Description
      * @date 2020/4/30 0:27
-    */
+     */
     @Test
-    public void intLevelThree(){
+    public void intLevelThree() {
         three(1);
     }
 
-    public void three(int pageNum){
-        PageInfo<Location> pageInfo = locationService.getLocationsByLv(2,pageNum,100);
-        if(pageInfo.getPages()==0 || pageInfo.getPageNum()>pageInfo.getPages()){
+    public void three(int pageNum) {
+        PageInfo<Location> pageInfo = locationService.getLocationsByLv(2, pageNum, 100);
+        if (pageInfo.getPages() == 0 || pageInfo.getPageNum() > pageInfo.getPages()) {
             return;
         }
-        uot++ ;
+        uot++;
         List<Location> locations = pageInfo.getList();
         Iterator<Location> iter = locations.iterator();
         Location location = null;
-        while(iter.hasNext()){
+        while (iter.hasNext()) {
             location = iter.next();
             String url2 = new StringBuilder().append(URL).append(AreaCodeStringUtils.getUrlStrByLocationCode(location.getLocalCode(), 2)).append(location.getUrl()).toString();
             processService.initLevelThrid(url2, location, "D");
@@ -138,46 +146,49 @@ public class ProcessServiceTest extends BaseTest {
                 int times = AreaCodeStringUtils.getSecond(3);
                 TimeUnit.SECONDS.sleep(times);
             } catch (InterruptedException e) {
-                log.error("msg={} ",e.getMessage());
+                log.error("msg={} ", e.getMessage());
             }
         }
-        if(uot==COT){
+        if (uot == COT) {
             return;
         }
-        three(pageNum+1);
+        three(pageNum + 1);
     }
+
     private static int COT = 100;
     private static int uot = 0;
 
-    /** 根据乡镇 街道，解析并初始化社区村
-     * @Description
+    /**
+     * 根据乡镇 街道，解析并初始化社区村
+     *
      * @return
+     * @Description
      * @throwsOperationImplicitParameterReader
      * @date 2020/4/30 0:27
      */
     @Test
-    public void intLevelFour(){
+    public void intLevelFour() {
         Location location = new Location();
         location.setLv(3);
         location.setFlag("D");
-        village(0,location);
+        village(0, location);
     }
 
-    public void village(int pageNum,Location location){
-        PageInfo<Location> pageInfo = locationService.getLocationsByLvAndFlag(pageNum,2,location);
+    public void village(int pageNum, Location location) {
+        PageInfo<Location> pageInfo = locationService.getLocationsByLvAndFlag(pageNum, 2, location);
         log.error(pageInfo.toString());
-        if(pageInfo.getPages()==0 || pageInfo.getPageNum()>pageInfo.getPages()){
+        if (pageInfo.getPages() == 0 || pageInfo.getPageNum() > pageInfo.getPages()) {
             return;
         }
-        uot++ ;
+        uot++;
         List<Location> locations = pageInfo.getList();
-        if(!locations.isEmpty()){
+        if (!locations.isEmpty()) {
             processService.initLevelFour(URL, locations);
         }
-        if(uot==COT){
+        if (uot == COT) {
             return;
         }
-        village(pageNum+1,location);
+        village(pageNum + 1, location);
     }
 
 }

@@ -1,6 +1,43 @@
 
 ![Mozilla Add-on](https://img.shields.io/amo/dw/drunkard?color=fedcba&label=drunkard&logo=postwoman&logoColor=rgb&style=for-the-badge)
 
+
+<!-- TOC -->
+
+- [1. 项目简介](#1-项目简介)
+- [2. 内置功能](#2-内置功能)
+    - [2.1. 手写爬虫获取国家统计局行政区划数据](#21-手写爬虫获取国家统计局行政区划数据)
+        - [2.1.1. 依赖包](#211-依赖包)
+        - [2.1.2. 核心实现代码](#212-核心实现代码)
+        - [2.1.3. 单元测试](#213-单元测试)
+        - [2.1.4. 打开浏览器](#214-打开浏览器)
+        - [2.1.5. 源码地址，如果觉得对你有帮助，请Star](#215-源码地址如果觉得对你有帮助请star)
+    - [2.2. 集成ip2region离线IP地名映射](#22-集成ip2region离线ip地名映射)
+        - [2.2.1. 打开浏览器](#221-打开浏览器)
+        - [2.2.2. 源码地址，如果觉得对你有帮助，请Star](#222-源码地址如果觉得对你有帮助请star)
+    - [2.3. Http响应内容统一封装](#23-http响应内容统一封装)
+        - [2.3.1. 消息体](#231-消息体)
+            - [2.3.1.1. 正常响应](#2311-正常响应)
+            - [2.3.1.2. 异常响应](#2312-异常响应)
+        - [2.3.2. 拦截器](#232-拦截器)
+            - [2.3.2.1. Annoation注解](#2321-annoation注解)
+            - [2.3.2.2. 拦截器](#2322-拦截器)
+            - [2.3.2.3. 全局异常](#2323-全局异常)
+        - [2.3.3. 例子](#233-例子)
+        - [2.3.4. 源码地址，如果觉得对你有帮助，请Star](#234-源码地址如果觉得对你有帮助请star)
+    - [2.4. 集成OAuth2](#24-集成oauth2)
+    - [2.5. 集成数据校验](#25-集成数据校验)
+    - [2.6. 项目结构](#26-项目结构)
+- [3. 技术选型](#3-技术选型)
+- [4. 测试策略](#4-测试策略)
+- [5. 技术架构](#5-技术架构)
+- [6. 部署架构](#6-部署架构)
+- [7. 外部依赖](#7-外部依赖)
+- [8. 环境信息](#8-环境信息)
+- [9. 编码实践](#9-编码实践)
+- [10. FAQ](#10-faq)
+
+<!-- /TOC -->
 # 1. 项目简介
 
 `drunkard：酒鬼; 醉鬼;`
@@ -9,9 +46,951 @@
 
 本项目是基于SpringBoot开发的脚手架模块，已经集成 `MyBatis` 作为持久层组件，为了方便提供两种不同的主键生成策略，一种是利用 `Redis` ；另一种是利用数据库自身的ID策略，两种方式各有差异，主要针对不同的场景。
 
-## 1.1. 内置功能
+# 2. 内置功能
 
-## 1.2. Http响应内容统一封装
+## 2.1. 手写爬虫获取国家统计局行政区划数据
+
+很多地方需要用到 `统计用区划和城乡划分代码` 这块以国家统计局的权威数据为准，但是人家是一个网页。
+
+![国家统计局-统计用区划和城乡划分代码](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201173355.png)
+
+虽然Python解析起来很快，但我还是想用 `Java` 写一套，打发时间也好，无聊也罢，学习学习。
+
+首先要做的就是分析网页的内容特点，进行数据建模和构建框架。
+
+我本机MySQL运行的，图个方便也没用Oracle或者服务器类，一切从简。
+
+~~~sql
+CREATE TABLE tb_locations (
+  id bigint(20) NOT NULL,
+  flag varchar(6) DEFAULT NULL,
+  local_code varchar(30) DEFAULT NULL,
+  local_name varchar(100) DEFAULT NULL,
+  lv int(11) DEFAULT NULL,
+  sup_local_code varchar(30) DEFAULT NULL,
+  url varchar(60) DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+~~~
+
+先说下我的实现思路：自上而下，逐级递归。
+
+统计用区划和城乡可以想象成一个树形结构，主干就是省、直辖市、自治区。逐级解析`html`文本内容，再拼装成完整`URI`路径作为下一级路径解析依据。
+
+这里用到两个技术点：
+
+- Mybatis实现的批量提交
+- dom4j解析xml元素
+
+### 2.1.1. 依赖包
+
+~~~xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>akkad-war3</artifactId>
+        <groupId>xyz.wongs.drunkard</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>war3-area</artifactId>
+    <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>xyz.wongs.drunkard</groupId>
+            <artifactId>mybatis-pk-redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.oracle</groupId>
+                    <artifactId>ojdbc6</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>HikariCP</artifactId>
+                    <groupId>com.zaxxer</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>neko-htmlunit</artifactId>
+            <version>2.30</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.5.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gargoylesoftware</groupId>
+            <artifactId>htmlunit</artifactId>
+            <version>2.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit-core-js</artifactId>
+            <version>2.31</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gargoylesoftware</groupId>
+            <artifactId>htmlunit-cssparser</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesimpl</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
+                    <overwrite>true</overwrite>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+~~~
+
+### 2.1.2. 核心实现代码
+
+~~~java
+package xyz.wongs.drunkard.war3.web.area.task.impl;
+
+import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.config.CookieSpecs;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.ConnectTimeoutException;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Attribute;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import xyz.wongs.drunkard.base.constant.Constant;
+import xyz.wongs.drunkard.war3.domain.entity.Location;
+import xyz.wongs.drunkard.war3.domain.service.LocationService;
+import xyz.wongs.drunkard.war3.web.util.IdClazzUtils;
+import xyz.wongs.drunkard.war3.web.util.AreaCodeStringUtils;
+import xyz.wongs.drunkard.war3.web.area.task.ProcessService;
+
+import java.io.IOException;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * @ClassName: JsoupProcessServiceImpl
+ * @Description:TODO(这里用一句话描述这个类的作用)
+ * @author: <a href="wcngs@qq.com">WCNGS</a>
+ * @date: 2017年7月28日 上午11:31:30  *
+ * @Copyright: 2017 WCNGS Inc. All rights reserved.
+ */
+@Slf4j
+@Service("processService")
+public class ProcessServiceImpl implements ProcessService {
+
+    @Autowired
+    @Qualifier("locationService")
+    LocationService locationService;
+
+    @Override
+    public void initLevelOne(String url, Location parentLocation) {
+        List<Location> levelOne = null;
+        try {
+            levelOne = getLevelOneByRoot(url, parentLocation.getLocalCode());
+        } catch (IOException e) {
+            log.error(" IOException pCode={}", parentLocation.getLocalCode(), e.getMessage(), url);
+        }
+        save(levelOne);
+    }
+
+    @Override
+    public boolean initLevelTwo(String url, Location location) {
+        try {
+            List<Location> secondLevelLocas = getLocationSecondLevel(url, location);
+            save(secondLevelLocas);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    /**
+     * 初始化省、直辖区、自治区
+     *
+     * @param url
+     * @return void
+     * @throws
+     * @method intiRootUrl
+     * @author WCNGS@QQ.COM
+     * @version
+     * @date 2018/6/30 23:29
+     * @see
+     */
+    @Override
+    public boolean intiRootUrl(String url) {
+        try {
+            List<Location> rootLocations = getLocationRoot(url, "0");
+            save(rootLocations);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Location> getLocationRoot(String url, String pCode) {
+        List<Location> locas = new ArrayList<Location>(35);
+        try {
+            Elements eleProv = getElementsByConnection(url, "provincetr");
+            for (Element e : eleProv) {
+                Elements eleHerf = e.getElementsByTag("td").select("a[href]");
+                if (null == eleHerf || eleHerf.size() == 0) {
+                    continue;
+                }
+                for (Element target : eleHerf) {
+                    String urls = target.attributes().asList().get(0).getValue();
+                    Location location = Location.builder().id(IdClazzUtils.getId(Location.class))
+                            .localCode("0").url(urls).lv(0).localName(target.text())
+                            .localCode(urls.substring(0, 2)).build();
+                    locas.add(location);
+                }
+            }
+        } catch (IOException e) {
+            log.error(" IOException pCode={}", pCode, e.getMessage(), url);
+        }
+        return locas;
+    }
+
+    /**
+     * 方法实现说明
+     *
+     * @param url
+     * @param location
+     * @return void
+     * @throws
+     * @method thridLevelResolve
+     * @author WCNGS@QQ.COM
+     * @version
+     * @date 2018/7/1 9:50
+     * @see
+     */
+    @Override
+    public void initLevelThrid(String url, Location location) {
+        this.initLevelThrid(url, location, "Y");
+    }
+
+
+    /**
+     * 方法实现说明
+     *
+     * @param url
+     * @param location
+     * @param flag
+     * @return void
+     * @throws
+     * @method thridLevelResolve
+     * @author WCNGS@QQ.COM
+     * @version
+     * @date 2018/7/1 16:24
+     * @see
+     */
+    @Override
+    public void initLevelThrid(String url, Location location, String flag) {
+
+        try {
+            if (StringUtils.isEmpty(location.getUrl())) {
+                return;
+            }
+            List<Location> thridLevelLocas = getLocation(url, new String[]{"towntr", "href"}, location.getLocalCode(), 3, flag);
+            location.setFlag(flag);
+            locationService.updateByPrimaryKey(location);
+            save(thridLevelLocas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void save(List<Location> locations) {
+        //结果为空，抛出异常
+        if (null == locations || locations.isEmpty()) {
+            log.error(" target saved is null!");
+            return;
+        }
+        locationService.insertBatchByOn(locations);
+
+    }
+
+
+    @Override
+    public void initLevelFour(String url, List<Location> thridLevelLocas) {
+        for (Location le : thridLevelLocas) {
+            List<Location> locations = new ArrayList<Location>(12);
+            String suffix = new StringBuilder().append(url).append(AreaCodeStringUtils.getUrlStrByLocationCode(le.getLocalCode(), 3)).append(le.getUrl()).toString();
+            Elements es = null;
+            try {
+                es = getElementsByConnection(suffix, "villagetr");
+                Location tempLocation = null;
+                for (Element e : es) {
+                    tempLocation = new Location(e.child(0).text(), e.child(2).text(), le.getLocalCode(), null, 4);
+                    tempLocation.setId(IdClazzUtils.getId(Location.class));
+                    locations.add(tempLocation);
+                }
+                le.setFlag("Y");
+                locationService.updateByPrimaryKey(le);
+                save(locations);
+            } catch (IOException e) {
+                log.error(" IOException code={},msg={},url={}", le.getLocalCode(), e.getMessage(), suffix);
+                int times = AreaCodeStringUtils.getSecond(3);
+                try {
+                    TimeUnit.SECONDS.sleep(times);
+                } catch (InterruptedException interruptedException) {
+                    log.error("msg={} ", interruptedException.getMessage());
+                }
+                continue;
+            } catch (Exception e) {
+                log.error("Exception code={},msg={}", le.getLocalCode(), e.getMessage());
+                continue;
+            }
+        }
+    }
+
+
+    /**
+     * @param url
+     * @param location
+     * @return
+     * @Title: getLocationSecondLevel
+     * @Description: TODO(这里用一句话描述这个方法的作用)
+     * @return: List<Location>
+     */
+    public List<Location> getLocationSecondLevel(String url, Location location) {
+        List<Location> locas = null;
+        try {
+            locas = new ArrayList<Location>(90);
+            //URL地址截取
+            //标识位
+            boolean flag = false;
+            Elements es = getElementsByConnection(url, "countytr");
+            if (null == es) {
+                log.error(url + " 不能解析！");
+                return null;
+            }
+            Location tempLocation = null;
+            for (Element e : es) {
+                //针对市辖区 这种无URL的做特殊处理
+                if (!flag) {
+                    tempLocation = new Location(e.child(0).text(), e.child(1).text(), location.getLocalCode(), null, 2);
+                    tempLocation.setId(IdClazzUtils.getId(Location.class));
+                    locas.add(tempLocation);
+                    //标识位置为TURE
+                    flag = true;
+                    continue;
+                }
+                es = e.getElementsByAttribute("href");
+                if (es.size() == 0) {
+                    tempLocation = new Location(e.child(0).text(), e.child(1).text(), location.getLocalCode(), "", 2);
+                    tempLocation.setId(IdClazzUtils.getId(Location.class));
+                    locas.add(tempLocation);
+                    continue;
+                }
+                List<Attribute> attrs = es.get(0).attributes().asList();
+                tempLocation = new Location(es.get(0).text(), es.get(1).text(), location.getLocalCode(), attrs.get(0).getValue(), 2);
+                tempLocation.setId(IdClazzUtils.getId(Location.class));
+                locas.add(tempLocation);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return locas;
+    }
+
+
+    /**
+     * @param url
+     * @param pCode
+     * @return
+     * @Title: getLocationOneLevel
+     * @Description: 1、获取第一级地市信息
+     * 2、第二级区县信息
+     * @return: List<Location>
+     */
+    public List<Location> getLevelOneByRoot(String url, String pCode) throws IOException {
+
+        List<Location> locas = new ArrayList<Location>(20);
+        Elements eles = getElementsByConnection(url, "citytr");
+        if (null == eles) {
+            log.error(url + " 不能解析！");
+            return null;
+        }
+        Location location = null;
+        for (Element e : eles) {
+            eles = e.getElementsByAttribute("href");
+            List<Attribute> attrs = eles.get(0).attributes().asList();
+            location = new Location(eles.get(0).text(), eles.get(1).text(), pCode, attrs.get(0).getValue(), 1);
+            location.setId(IdClazzUtils.getId(Location.class));
+            locas.add(location);
+        }
+        return locas;
+    }
+
+
+    public List<Location> getLocation(String url, String[] cssClazz, String parentCode, Integer lv, String flag) throws IOException {
+        List<Location> locas = new ArrayList<Location>(20);
+        Elements eles = getElementsByConnection(url, cssClazz[0]);
+        if (null == eles) {
+            log.error(url + " 不能解析！");
+            return null;
+        }
+        Location location = null;
+        for (Element e : eles) {
+            eles = e.getElementsByAttribute(cssClazz[1]);
+            List<Attribute> attrs = eles.get(0).attributes().asList();
+            location = new Location(eles.get(0).text(), eles.get(1).text(), parentCode, attrs.get(0).getValue(), lv, flag);
+            location.setId(IdClazzUtils.getId(Location.class));
+            locas.add(location);
+        }
+        return locas;
+    }
+
+    /**
+     * 案例
+     * <tr class='towntr'>
+     * <td><a href='02/340102001.html'>340102001000</a></td>
+     * <td><a href='02/340102001.html'>明光路街道</a></td>
+     * </tr>
+     *
+     * @param url
+     * @param cssClazz
+     * @param parentURLCode
+     * @return List<Location>
+     * @Title: getLocation
+     * @Description: TODO(这里用一句话描述这个方法的作用)
+     */
+    public List<Location> getLocation(String url, String[] cssClazz, String parentCode, Integer lv) {
+        return getLocation(url, cssClazz, parentCode, lv);
+    }
+
+
+    /**
+     * 方法实现说明
+     *
+     * @param url
+     * @param clazzName
+     * @return org.jsoup.select.Elements
+     * @throws
+     * @method getElementss
+     * @author WCNGS@QQ.COM
+     * @version
+     * @date 2018/7/2 11:28
+     * @see
+     */
+    public Elements getElementsByConnection(String url, String clazzName) throws IOException {
+
+        try {
+            /** CloseableHttpClient httpclient = HttpClients.createDefault(); **/
+            //设置CookieSpecs.STANDARD的cookie解析模式，下面为源码，对应解析格式我给出了备注
+            CloseableHttpClient httpclient = HttpClients.custom()
+                    .setDefaultRequestConfig(RequestConfig.custom()
+                            .setCookieSpec(CookieSpecs.STANDARD).build())
+                    .build();
+            HttpGet httpget = new HttpGet(url);
+            httpget.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:50.0) Gecko/20100101 Firefox/50.0");
+            RequestConfig config = RequestConfig.custom()
+                    //.setProxy(proxy)
+                    //设置连接超时 ✔
+                    // 设置连接超时时间 10秒钟
+                    .setConnectTimeout(10000)
+                    // 设置读取超时时间10秒钟
+                    .setSocketTimeout(10000)
+                    .build();
+            httpget.setConfig(config);
+            // 执行get请求
+            CloseableHttpResponse response = httpclient.execute(httpget);
+            HttpEntity entity = response.getEntity();
+            // 获取返回实体
+            String content = EntityUtils.toString(entity, "GBK");
+            // ============================= 【Jsoup】 ====================================
+            Document doc = Jsoup.parse(content);
+            return doc.getElementsByClass(clazzName);
+        } catch (ConnectTimeoutException e) {
+            log.error(" ConnectTimeoutException URL={},clazzName={},errMsg={}", url, clazzName, e.getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * @param locations
+     * @return java.lang.String
+     * @throws
+     * @Description
+     * @date 2020/9/9 14:52
+     */
+    public String appengUrl(List<Location> locations) {
+        Iterator<Location> it = locations.iterator();
+        String url = "";
+        StringBuilder sb = new StringBuilder();
+        while (it.hasNext()) {
+            Location cation = it.next();
+            String str = cation.getUrl();
+            if (cation.getLv() == 3) {
+                sb.append(str);
+            } else {
+                int i = cation.getUrl().indexOf(Constant.SLASH);
+                sb.append(str.substring(0, i)).append(Constant.SLASH).append(sb);
+            }
+        }
+        return url;
+    }
+
+}
+
+~~~
+
+### 2.1.3. 单元测试
+
+在单元测试中，自上而下，按个运行测试方法即可。
+
+- initRoot：初始化省、直辖市、自治区的。数量31，速度非常快
+- intLevelOne：初始化城市，数量三百多，速度快
+- intLevelTwo：初始化县区，数量四千多，速度一般
+- intLevelThree：初始化乡镇 街道，数量四万，速度慢
+- intLevelFour： 初始化社区村，速度非常慢，需要按照批次执行
+
+同时在运行中，可能会由于服务器拒绝连接，造成无法解析出来地址，这没关系，代码中已经容错这些，继续执行即可！
+
+~~~java
+package xyz.wongs.drunkard.task;
+
+import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import xyz.wongs.drunkard.base.BaseTest;
+import xyz.wongs.drunkard.war3.domain.entity.Location;
+import xyz.wongs.drunkard.war3.domain.service.LocationService;
+import xyz.wongs.drunkard.war3.web.util.AreaCodeStringUtils;
+import xyz.wongs.drunkard.war3.web.area.task.ProcessService;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * @author WCNGS@QQ.COM
+ * @ClassName ProcessServiceImplTest
+ * @Description
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 2020/9/9 15:26
+ * @Version 1.0.0
+ */
+@Slf4j
+public class ProcessServiceTest extends BaseTest {
+
+    private static final String URL = "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2020/";
+    private final static Logger logger = LoggerFactory.getLogger(ProcessServiceTest.class);
+
+    @Autowired
+    @Qualifier("processService")
+    private ProcessService processService;
+
+    @Autowired
+    private LocationService locationService;
+
+
+    /**
+     * 获取所有省，作为Root根节点
+     *
+     * @return
+     * @throws
+     * @Description
+     * @date 2020/4/30 0:41
+     */
+    @Test
+    public void initRoot() {
+        processService.intiRootUrl(URL);
+    }
+
+
+    /**
+     * 解析所有省、直辖的城市
+     *
+     * @return void
+     * @throws
+     * @Description
+     * @date 2020/9/4 22:03
+     */
+    @Test
+    public void intLevelOne() throws Exception {
+        city(1);
+    }
+
+
+    public void city(int pageNum) {
+        PageInfo<Location> pageInfo = locationService.getLocationsByLv(0, pageNum, 30);
+        if (pageInfo.getPages() == 0 || pageInfo.getPageNum() > pageInfo.getPages()) {
+            return;
+        }
+        List<Location> locations = pageInfo.getList();
+        Iterator<Location> iter = locations.iterator();
+        while (iter.hasNext()) {
+            Location location = iter.next();
+            String uls = URL + location.getUrl();
+            processService.initLevelOne(uls, location);
+            location.setFlag("Y");
+            locationService.updateByPrimaryKey(location);
+        }
+        city(pageNum + 1);
+    }
+
+
+    /**
+     * 根据地市，解析并初始化区县
+     *
+     * @return void
+     * @throws
+     * @Description
+     * @date 2020/9/5 10:21
+     */
+    @Test
+    public void intLevelTwo() throws Exception {
+        exet(1);
+    }
+
+    public void exet(int pageNum) {
+        PageInfo<Location> pageInfo = locationService.getLocationsByLv(1, pageNum, 30);
+        if (pageInfo.getPages() == 0 || pageInfo.getPageNum() > pageInfo.getPages()) {
+            return;
+        }
+        List<Location> locations = pageInfo.getList();
+        Iterator<Location> iter = locations.iterator();
+        while (iter.hasNext()) {
+            Location location = iter.next();
+            String url2 = new StringBuilder().append(URL).append(location.getUrl()).toString();
+            processService.initLevelTwo(url2, location);
+            location.setFlag("Y");
+            locationService.updateByPrimaryKey(location);
+        }
+        exet(pageNum + 1);
+    }
+
+    /**
+     * 根据区县，解析并初始化乡镇 街道
+     *
+     * @return
+     * @throws
+     * @Description
+     * @date 2020/4/30 0:27
+     */
+    @Test
+    public void intLevelThree() {
+        three(1);
+    }
+
+    public void three(int pageNum) {
+        PageInfo<Location> pageInfo = locationService.getLocationsByLv(2, pageNum, 100);
+        if (pageInfo.getPages() == 0 || pageInfo.getPageNum() > pageInfo.getPages()) {
+            return;
+        }
+        uot++;
+        List<Location> locations = pageInfo.getList();
+        Iterator<Location> iter = locations.iterator();
+        Location location = null;
+        while (iter.hasNext()) {
+            location = iter.next();
+            String url2 = new StringBuilder().append(URL).append(AreaCodeStringUtils.getUrlStrByLocationCode(location.getLocalCode(), 2)).append(location.getUrl()).toString();
+            processService.initLevelThrid(url2, location, "D");
+            try {
+                int times = AreaCodeStringUtils.getSecond(3);
+                TimeUnit.SECONDS.sleep(times);
+            } catch (InterruptedException e) {
+                log.error("msg={} ", e.getMessage());
+            }
+        }
+        if (uot == COT) {
+            return;
+        }
+        three(pageNum + 1);
+    }
+
+    private static int COT = 100;
+    private static int uot = 0;
+
+    /**
+     * 根据乡镇 街道，解析并初始化社区村
+     *
+     * @return
+     * @Description
+     * @throwsOperationImplicitParameterReader
+     * @date 2020/4/30 0:27
+     */
+    @Test
+    public void intLevelFour() {
+        Location location = new Location();
+        location.setLv(3);
+        location.setFlag("D");
+        village(0, location);
+    }
+
+    public void village(int pageNum, Location location) {
+        PageInfo<Location> pageInfo = locationService.getLocationsByLvAndFlag(pageNum, 2, location);
+        log.error(pageInfo.toString());
+        if (pageInfo.getPages() == 0 || pageInfo.getPageNum() > pageInfo.getPages()) {
+            return;
+        }
+        uot++;
+        List<Location> locations = pageInfo.getList();
+        if (!locations.isEmpty()) {
+            processService.initLevelFour(URL, locations);
+        }
+        if (uot == COT) {
+            return;
+        }
+        village(pageNum + 1, location);
+    }
+
+}
+~~~
+
+### 2.1.4. 打开浏览器
+
+访问 `http://localhost:9090/region/ip=109.27.45.12` 这是我之前一个例子，用来解析IP地址，获取地域信息的。
+
+![样例响应](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165146.png)
+
+### 2.1.5. 源码地址，如果觉得对你有帮助，请Star
+
+**觉得对你有帮助，请Star**
+
+[Github源码地址](https://github.com/rothschil/drunkard/tree/master/akkad-war3/war3-area)
+
+[Gitee源码地址](https://gitee.com/rothschil/drunkard.git)
+
+## 2.2. 集成ip2region离线IP地名映射
+
+前段时间因业务需要，客户提出分析外网访问的IP，即针对一些热点区域的IP访问想做到事后预警与分析。
+因为我们服务是运行在相对隔离的资源环境中，无法直接去请求外网，于是想到用离线的方式来处理从网关发来的数据。找了下，看到个开源项目
+
+- [Ip2region参考1](https://github.com/lionsoul2014/ip2region)
+- [ip2region参考2](https://github.com/hiwepy/ip2region-spring-boot-starter) 
+
+使用起来相对成本较低，本着先用满足需求再说，虽然在性能上并不能满足海量IP的分析，还有提升的空间。
+
+看作者的例子，较为简单，也不多说。先看下我的目录结构吧
+
+~~~
+war3-infi
++---src
+|   +---main
+|   |   +---java
+|   |   \---resources
+|   |       +---generator
+|   |       +---ipdb
+|   |   |   |   +---ip2region.db
+|   |       +---mapper
+|   |       +---application.yml
+~~~
+
+- `ip2region.db` 这是需要下载，[下载地址](https://github.com/lionsoul2014/ip2region/tree/master/data)，这里提供Csv、Txt、Db文件三种格式，根据需要自行选择。
+
+- `ipdb`这是我放db库文件的路径，当然可以自定义，只需要在`application.yml` 中配置即可。
+
+- `application.yml` 这个就不多说啦。
+
+~~~yml
+server:
+  port: 9090
+
+spring:
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+
+ip2region:
+  external: false
+  index-block-size: 4096
+  total-header-size: 8192
+  location: classpath:ipdb/ip2region.db
+~~~
+
+例子如下,`RegionAddress`、`DataBlock` 两种结果返回封装。
+
+~~~java
+
+package xyz.wongs.drunkard.war3.web.controller;
+
+
+import com.github.hiwepy.ip2region.spring.boot.IP2regionTemplate;
+import com.github.hiwepy.ip2region.spring.boot.ext.RegionAddress;
+import lombok.extern.slf4j.Slf4j;
+import org.nutz.plugins.ip2region.DataBlock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import xyz.wongs.drunkard.base.aop.annotion.ApplicationLog;
+import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
+import xyz.wongs.drunkard.base.message.exception.DrunkardException;
+import xyz.wongs.drunkard.war3.limit.RequestLimit;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @ClassName IndexController
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/11/18 11:00
+ * @Version 1.0.0
+*/
+@Slf4j
+@RestController
+@ResponseResult
+public class IndexController {
+
+    @Autowired
+    IP2regionTemplate template;
+
+    /** 根据输入IP地址，返回解析后的地址
+     * @Description
+     * @param ip
+     * @return xyz.wongs.drunkard.base.message.response.ResponseResult
+     * @throws
+     * @date 2020/8/17 18:26
+     */
+    @GetMapping(value = "/convert/{ip}")
+    public DataBlock convertDataBlock(@PathVariable String ip){
+        DataBlock dataBlock = null;
+        try {
+            dataBlock = template.binarySearch(ip);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return dataBlock;
+    }
+
+    /** 根据输入IP地址，返回解析后的地址
+     * @Description
+     * @param ip
+     * @return xyz.wongs.drunkard.base.message.response.ResponseResult
+     * @throws
+     * @date 2020/8/17 18:26
+     */
+    @RequestLimit(maxCount=3)
+    @GetMapping(value = "/region/{ip}")
+    public RegionAddress convert(@PathVariable String ip){
+        RegionAddress regionAddress = null;
+        try {
+            regionAddress = template.getRegionAddress(ip);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return regionAddress;
+    }
+
+    @GetMapping(value = "/region/ip={ip}")
+    public RegionAddress caseInsensitive(@PathVariable String ip){
+        RegionAddress regionAddress = null;
+        try {
+            regionAddress = template.getRegionAddress(ip);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return regionAddress;
+    }
+
+}
+
+~~~
+
+### 2.2.1. 打开浏览器
+
+访问 `http://localhost:9090/region/ip=109.27.45.12` 这是我之前一个例子，用来解析IP地址，获取地域信息的。
+
+![样例响应](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165146.png)
+
+### 2.2.2. 源码地址，如果觉得对你有帮助，请Star
+
+![觉得对你有帮助，请Star](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165747.png)
+
+[Github源码地址](https://github.com/rothschil/drunkard/tree/master/akkad-war3/war3-infi)
+
+[Gitee源码地址](https://gitee.com/rothschil/drunkard.git)
+
+## 2.3. Http响应内容统一封装
 
 我们在开发`前端`和`后端`进行交互服务过程中，受制于前后端的工作职责明确，在交互协议的定义上理解也较为不同，造成一个项目服务中重复定义交互内容以及编码上重复编写，不利于项目维护。所以基于此，将`后端`按照约定请求URL路径，并传入相关参数，`后端`服务器接收请求，进行业务处理，返回数据给前端，进行再次封装，供前端以及外部调用。
 
@@ -173,11 +1152,11 @@ public enum ResultCode {
 
 摆脱了繁琐的文字，下面开始张罗着贴实现代码啦。
 
-### 1.2.1. 消息体
+### 2.3.1. 消息体
 
 结合我们定义的状态码，我们返回的消息体主要实现一个 `Serializable`，不要问我为什么。
 
-#### 1.2.1.1. 正常响应
+#### 2.3.1.1. 正常响应
 
 ~~~java
 package xyz.wongs.drunkard.base.message.response;
@@ -277,7 +1256,7 @@ public class Result implements Serializable {
 
 ~~~
 
-#### 1.2.1.2. 异常响应
+#### 2.3.1.2. 异常响应
 
 ~~~java
 package xyz.wongs.drunkard.base.message.response;
@@ -340,13 +1319,13 @@ public class ErrorResult implements Serializable {
 
 这样两个消息体就写完啦。
 
-### 1.2.2. 拦截器
+### 2.3.2. 拦截器
 
 我们这里需要做的就是利用拦截器拦截请求，检查判断是否此请求返回的值需要包装。核心就是判断一个注解`annoation`是否存在方法或类中。
 
 为了演示的完整，我将代码贴完整。
 
-#### 1.2.2.1. Annoation注解
+#### 2.3.2.1. Annoation注解
 
 ~~~java
 /**
@@ -364,7 +1343,7 @@ public @interface ResponseResult {
 }
 ~~~
 
-#### 1.2.2.2. 拦截器
+#### 2.3.2.2. 拦截器
 
 ~~~java
 
@@ -478,7 +1457,7 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
 
 ~~~
 
-#### 1.2.2.3. 全局异常
+#### 2.3.2.3. 全局异常
 
 这里所有的异常都使用到 `ErrorResult` 类。
 
@@ -590,7 +1569,7 @@ public class GlobalExceptionHandler {
 
 ~~~
 
-### 1.2.3. 例子
+### 2.3.3. 例子
 
 以上虽然将所有代码贴出，这列为凑完整，顺道将写个例子来，写个 `Controller`
 
@@ -706,7 +1685,7 @@ public class IndexController {
 
 ![异常响应](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165250.png)
 
-### 1.2.4. 源码地址，如果觉得对你有帮助，请Star
+### 2.3.4. 源码地址，如果觉得对你有帮助，请Star
 
 ![觉得对你有帮助，请Star](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165747.png)
 
@@ -714,10 +1693,10 @@ public class IndexController {
 
 [Gitee源码地址](https://gitee.com/rothschil/drunkard.git)
 
-## 1.3. 集成OAuth2
+## 2.4. 集成OAuth2
 
 
-## 1.4. 集成数据校验
+## 2.5. 集成数据校验
 
 `Spring Validation` 对 `hibernate validatio`n 进行了二次封装，可以让我们更加方便地使用数据校验功能。这边我们通过 Spring Boot 来引用校验功能。
 
@@ -754,13 +1733,13 @@ public class IndexController {
 @Pattern(regexp = ) | 正则表达式校验
 @Valid | 对象级联校验,即校验对象中对象的属性
 
-## 1.5. 项目结构
+## 2.6. 项目结构
 
-# 2. 技术选型
+# 3. 技术选型
 
 SpringBoot、Maven、Jnuit、MySQL、JDK8+
 
-# 3. 测试策略
+# 4. 测试策略
 
 测试类型 | 代码目录 | 测试内容
 -- | -- | -- |
@@ -768,22 +1747,22 @@ SpringBoot、Maven、Jnuit、MySQL、JDK8+
 组件测试 | src/componentTest/java | 用于测试一些核心的组件级对象，比如Repository
 API测试 | src/apiTest/java | 模拟客户端调用API
 
-# 4. 技术架构
+# 5. 技术架构
 
-# 5. 部署架构
+# 6. 部署架构
 
-# 6. 外部依赖
+# 7. 外部依赖
 
 项目运行时所依赖的外部集成方，比如订单系统会依赖于会员系统；
 
-# 7. 环境信息
+# 8. 环境信息
 
 各个环境的访问方式，数据库连接等；
 
-# 8. 编码实践
+# 9. 编码实践
 
 统一的编码实践，比如异常处理原则、分页封装等；
 
-# 9. FAQ
+# 10. FAQ
 
 开发过程中常见问题的解答。
