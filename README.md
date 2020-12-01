@@ -708,8 +708,11 @@ public class IndexController {
 
 ### 1.2.4. 源码地址，如果觉得对你有帮助，请Star
 
-[源码地址](https://github.com/rothschil/drunkard/tree/master/akkad-war3/war3-area)
+![觉得对你有帮助，请Star](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165747.png)
 
+[Github源码地址](https://github.com/rothschil/drunkard/tree/master/akkad-war3/war3-area)
+
+[Gitee源码地址](https://gitee.com/rothschil/drunkard.git)
 
 ## 1.3. 集成OAuth2
 
