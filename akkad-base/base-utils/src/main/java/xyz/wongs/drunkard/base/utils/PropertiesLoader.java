@@ -1,8 +1,3 @@
-/**
- * Copyright (c) 2005-2011 springside.org.cn
- * 
- * $Id: PropertiesLoader.java 1690 2012-02-22 13:42:00Z calvinxiu $
- */
 package xyz.wongs.drunkard.base.utils;
 
 import java.io.Closeable;
@@ -19,11 +14,15 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
+
 /**
- * Properties文件载入工具类. 可载入多个properties文件, 相同的属性在最后载入的文件中的值将会覆盖之前的值，但以System的Property优先.
- * @author calvin
- * @version 2013-05-15
- */
+ * @ClassName PropertiesLoader
+ * @Description Properties文件载入工具类. 可载入多个properties文件, 相同的属性在最后载入的文件中的值将会覆盖之前的值，但以System的Property优先.
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/12/2 10:49
+ * @Version 1.0.0
+*/
 public class PropertiesLoader {
 
 	private static Logger logger = LoggerFactory.getLogger(PropertiesLoader.class);

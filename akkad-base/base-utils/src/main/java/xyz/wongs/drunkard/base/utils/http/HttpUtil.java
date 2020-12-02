@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.base.utils;
+package xyz.wongs.drunkard.base.utils.http;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;

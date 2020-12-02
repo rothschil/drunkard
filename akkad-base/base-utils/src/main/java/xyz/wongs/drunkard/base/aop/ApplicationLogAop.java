@@ -27,13 +27,11 @@ import java.time.Instant;
 import java.util.Date;
 
 /**
- * @ClassName LogAop
- * @Description 应用全局日志APO 异步日志，
- * 正常下执行次序是：@Around @Before ${METHOD} @Around @After @AfterReturning
- * 异常下执行次序是：@Around @Before ${METHOD} @After @AfterThrowing;
+ * @ClassName ApplicationLogAop
+ * @Description 应用全局日志APO 异步日志，正常下执行次序是：@Around @Before ${METHOD} @Around @After @AfterReturning；异常下执行次序是：@Around @Before ${METHOD} @After @AfterThrowing;
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
- * @date 2019/10/29 16:44
+ * @date 20/12/2 10:23
  * @Version 1.0.0
 */
 @Slf4j

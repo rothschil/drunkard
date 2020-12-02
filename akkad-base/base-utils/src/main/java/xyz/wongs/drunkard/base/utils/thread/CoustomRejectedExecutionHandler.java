@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.base.thread;
+package xyz.wongs.drunkard.base.utils.thread;
 
 
 import java.util.concurrent.RejectedExecutionHandler;

@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import xyz.wongs.drunkard.base.aop.annotion.ApplicationLog;
 import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
 import xyz.wongs.drunkard.base.message.exception.DrunkardException;
-import xyz.wongs.drunkard.base.web.BaseController;
 import xyz.wongs.drunkard.war3.domain.entity.Location;
 import xyz.wongs.drunkard.war3.domain.service.LocationService;
 
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName LocationController
@@ -28,7 +29,7 @@ import java.util.*;
 @ResponseResult
 @RestController
 @RequestMapping(value = "/areas")
-public class LocationController extends BaseController {
+public class LocationController{
 
     @Autowired
     @Qualifier("locationService")

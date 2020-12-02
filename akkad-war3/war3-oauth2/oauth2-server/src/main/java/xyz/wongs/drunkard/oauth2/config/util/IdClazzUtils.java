@@ -1,6 +1,6 @@
 package xyz.wongs.drunkard.oauth2.config.util;
 
-import xyz.wongs.drunkard.base.bean.SpringContextHolder;
+import xyz.wongs.drunkard.base.utils.bean.SpringContextHolder;
 import xyz.wongs.drunkard.base.persistence.mybatis.service.RedisUidService;
 
 /**

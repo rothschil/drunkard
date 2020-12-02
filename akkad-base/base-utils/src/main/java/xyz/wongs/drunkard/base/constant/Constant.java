@@ -127,22 +127,22 @@ public class Constant {
     public static final String UNDERSCORE = "_";
 
     /**
-     *  json
+     *  application/json
      */
     public static final String APPLICATION_JSON = "application/json";
 
     /**
-     *  json
+     *  X-Requested-With
      */
     public static final String REQ_HEADER = "X-Requested-With";
 
     /**
-     *  json
+     *  __ajax
      */
     public static final String REQ_HEADER_AJAX = "__ajax";
 
     /**
-     *  json
+     *  accept
      */
     public static final String REQ_HEADER_ACCEPT = "accept";
 
@@ -152,7 +152,22 @@ public class Constant {
     public static final String SUFFIX_JSON = ".json";
 
     /**
-     *  json
+     *  xml
      */
     public static final String SUFFIX_XML = ".xml";
+
+    /**
+     * 问号
+     */
+    public static final String HF_QUESTION_MARK="?";
+
+    /**
+     * 逗号
+     */
+    public static final String HF_COMMA = ",";
+
+    /**
+     * 句号
+     */
+    public static final String HF_PERIOD = ".";
 }

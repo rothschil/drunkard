@@ -284,18 +284,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return html.replaceAll("<([a-z]+?)\\s+?.*?>", "<$1>");
     }
 
-    /**
-     * 替换为手机识别的HTML，去掉样式及属性，保留回车。
-     *
-     * @param txt
-     * @return
-     */
-    public static String toHtml(String txt) {
-        if (txt == null) {
-            return "";
-        }
-        return replace(replace(Encodes.escapeHtml(txt), "\n", "<br/>"), "\t", "&nbsp; &nbsp; ");
-    }
 
     /**
      * 缩略字符串（不区分中英文字符）

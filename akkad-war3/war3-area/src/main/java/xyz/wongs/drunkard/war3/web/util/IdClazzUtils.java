@@ -1,8 +1,6 @@
 package xyz.wongs.drunkard.war3.web.util;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import xyz.wongs.drunkard.base.bean.SpringContextHolder;
+import xyz.wongs.drunkard.base.utils.bean.SpringContextHolder;
 import xyz.wongs.drunkard.base.persistence.mybatis.service.RedisUidService;
 
 /**

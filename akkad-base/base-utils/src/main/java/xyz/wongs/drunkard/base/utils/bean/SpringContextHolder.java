@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.base.bean;
+package xyz.wongs.drunkard.base.utils.bean;
 
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeansException;

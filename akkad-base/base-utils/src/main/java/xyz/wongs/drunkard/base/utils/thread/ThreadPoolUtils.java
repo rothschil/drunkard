@@ -1,7 +1,6 @@
-package xyz.wongs.drunkard.base.thread;
+package xyz.wongs.drunkard.base.utils.thread;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Time;
 import java.util.concurrent.*;
 
 /**

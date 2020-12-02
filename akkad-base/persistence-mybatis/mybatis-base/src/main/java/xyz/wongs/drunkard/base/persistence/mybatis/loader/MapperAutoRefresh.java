@@ -15,7 +15,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ClassUtils;
 import xyz.wongs.drunkard.base.constant.Constant;
-import xyz.wongs.drunkard.base.thread.ThreadPoolUtils;
+import xyz.wongs.drunkard.base.utils.thread.ThreadPoolUtils;
 import xyz.wongs.drunkard.base.utils.StringUtils;
 
 import javax.annotation.PostConstruct;

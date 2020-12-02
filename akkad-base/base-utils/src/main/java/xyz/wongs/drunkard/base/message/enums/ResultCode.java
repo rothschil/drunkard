@@ -1,16 +1,13 @@
 package xyz.wongs.drunkard.base.message.enums;
 
 /**
- * @ClassName
- * @Description
- * 1000～1999 区间表示参数错误
- * 2000～2999 区间表示用户错误
- * 3000～3999 区间表示接口异常
+ * @ClassName ResultCode 定义的接口状态码
+ * @Description     1000～1999 区间表示参数错误；000～2999 区间表示用户错误；3000～3999 区间表示接口异常
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/8/2 13:31
  * @Version 1.0.0
- */
+*/
 public enum ResultCode {
 
     /** 成功 **/
