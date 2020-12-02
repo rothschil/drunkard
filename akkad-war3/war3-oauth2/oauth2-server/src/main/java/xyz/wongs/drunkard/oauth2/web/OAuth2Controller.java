@@ -59,7 +59,7 @@ public class OAuth2Controller {
         resource.setId(propertyService.getProperty("spring.security.oauth.resource.id"));
         resource.setClientId(propertyService.getProperty("spring.security.oauth.resource.client.id"));
         resource.setClientSecret(propertyService.getProperty("spring.security.oauth.resource.client.secret"));
-        resource.setGrantType(GrantTypeEnum.PASSWORD.getGrant_type());
+        resource.setGrantType(GrantTypeEnum.PASSWORD.getGrantType());
         resource.setAccessTokenUri(propertyService.getProperty("spring.security.oauth.token.uri"));
         resource.setUsername(username);
         resource.setPassword(password);
@@ -101,7 +101,7 @@ public class OAuth2Controller {
             resource.setId(propertyService.getProperty("spring.security.oauth.resource.id"));
             resource.setClientId(propertyService.getProperty("spring.security.oauth.resource.client.id"));
             resource.setClientSecret(propertyService.getProperty("spring.security.oauth.resource.client.secret"));
-            resource.setGrantType(GrantTypeEnum.REFRESH_TOKEN.getGrant_type());
+            resource.setGrantType(GrantTypeEnum.REFRESH_TOKEN.getGrantType());
             resource.setAccessTokenUri(propertyService.getProperty("spring.security.oauth.token.uri"));
 
             ResourceOwnerPasswordAccessTokenProvider provider = new ResourceOwnerPasswordAccessTokenProvider();

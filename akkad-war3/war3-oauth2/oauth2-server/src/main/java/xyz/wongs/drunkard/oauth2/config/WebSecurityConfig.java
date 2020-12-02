@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import xyz.wongs.drunkard.oauth2.provider.UserAuthenticationProvider;
 import xyz.wongs.drunkard.oauth2.provider.UserSmsAuthenticationProvider;
-import xyz.wongs.drunkard.oauth2.util.MD5Util;
+import xyz.wongs.drunkard.oauth2.util.Md5Util;
 
 /**
  * @ClassName WebSecurityConfig
@@ -46,12 +46,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new PasswordEncoder() {
             @Override
             public String encode(CharSequence charSequence) {
-                return MD5Util.md5Encode(String.valueOf(charSequence),null);
+                return Md5Util.md5Encode(String.valueOf(charSequence),null);
             }
 
             @Override
             public boolean matches(CharSequence charSequence, String s) {
-                return s.equals(MD5Util.md5Encode(String.valueOf(charSequence),null));
+                return s.equals(Md5Util.md5Encode(String.valueOf(charSequence),null));
             }
         };
     }

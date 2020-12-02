@@ -2,7 +2,15 @@ package xyz.wongs.drunkard.oauth2.util;
 
 import java.security.MessageDigest;
 
-public class MD5Util {
+/**
+ * @ClassName MD5Util
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/12/2 16:14
+ * @Version 1.0.0
+*/
+public class Md5Util {
 
 	public static final String MD_5="MD5";
 
@@ -43,7 +51,7 @@ public class MD5Util {
 			"6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
 
 	public static void main(String[] args) {
-		System.out.println(MD5Util.md5Encode("123456",null));
+		System.out.println(Md5Util.md5Encode("123456",null));
 	}
 
 }

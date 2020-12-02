@@ -1,6 +1,5 @@
 package xyz.wongs.drunkard.oauth2.config;
 
-import cn.hutool.system.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,7 +15,6 @@ import xyz.wongs.drunkard.oauth2.domain.entity.SysPermission;
 import xyz.wongs.drunkard.oauth2.domain.mapper.OauthUserMapper;
 import xyz.wongs.drunkard.oauth2.domain.service.OauthUserService;
 import xyz.wongs.drunkard.oauth2.domain.service.SysPermissionService;
-import xyz.wongs.drunkard.oauth2.util.MD5Util;
 
 import java.util.ArrayList;
 import java.util.List;

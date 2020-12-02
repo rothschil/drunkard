@@ -5,6 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import xyz.wongs.drunkard.base.entity.AbstractEntity;
 
+/**
+ * @ClassName OauthUser
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/12/2 16:18
+ * @Version 1.0.0
+*/
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

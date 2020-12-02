@@ -7,6 +7,14 @@ import xyz.wongs.drunkard.oauth2.domain.entity.SysPermission;
 
 import java.util.List;
 
+/**
+ * @ClassName OauthUserMapper
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/12/2 16:58
+ * @Version 1.0.0
+*/
 public interface OauthUserMapper extends BaseMapper<OauthUser,Long> {
 
     int deleteByPrimaryKey(Long uId);

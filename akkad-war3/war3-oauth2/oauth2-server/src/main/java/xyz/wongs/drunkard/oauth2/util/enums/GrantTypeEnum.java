@@ -10,19 +10,22 @@ package xyz.wongs.drunkard.oauth2.util.enums;
 */
 public enum GrantTypeEnum {
 
+    /** 密码模式 **/
     PASSWORD("password", "密码模式"),
+
+    /** 刷新token **/
     REFRESH_TOKEN("refresh_token", "刷新token");
 
-    private final String grant_type;
-    private final String grant_name;
+    private final String grantType;
+    private final String grantName;
 
-    private GrantTypeEnum(String grant_type, String grant_name){
-        this.grant_type = grant_type;
-        this.grant_name = grant_name;
+    private GrantTypeEnum(String grantType, String grantName){
+        this.grantType = grantType;
+        this.grantName = grantName;
     }
 
-    public String getGrant_type() {
-        return grant_type;
+    public String getGrantType() {
+        return grantType;
     }
 
 }

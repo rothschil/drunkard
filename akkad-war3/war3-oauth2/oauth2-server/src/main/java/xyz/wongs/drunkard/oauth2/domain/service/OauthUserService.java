@@ -9,7 +9,14 @@ import xyz.wongs.drunkard.base.persistence.mybatis.service.BaseService;
 import xyz.wongs.drunkard.oauth2.domain.entity.OauthUser;
 import xyz.wongs.drunkard.oauth2.domain.mapper.OauthUserMapper;
 
-
+/**
+ * @ClassName OauthUserService
+ * @Description 
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/12/2 16:58
+ * @Version 1.0.0
+*/
 @Service
 @Transactional(readOnly = true)
 public class OauthUserService extends BaseService<OauthUser, Long> {

@@ -1,6 +1,20 @@
 
-![Mozilla Add-on](https://img.shields.io/amo/dw/drunkard?color=fedcba&label=drunkard&logo=postwoman&logoColor=rgb&style=for-the-badge)
-
+![Drunkard-WONGS](https://img.shields.io/badge/Drunkard-WONGS-blueviolet)
+![Drunkard-Version](https://img.shields.io/badge/version-v2.0.0--alpha.2-orange)
+![Drunkard-Downloads](https://img.shields.io/badge/Downloads-300-brightgreen)
+![Drunkard-Stars](https://img.shields.io/badge/Stars-148-ff69b4)
+![Drunkard-size](https://img.shields.io/badge/size-25%20MB-blue)
+![Drunkard-license](https://img.shields.io/badge/license-MIT-green)
+![Drunkard-coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+![Java](https://img.shields.io/badge/Java-%3E%3D%201.8-green)
+![Maven](https://img.shields.io/badge/Maven-%3E%3D%203.6.3-yellowgreen)
+![MySQL](https://img.shields.io/badge/MySQL-%3E%3D%205.7-important)
+![Redis](https://img.shields.io/badge/Redis-%3E%3D%204.0-yellowgreen)
+![Idea](https://img.shields.io/badge/IDEA-%3E%3D%202020.2-informational)
+![SpringBoot](https://img.shields.io/badge/SpringBoot-%3E%3D%202.3.4-druid)
+![Druid](https://img.shields.io/badge/druid-%3E%3D%201.2.3-green)
+![Mybatis](https://img.shields.io/badge/Mybatis-%3E%3D%203.5.5-red)
+![RedisClient](https://img.shields.io/badge/RedisClient-%3E%3D%203.3.0-blue)
 
 <!-- TOC -->
 
