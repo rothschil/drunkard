@@ -15,16 +15,10 @@ import java.io.Serializable;
  * @Version 1.0.0
 */
 @Transactional(readOnly = true)
-public abstract class AbstractService<T extends AbstractEntity,ID extends Serializable> extends AbstractRootService<T,ID> implements IBaseService<T,ID> {
+public abstract class AbstractService<T extends AbstractEntity<ID>,ID extends Serializable> extends AbstractRootService<T,ID> implements IBaseService<T,ID> {
 
 
-    /** 待补充
-     * @Description
-     * @param null
-     * @return 
-     * @throws 
-     * @date 2020/8/2 14:12
-    */
+    /** 待补充   */
     @Override
     protected abstract BaseMapper<T,ID> getMapper();
 

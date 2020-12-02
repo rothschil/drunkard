@@ -30,13 +30,13 @@ public class RedisConfig {
      * @date 20/11/18 11:01
      */
     @Bean
-    public RedisTemplate redisTemplate(RedisConnectionFactory factory){
+    public RedisTemplate<?,?> redisTemplate(RedisConnectionFactory factory){
 
-        RedisTemplate redisTemplate = new RedisTemplate();
+        RedisTemplate<?,?> redisTemplate = new RedisTemplate<String,Object>();
         redisTemplate.setConnectionFactory(factory);
 
         //使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值（默认使用JDK的序列化方式）
-        Jackson2JsonRedisSerializer serializer = new Jackson2JsonRedisSerializer(Object.class);
+        Jackson2JsonRedisSerializer<?> serializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         //之前的版本 mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
