@@ -415,6 +415,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return toLong(val).intValue();
     }
 
+
+
     /**
      * 获得i18n字符串
      */
