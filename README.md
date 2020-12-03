@@ -21,11 +21,12 @@
 - [1. 项目简介](#1-项目简介)
     - [1.1. 项目结构](#11-项目结构)
     - [1.2. 技术选型](#12-技术选型)
+        - [1.2.1. 自动生成实体等文件](#121-自动生成实体等文件)
+        - [1.2.2. 分页](#122-分页)
     - [1.3. 测试策略](#13-测试策略)
     - [1.4. 技术架构](#14-技术架构)
     - [1.5. 部署架构](#15-部署架构)
     - [1.6. 外部依赖](#16-外部依赖)
-    - [1.7. 环境信息](#17-环境信息)
 - [2. 内置功能](#2-内置功能)
     - [2.1. 手写爬虫获取国家统计局行政区划数据](#21-手写爬虫获取国家统计局行政区划数据)
         - [2.1.1. 依赖包](#211-依赖包)
@@ -55,15 +56,152 @@
 
 `drunkard：酒鬼; 醉鬼;`
 
-想做一套后台管理系统，在此期间主要参考的开源项目 `RuoYi`，谁让自己前端知识储备不够，实在是写不出来那样的效果，没办法，只能抄。
+醉酒状态下，可以忘却很多烦恼，倒是很羡慕那些 `酒鬼`们，每天都可以忘记好多事情。再者与同道中的人`喝`起来酒越喝越暖，也可以说 `酒逢知己千杯少`吧，中华古文化中对`酒`可以说有很多名人名句。信手拈来的有曹孟德`对酒当歌，人生几何`这样的焦虑；也有东坡先生 `明月几时有？把酒问青天`怀情；再有杜牧先生的 `借问酒家何处有,牧童遥指杏花村`的念`酒`。
+
+以前听说魏晋时期的 `竹林七贤` 中有两人嗜酒如命 `嵇康`、`刘伶`,小时候还见到酒的品牌就以这两人名字命名的，甚是觉得好玩不得了。
+
+言归正传，一直依赖，自己就想做一套后台管理系统，在此期间主要前端参考的开源项目 `RuoYi`，谁让自己前端知识储备不够，实在是写不出来那样的效果，没办法，只能抄。
 
 本项目是基于SpringBoot开发的脚手架模块，已经集成 `MyBatis` 作为持久层组件，为了方便提供两种不同的主键生成策略，一种是利用 `Redis` ；另一种是利用数据库自身的ID策略，两种方式各有差异，主要针对不同的场景。
 
+同时本人也将日常学习的一些材料也整理出来，放到 [github.io](https://rothschil.github.io/) 的个人网站上，希望对大家有帮助。
+
+- ![https://rothschil.github.io/](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201203104059.png)
+
 ## 1.1. 项目结构
+
+~~~
+|-- akkad-base                      -----------------基包
+|   |-- persistence-mybatis         -----------------基于MyBatis持久层
+|   |   |-- mybatis-base            -----------------Mybatis抽象基类封装
+|   |   |-- mybatis-no-pk           -----------------依赖DB主键版本
+|   |   |-- mybatis-pk-redis        -----------------依赖Redis生成主键的版本
+|   |-- base-utils                  -----------------通用工具包
+|-- akkad-war3                      -----------------SpringCloud入门
+|   |   |-- war3-area               -----------------获取行政区域的版本
+|   |   |-- war3-infi               -----------------接口限流
+|   |   |-- war3-oauth2             -----------------集成oauth2的版本
+|-- README.md
+|-- LICENSE
+~~~
 
 ## 1.2. 技术选型
 
 SpringBoot、Maven、Jnuit、MySQL、JDK8+
+
+### 1.2.1. 自动生成实体等文件
+
+在pom文件中加上`generator`依赖，在 `configurationFile` 中指定`generatorConfig.xml` 文件的位置，剩下一些数据库连接以及配置项，都在配置文件`generatorConfig.xml`中指定即可，方便又实用。
+
+- pom文件
+
+~~~yml
+<build>
+        <plugin>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-maven-plugin</artifactId>
+            <version>1.3.2</version>
+            <configuration>
+                <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
+                <overwrite>true</overwrite>
+                <verbose>true</verbose>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+~~~
+
+- generatorConfig.xml文件
+
+这里我将数据库配置信息独立出来在另外一个文件，即`generator.properties`，`table` 节点自定义，可以一次性写个表。
+
+~~~xml
+<generatorConfiguration>
+    <properties resource="generator/generator.properties"></properties>
+    <!--数据库驱动-->
+    <classPathEntry location="${jdbc.driverLocation}"/>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3" defaultModelType="flat">
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="${jdbc.driverClass}" connectionURL="${jdbc.connectionURL}"
+                        userId="${jdbc.userId}" password="${jdbc.password}">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--生成Model类存放位置-->
+        <javaModelGenerator targetPackage="${targetPackage}.entity" targetProject="${targetProject}">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="${targetPackage}.mapping" targetProject="${targetProject}">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成Dao类存放位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${targetPackage}.mapper" targetProject="${targetProject}">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="register_user_his"  schema="RegisterUserHis"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+    </context>
+</generatorConfiguration>
+~~~
+
+- generator.properties文件
+
+指定数据库驱动路径以及数据库URL、用户名、密码等即可
+
+~~~properties
+jdbc.driverLocation=G:\\Devp_Repository\\Jar\\mysql-connector-java-5.1.46.jar
+jdbc.driverClass=com.mysql.jdbc.Driver
+jdbc.connectionURL=jdbc:mysql://localhost:3306/addbook?characterEncoding=utf8&useSSL=true
+jdbc.userId=root
+jdbc.password=123456
+targetProject=D:/data
+targetPackage=xyz.wongs.drunkard.domain.addbook
+// Generator
+generator.targetProject=src/main/java
+
+~~~
+
+最后就是执行阶段，两种方式，我使用的`maven`插件命令方式来执行，直接双击。
+
+![generator插件](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201203101834.png)
+
+### 1.2.2. 分页
+
+分页组件是继承开源**com.github.pagehelper**
+
+~~~xml
+<dependency>
+    <groupId>com.github.pagehelper</groupId>
+    <artifactId>pagehelper-spring-boot-starter</artifactId>
+    <version>${Last Version}</version>
+</dependency>
+~~~
+
+在应用中PageHelper.startPage即可，后面需要紧跟着持久层语句，否则分页失效
+
+~~~java
+public PageInfo<T> selectPage(PaginationInfo pgInfo, T t) {
+    PageHelper.startPage(pgInfo.getPageNum(), pgInfo.getPageSize());
+    List<T> lt = getMapper().getList(t);
+    PageInfo<T> pageInfo = new PageInfo<T>(lt);
+    return pageInfo;
+}
+~~~
 
 ## 1.3. 测试策略
 
@@ -79,11 +217,7 @@ API测试 | src/apiTest/java | 模拟客户端调用API
 
 ## 1.6. 外部依赖
 
-项目运行时所依赖的外部集成方，比如订单系统会依赖于会员系统；
-
-## 1.7. 环境信息
-
-各个环境的访问方式，数据库连接等；
+项目运行时所依赖的外部集成方；
 
 # 2. 内置功能
 
