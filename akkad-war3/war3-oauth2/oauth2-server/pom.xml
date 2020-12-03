@@ -23,6 +23,10 @@
                     <artifactId>HikariCP</artifactId>
                     <groupId>com.zaxxer</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>commons-pool2</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
