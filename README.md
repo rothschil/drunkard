@@ -28,33 +28,37 @@
     - [1.5. 部署架构](#15-部署架构)
     - [1.6. 外部依赖](#16-外部依赖)
 - [2. 内置功能](#2-内置功能)
-    - [2.1. 手写爬虫获取国家统计局行政区划数据](#21-手写爬虫获取国家统计局行政区划数据)
-        - [2.1.1. 依赖包](#211-依赖包)
-        - [2.1.2. 核心实现代码](#212-核心实现代码)
-        - [2.1.3. 单元测试](#213-单元测试)
-        - [2.1.4. 打开浏览器](#214-打开浏览器)
-        - [2.1.5. 源码地址，如果觉得对你有帮助，请Star](#215-源码地址如果觉得对你有帮助请star)
-    - [2.2. 集成ip2region离线IP地名映射](#22-集成ip2region离线ip地名映射)
-        - [2.2.1. 打开浏览器](#221-打开浏览器)
-        - [2.2.2. 源码地址，如果觉得对你有帮助，请Star](#222-源码地址如果觉得对你有帮助请star)
-    - [2.3. Http响应内容统一封装](#23-http响应内容统一封装)
-        - [2.3.1. 消息体](#231-消息体)
-            - [2.3.1.1. 正常响应](#2311-正常响应)
-            - [2.3.1.2. 异常响应](#2312-异常响应)
-        - [2.3.2. 拦截器](#232-拦截器)
-            - [2.3.2.1. Annoation注解](#2321-annoation注解)
-            - [2.3.2.2. 拦截器](#2322-拦截器)
-            - [2.3.2.3. 全局异常](#2323-全局异常)
-        - [2.3.3. 例子](#233-例子)
-        - [2.3.4. 源码地址，如果觉得对你有帮助，请Star](#234-源码地址如果觉得对你有帮助请star)
-    - [2.4. 集成OAuth2](#24-集成oauth2)
-    - [2.5. 集成数据校验](#25-集成数据校验)
+    - [2.1. 自动刷新MybatisXML](#21-自动刷新mybatisxml)
+        - [2.1.1. 配置文件](#211-配置文件)
+        - [2.1.2. 关键步骤](#212-关键步骤)
+        - [2.1.3. 源码地址，如果觉得对你有帮助，请Star](#213-源码地址如果觉得对你有帮助请star)
+    - [2.2. 手写爬虫获取国家统计局行政区划数据](#22-手写爬虫获取国家统计局行政区划数据)
+        - [2.2.1. 依赖包](#221-依赖包)
+        - [2.2.2. 核心实现代码](#222-核心实现代码)
+        - [2.2.3. 单元测试](#223-单元测试)
+        - [2.2.4. 打开浏览器](#224-打开浏览器)
+        - [2.2.5. 源码地址，如果觉得对你有帮助，请Star](#225-源码地址如果觉得对你有帮助请star)
+    - [2.3. 集成ip2region离线IP地名映射](#23-集成ip2region离线ip地名映射)
+        - [2.3.1. 打开浏览器](#231-打开浏览器)
+        - [2.3.2. 源码地址，如果觉得对你有帮助，请Star](#232-源码地址如果觉得对你有帮助请star)
+    - [2.4. Http响应内容统一封装](#24-http响应内容统一封装)
+        - [2.4.1. 消息体](#241-消息体)
+            - [2.4.1.1. 正常响应](#2411-正常响应)
+            - [2.4.1.2. 异常响应](#2412-异常响应)
+        - [2.4.2. 拦截器](#242-拦截器)
+            - [2.4.2.1. Annoation注解](#2421-annoation注解)
+            - [2.4.2.2. 拦截器](#2422-拦截器)
+            - [2.4.2.3. 全局异常](#2423-全局异常)
+        - [2.4.3. 例子](#243-例子)
+        - [2.4.4. 源码地址，如果觉得对你有帮助，请Star](#244-源码地址如果觉得对你有帮助请star)
+    - [2.5. 集成OAuth2](#25-集成oauth2)
+    - [2.6. 集成数据校验](#26-集成数据校验)
 - [3. FAQ](#3-faq)
 
 <!-- /TOC -->
 # 1. 项目简介
 
-`drunkard：酒鬼; 醉鬼;`
+`drunkard:	英[ˈdrʌŋkəd]    美[ˈdrʌŋkərd]   酒鬼; 醉鬼;`
 
 醉酒状态下，可以忘却很多烦恼，倒是很羡慕那些 `酒鬼`们，每天都可以忘记好多事情。再者与同道中的人`喝`起来酒越喝越暖，也可以说 `酒逢知己千杯少`吧，中华古文化中对`酒`可以说有很多名人名句。信手拈来的有曹孟德`对酒当歌，人生几何`这样的焦虑；也有东坡先生 `明月几时有？把酒问青天`怀情；再有杜牧先生的 `借问酒家何处有,牧童遥指杏花村`的念`酒`。
 
@@ -71,16 +75,18 @@
 ## 1.1. 项目结构
 
 ~~~
-|-- akkad-base                      -----------------基包
-|   |-- persistence-mybatis         -----------------基于MyBatis持久层
-|   |   |-- mybatis-base            -----------------Mybatis抽象基类封装
-|   |   |-- mybatis-no-pk           -----------------依赖DB主键版本
-|   |   |-- mybatis-pk-redis        -----------------依赖Redis生成主键的版本
-|   |-- base-utils                  -----------------通用工具包
-|-- akkad-war3                      -----------------SpringCloud入门
-|   |   |-- war3-area               -----------------获取行政区域的版本
-|   |   |-- war3-infi               -----------------接口限流
-|   |   |-- war3-oauth2             -----------------集成oauth2的版本
+|-- akkad-base                      ------------基包
+|   |-- persistence-mybatis         ------------基于MyBatis持久层
+|   |   |-- mybatis-base            ------------Mybatis抽象基类封装
+|   |   |   |-- resources           ------------
+|   |   |   |   |-- conf            ------------Mybatis自动刷新配置路径
+|   |   |-- mybatis-no-pk           ------------依赖DB主键版本
+|   |   |-- mybatis-pk-redis        ------------依赖Redis生成主键的版本
+|   |-- base-utils                  ------------通用工具包
+|-- akkad-war3                      ------------SpringCloud入门
+|   |   |-- war3-area               ------------获取行政区域的版本
+|   |   |-- war3-infi               ------------接口限流
+|   |   |-- war3-oauth2             ------------集成oauth2的版本
 |-- README.md
 |-- LICENSE
 ~~~
@@ -221,7 +227,62 @@ API测试 | src/apiTest/java | 模拟客户端调用API
 
 # 2. 内置功能
 
-## 2.1. 手写爬虫获取国家统计局行政区划数据
+## 2.1. 自动刷新MybatisXML
+
+使用Mybatis过程中，很多时候修改了XML文件需要整个项目重新启动，比较耗时，如果没什么业务数据状态还好，有数据状态可就惨啦，所以XML自动线下更新就很有必要。手写一个简单实现，大家参考下。
+
+我的实现思路就是利用一个额外线程扫描`mybatis` XML文件，更新到 `Spring`中的 上下文`ApplicationContext`中。
+
+### 2.1.1. 配置文件
+
+我们定义一套刷新时间和周期频次的配置文件在路径 `persistence-mybatis\mybatis-base\src\main\resources\conf\mybatis-refresh.properties` 中，里面内容如下：
+
+~~~properties
+enabled=true
+delaySeconds=30
+sleepSeconds=10
+mappingPath=mapper
+~~~
+
+- enabled：是否开启自动刷新
+- delaySeconds： 间隔时间
+- sleepSeconds： 休眠时间
+- mappingPath：XML的路径
+
+核心类需要实现上下文接口 `ApplicationContextAware`。
+
+### 2.1.2. 关键步骤
+
+- @Override重写`setApplicationContext` 方法
+- 用静态语句块，初始化配置文件中的相关参数
+- @PostConstruct：在构造函数之后对`SqlSessionFactory`进行额外配置
+- 启用线程按照频次间隔重复执行上述操作
+
+关键性步骤如下：
+
+~~~java
+// 1、从上下文容器获取 SqlSessionFactory
+SqlSessionFactory sessionFactory = applicationContext.getBean(SqlSessionFactory.class);
+// 2、获取Configuration
+Configuration configuration = sessionFactory.getConfiguration();
+this.configuration = configuration;
+// 3、扫描Locations
+mapperLocations = getResource(basePackage,XML_RESOURCE_PATTERN);
+// 4、启动线程执行
+exeTask();
+~~~
+
+在多线程处理这块有需要注意有一定的线程使用基础，看官自行学习。
+
+### 2.1.3. 源码地址，如果觉得对你有帮助，请Star
+
+![觉得对你有帮助，请Star](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165747.png)
+
+[Github源码地址](https://github.com/rothschil/drunkard/tree/master/akkad-base/persistence-mybatis)
+
+[Gitee源码地址](https://gitee.com/rothschil/drunkard.git)
+
+## 2.2. 手写爬虫获取国家统计局行政区划数据
 
 很多地方需要用到 `统计用区划和城乡划分代码` 这块以国家统计局的权威数据为准，但是人家是一个网页。
 
@@ -255,7 +316,7 @@ CREATE TABLE tb_locations (
 - Mybatis实现的批量提交
 - dom4j解析xml元素
 
-### 2.1.1. 依赖包
+### 2.2.1. 依赖包
 
 ~~~xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -378,7 +439,7 @@ CREATE TABLE tb_locations (
 </project>
 ~~~
 
-### 2.1.2. 核心实现代码
+### 2.2.2. 核心实现代码
 
 ~~~java
 package xyz.wongs.drunkard.war3.web.area.task.impl;
@@ -788,7 +849,7 @@ public class ProcessServiceImpl implements ProcessService {
 
 ~~~
 
-### 2.1.3. 单元测试
+### 2.2.3. 单元测试
 
 在单元测试中，自上而下，按个运行测试方法即可。
 
@@ -997,13 +1058,13 @@ public class ProcessServiceTest extends BaseTest {
 }
 ~~~
 
-### 2.1.4. 打开浏览器
+### 2.2.4. 打开浏览器
 
 访问 `http://localhost:9090/region/ip=109.27.45.12` 这是我之前一个例子，用来解析IP地址，获取地域信息的。
 
 ![样例响应](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165146.png)
 
-### 2.1.5. 源码地址，如果觉得对你有帮助，请Star
+### 2.2.5. 源码地址，如果觉得对你有帮助，请Star
 
 **觉得对你有帮助，请Star**
 
@@ -1011,7 +1072,7 @@ public class ProcessServiceTest extends BaseTest {
 
 [Gitee源码地址](https://gitee.com/rothschil/drunkard.git)
 
-## 2.2. 集成ip2region离线IP地名映射
+## 2.3. 集成ip2region离线IP地名映射
 
 前段时间因业务需要，客户提出分析外网访问的IP，即针对一些热点区域的IP访问想做到事后预警与分析。
 因为我们服务是运行在相对隔离的资源环境中，无法直接去请求外网，于是想到用离线的方式来处理从网关发来的数据。找了下，看到个开源项目
@@ -1149,13 +1210,13 @@ public class IndexController {
 
 ~~~
 
-### 2.2.1. 打开浏览器
+### 2.3.1. 打开浏览器
 
 访问 `http://localhost:9090/region/ip=109.27.45.12` 这是我之前一个例子，用来解析IP地址，获取地域信息的。
 
 ![样例响应](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165146.png)
 
-### 2.2.2. 源码地址，如果觉得对你有帮助，请Star
+### 2.3.2. 源码地址，如果觉得对你有帮助，请Star
 
 ![觉得对你有帮助，请Star](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165747.png)
 
@@ -1163,7 +1224,7 @@ public class IndexController {
 
 [Gitee源码地址](https://gitee.com/rothschil/drunkard.git)
 
-## 2.3. Http响应内容统一封装
+## 2.4. Http响应内容统一封装
 
 我们在开发`前端`和`后端`进行交互服务过程中，受制于前后端的工作职责明确，在交互协议的定义上理解也较为不同，造成一个项目服务中重复定义交互内容以及编码上重复编写，不利于项目维护。所以基于此，将`后端`按照约定请求URL路径，并传入相关参数，`后端`服务器接收请求，进行业务处理，返回数据给前端，进行再次封装，供前端以及外部调用。
 
@@ -1325,11 +1386,11 @@ public enum ResultCode {
 
 摆脱了繁琐的文字，下面开始张罗着贴实现代码啦。
 
-### 2.3.1. 消息体
+### 2.4.1. 消息体
 
 结合我们定义的状态码，我们返回的消息体主要实现一个 `Serializable`，不要问我为什么。
 
-#### 2.3.1.1. 正常响应
+#### 2.4.1.1. 正常响应
 
 ~~~java
 package xyz.wongs.drunkard.base.message.response;
@@ -1429,7 +1490,7 @@ public class Result implements Serializable {
 
 ~~~
 
-#### 2.3.1.2. 异常响应
+#### 2.4.1.2. 异常响应
 
 ~~~java
 package xyz.wongs.drunkard.base.message.response;
@@ -1492,13 +1553,13 @@ public class ErrorResult implements Serializable {
 
 这样两个消息体就写完啦。
 
-### 2.3.2. 拦截器
+### 2.4.2. 拦截器
 
 我们这里需要做的就是利用拦截器拦截请求，检查判断是否此请求返回的值需要包装。核心就是判断一个注解`annoation`是否存在方法或类中。
 
 为了演示的完整，我将代码贴完整。
 
-#### 2.3.2.1. Annoation注解
+#### 2.4.2.1. Annoation注解
 
 ~~~java
 /**
@@ -1516,7 +1577,7 @@ public @interface ResponseResult {
 }
 ~~~
 
-#### 2.3.2.2. 拦截器
+#### 2.4.2.2. 拦截器
 
 ~~~java
 
@@ -1630,7 +1691,7 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
 
 ~~~
 
-#### 2.3.2.3. 全局异常
+#### 2.4.2.3. 全局异常
 
 这里所有的异常都使用到 `ErrorResult` 类。
 
@@ -1742,7 +1803,7 @@ public class GlobalExceptionHandler {
 
 ~~~
 
-### 2.3.3. 例子
+### 2.4.3. 例子
 
 以上虽然将所有代码贴出，这列为凑完整，顺道将写个例子来，写个 `Controller`
 
@@ -1858,7 +1919,7 @@ public class IndexController {
 
 ![异常响应](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165250.png)
 
-### 2.3.4. 源码地址，如果觉得对你有帮助，请Star
+### 2.4.4. 源码地址，如果觉得对你有帮助，请Star
 
 ![觉得对你有帮助，请Star](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165747.png)
 
@@ -1866,10 +1927,10 @@ public class IndexController {
 
 [Gitee源码地址](https://gitee.com/rothschil/drunkard.git)
 
-## 2.4. 集成OAuth2
+## 2.5. 集成OAuth2
 
 
-## 2.5. 集成数据校验
+## 2.6. 集成数据校验
 
 `Spring Validation` 对 `hibernate validatio`n 进行了二次封装，可以让我们更加方便地使用数据校验功能。这边我们通过 Spring Boot 来引用校验功能。
 
