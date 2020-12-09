@@ -37,21 +37,19 @@ spring:
       pool-prepared-statements: false
       max-pool-prepared-statement-per-connection-size: 20
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=6000
-      login-username: admin
-      login-password: 123456
   resources:
-    static-locations: classpath:/static/,classpath:/templates/,classpath:/pages/
+    static-locations: classpath:/static/,classpath:/templates/
   mvc:
-    static-path-pattern: /resources/**
+    static-path-pattern: /static/**,/templates/**
+    view:
+      suffix: .html
   thymeleaf:
     servlet:
       contentType: text/html; charset=utf-8
     cache: false
-    mode: LEGACYHTML5
+    mode: HTML
     encoding: UTF-8
     enabled: true
-    prefix: classpath:/pages/
-    suffix: .html
   main:
     allow-bean-definition-overriding: true
 # mybatis配置

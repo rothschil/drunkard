@@ -274,6 +274,8 @@ mapperLocations = getResource(basePackage,XML_RESOURCE_PATTERN);
 exeTask();
 ~~~
 
+核心类在`akkad-base\persistence-mybatis\mybatis-base\src\main\java\xyz\wongs\drunkard\base\persistence\mybatis\loader\MapperAutoRefresh.java` 下，而且行数太长，代码就不贴。
+
 在多线程处理这块有需要注意有一定的线程使用基础，看官自行学习。
 
 ### 2.1.3. 源码地址，如果觉得对你有帮助，请Star
