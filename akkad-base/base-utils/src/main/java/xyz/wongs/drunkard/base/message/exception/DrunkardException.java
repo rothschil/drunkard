@@ -43,6 +43,12 @@ public class DrunkardException extends RuntimeException{
         this.message = resultCode.getMsg();
     }
 
+    public DrunkardException(String message, Throwable e) {
+        super(message, e);
+        this.message = message;
+    }
+
+
     public DrunkardException(String message) {
         super(message);
         this.setCode(-1);

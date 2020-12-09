@@ -3,6 +3,8 @@ package xyz.wongs.drunkard.base.entity;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import xyz.wongs.drunkard.base.config.Global;
 import xyz.wongs.drunkard.base.stas.Cons;
 
@@ -19,42 +21,56 @@ import java.util.Map;
  * @date 2020/8/2 13:32
  * @Version 1.0.0
  */
-@Data
 public abstract class AbstractEntity<ID extends Serializable> extends BaseEntity<ID> {
 
+    @Setter
+    @Getter
+    /*** 数据库类型 */
     @JSONField(serialize = false)
     private String dtype;
 
     /**
      * 搜索值
      */
+    @Setter
+    @Getter
     private String searchValue;
-
-    /**
-     * 创建者
-     */
-    private String createBy;
 
     /**
      * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Setter
+    @Getter
     private Date createTime;
+    /**
+     * 创建者
+     */
+    @Setter
+    @Getter
+    private String createBy;
+
 
     /**
      * 更新者
      */
+    @Setter
+    @Getter
     private String updateBy;
 
     /**
      * 更新时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Setter
+    @Getter
     private Date updateTime;
 
     /**
      * 备注
      */
+    @Setter
+    @Getter
     private String remark;
 
     /**

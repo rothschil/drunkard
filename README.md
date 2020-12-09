@@ -1140,11 +1140,9 @@ import org.springframework.web.bind.annotation.*;
 import xyz.wongs.drunkard.base.aop.annotion.ApplicationLog;
 import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
 import xyz.wongs.drunkard.base.message.exception.DrunkardException;
-import xyz.wongs.drunkard.war3.limit.RequestLimit;
+import xyz.wongs.drunkard.framework.limit.RequestLimit;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @ClassName IndexController
@@ -1824,7 +1822,7 @@ import org.springframework.web.bind.annotation.*;
 import xyz.wongs.drunkard.base.aop.annotion.ApplicationLog;
 import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
 import xyz.wongs.drunkard.base.message.exception.DrunkardException;
-import xyz.wongs.drunkard.war3.limit.RequestLimit;
+import xyz.wongs.drunkard.framework.limit.RequestLimit;
 
 import java.io.IOException;
 import java.util.HashMap;

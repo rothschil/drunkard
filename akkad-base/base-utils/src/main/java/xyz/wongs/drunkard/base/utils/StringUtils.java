@@ -7,7 +7,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import xyz.wongs.drunkard.base.constant.Constant;
-import xyz.wongs.drunkard.base.utils.text.StrFormatter;
+import xyz.wongs.drunkard.common.text.StrFormatter;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -26,6 +26,9 @@ import java.util.regex.Pattern;
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
+    /** 空字符串 */
+    private static final String NULLSTR = "";
+    /** 下划线 */
     private static final char SEPARATOR = '_';
     private static final String CHARSET_NAME = "UTF-8";
     private static final String PARR = "<([a-zA-Z]+)[^<>]*>";
@@ -104,6 +107,24 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return isNull(objects) || (objects.length == 0);
     }
 
+    /**
+     * * 判断一个对象数组是否非空
+     *
+     * @param objects 要判断的对象数组
+     * @return true：非空 false：空
+     */
+    public static boolean isNotEmpty(Object[] objects) {
+        return !isEmpty(objects);
+    }
+    /**
+     * * 判断一个Collection是否非空，包含List，Set，Queue
+     *
+     * @param coll 要判断的Collection
+     * @return true：非空 false：空
+     */
+    public static boolean isNotEmpty(Collection<?> coll) {
+        return !isEmpty(coll);
+    }
     /**
      * 判断是否存在某属性的 set方法
      *

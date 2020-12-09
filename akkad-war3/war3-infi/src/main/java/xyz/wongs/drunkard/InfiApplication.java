@@ -1,6 +1,7 @@
 package xyz.wongs.drunkard;
 
 import com.github.hiwepy.ip2region.spring.boot.EnableIP2region;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -20,6 +21,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @ServletComponentScan
 @EnableIP2region
 @EnableAsync
+@MapperScan(basePackages = {"xyz.wongs.drunkard.**.mapper"})
 @ComponentScan(basePackages = {"com.github.hiwepy","xyz.wongs.drunkard"})
 @SpringBootApplication
 public class InfiApplication {
