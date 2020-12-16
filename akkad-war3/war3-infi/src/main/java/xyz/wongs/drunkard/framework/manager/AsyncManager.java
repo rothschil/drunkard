@@ -6,11 +6,15 @@ import java.util.concurrent.TimeUnit;
 import xyz.wongs.drunkard.base.utils.bean.SpringUtils;
 import xyz.wongs.drunkard.base.utils.thread.Threads;
 
+
 /**
- * 异步任务管理器
- *
- * @author liuhulu
- */
+ * @ClassName AsyncManager
+ * @Description 异步任务管理器
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/12/9 17:33
+ * @Version 1.0.0
+*/
 public class AsyncManager {
     /**
      * 操作延迟10毫秒

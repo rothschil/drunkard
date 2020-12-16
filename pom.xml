@@ -9,6 +9,7 @@
     <modules>
         <module>akkad-base</module>
         <module>akkad-war3</module>
+        <module>akkad-springboot</module>
     </modules>
     <packaging>pom</packaging>
 

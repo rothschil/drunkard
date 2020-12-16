@@ -23,7 +23,7 @@ public class ThreadPoolUtils {
      * @throws
      * @date 20/11/19 16:23
      */
-    public static ExecutorService doCreate(int corePoolSize,int maximumPoolSize,@NotNull String theadName){
+    public static ThreadPoolExecutor doCreate(int corePoolSize,int maximumPoolSize,@NotNull String theadName){
         return doCreate(corePoolSize, maximumPoolSize,0,theadName);
     }
 
@@ -37,7 +37,7 @@ public class ThreadPoolUtils {
      * @throws
      * @date 20/11/19 16:23
      */
-    public static ExecutorService doCreate(int corePoolSize,int maximumPoolSize,
+    public static ThreadPoolExecutor doCreate(int corePoolSize,int maximumPoolSize,
                                                      @NotNull int queueSize,
                                                      @NotNull String theadName){
         return doCreate(corePoolSize, maximumPoolSize,0, TimeUnit.SECONDS, queueSize,theadName);
@@ -55,7 +55,7 @@ public class ThreadPoolUtils {
      * @throws
      * @date 20/11/19 16:23
      */
-    public static ExecutorService doCreate(int corePoolSize,int maximumPoolSize,int keepAliveTime,TimeUnit unit,
+    public static ThreadPoolExecutor doCreate(int corePoolSize,int maximumPoolSize,int keepAliveTime,TimeUnit unit,
                                                      @NotNull int queueSize,
                                                      @NotNull String theadName){
         // 1、指定有界队列，并明确大小
@@ -100,12 +100,12 @@ public class ThreadPoolUtils {
      * @throws
      * @date 20/11/19 16:23
      */
-    public static ExecutorService doCreate(int corePoolSize,int maximumPoolSize,int keepAliveTime,TimeUnit unit,
+    public static ThreadPoolExecutor doCreate(int corePoolSize,int maximumPoolSize,int keepAliveTime,TimeUnit unit,
             @NotNull BlockingQueue<Runnable> workQueue,
             @NotNull ThreadFactory threadFactory,
             @NotNull RejectedExecutionHandler handler){
         // 初始化大小
         int poolSize = getCorePoolSize(corePoolSize);
-        return new ThreadPoolExecutor(corePoolSize, maximumPoolSize,keepAliveTime, unit, workQueue,threadFactory, handler);
+        return new ThreadPoolExecutor(poolSize, maximumPoolSize,keepAliveTime, unit, workQueue,threadFactory, handler);
     }
 }

@@ -4,6 +4,7 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import xyz.wongs.drunkard.base.utils.thread.ThreadPoolUtils;
 import xyz.wongs.drunkard.base.utils.thread.Threads;
 
 import java.util.concurrent.ScheduledExecutorService;
@@ -40,6 +41,25 @@ public class ThreadPoolConfig {
      */
     private int keepAliveSeconds = 300;
 
+    /**
+     * 线程池维护线程所允许的空闲时间
+     */
+    private String threadName = "ThreadPool";
+
+    /**
+         @Bean(name = "threadPoolTaskExecutor")
+         public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
+         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+         executor.setMaxPoolSize(maxPoolSize);
+         executor.setCorePoolSize(corePoolSize);
+         executor.setQueueCapacity(queueCapacity);
+         executor.setKeepAliveSeconds(keepAliveSeconds);
+         // 线程池对拒绝任务(无线程可用)的处理策略
+         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+         return executor;
+         ThreadPoolTaskExecutor executor = ThreadPoolUtils.doCreate(corePoolSize,maxPoolSize,queueCapacity,threadName);
+         }
+     **/
     @Bean(name = "threadPoolTaskExecutor")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
@@ -51,6 +71,8 @@ public class ThreadPoolConfig {
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         return executor;
     }
+
+
 
     /**
      * 执行周期性或定时任务
