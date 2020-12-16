@@ -2,14 +2,16 @@
 <!-- TOC -->
 
 - [1. 项目简介](#1-项目简介)
-    - [1.1. 项目结构](#11-项目结构)
-    - [1.2. 技术选型](#12-技术选型)
-        - [1.2.1. 自动生成实体等文件](#121-自动生成实体等文件)
-        - [1.2.2. 分页](#122-分页)
-    - [1.3. 测试策略](#13-测试策略)
-    - [1.4. 技术架构](#14-技术架构)
-    - [1.5. 部署架构](#15-部署架构)
-    - [1.6. 外部依赖](#16-外部依赖)
+    - [1.1. 友情关联](#11-友情关联)
+    - [1.2. 概述](#12-概述)
+    - [1.3. 项目结构](#13-项目结构)
+    - [1.4. 技术选型](#14-技术选型)
+        - [1.4.1. 自动生成实体等文件](#141-自动生成实体等文件)
+        - [1.4.2. 分页](#142-分页)
+    - [1.5. 测试策略](#15-测试策略)
+    - [1.6. 技术架构](#16-技术架构)
+    - [1.7. 部署架构](#17-部署架构)
+    - [1.8. 外部依赖](#18-外部依赖)
 - [2. 内置功能](#2-内置功能)
     - [2.1. 自动刷新MybatisXML](#21-自动刷新mybatisxml)
         - [2.1.1. 配置文件](#211-配置文件)
@@ -58,7 +60,25 @@
 ![Mybatis](https://img.shields.io/badge/Mybatis-%3E%3D%203.5.5-red)
 ![RedisClient](https://img.shields.io/badge/RedisClient-%3E%3D%203.3.0-blue)
 
+## 1.1. 友情关联
 
+[简书-首页](https://www.jianshu.com/u/72ee6146c91a)：平常写的内容都在上面
+
+![简书-首页](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/linux/es/20201216153149.png)
+
+[Gitee首页](https://gitee.com/rothschil/)：Gitee首页
+
+![Gitee首页](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/linux/es/20201216153238.png)
+
+[Git首页](https://rothschil.github.io/)：Git首页
+
+![Git首页](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/linux/es/20201216153436.png)
+
+[Weathertop](https://github.com/king-angmar/weathertop)：其他开源的部分,已停止维护
+
+![Weathertop](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/linux/es/20201216153542.png)
+
+## 1.2. 概述
 
 `drunkard:	英[ˈdrʌŋkəd]    美[ˈdrʌŋkərd]   酒鬼; 醉鬼;`
 
@@ -74,30 +94,37 @@
 
 - ![https://rothschil.github.io/](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201203104059.png)
 
-## 1.1. 项目结构
+## 1.3. 项目结构
 
 ~~~
-|-- akkad-base                      ------------基包
-|   |-- persistence-mybatis         ------------基于MyBatis持久层
-|   |   |-- mybatis-base            ------------Mybatis抽象基类封装
-|   |   |   |-- resources           ------------
-|   |   |   |   |-- conf            ------------Mybatis自动刷新配置路径
-|   |   |-- mybatis-no-pk           ------------依赖DB主键版本
-|   |   |-- mybatis-pk-redis        ------------依赖Redis生成主键的版本
-|   |-- base-utils                  ------------通用工具包
-|-- akkad-war3                      ------------SpringCloud入门
-|   |   |-- war3-area               ------------获取行政区域的版本
-|   |   |-- war3-infi               ------------接口限流
-|   |   |-- war3-oauth2             ------------集成oauth2的版本
+|-- akkad-base                         ------------基包
+|   |-- persistence-mybatis            ------------基于MyBatis持久层
+|   |   |-- mybatis-base               ------------Mybatis抽象基类封装
+|   |   |   |-- resources              ------------
+|   |   |   |   |-- conf               ------------Mybatis自动刷新配置路径
+|   |   |-- mybatis-no-pk              ------------依赖DB主键版本
+|   |   |-- mybatis-pk-redis           ------------依赖Redis生成主键的版本
+|   |-- base-utils                     ------------通用工具包
+|-- akkad-springboot                   ------------springboot集成开源组件
+|   |   |-- springboot-dist-lock       ------------获取行政区域的版本
+|   |   |-- springboot-dist-trans      ------------分布式事物
+|   |   |-- springboot-elasticsearch   ------------集成ES
+|   |   |-- springboot-jwt             ------------JWT示例
+|   |   |-- springboot-mq              ------------集成消息MQ组件
+|   |   |-- springboot-nosql           ------------集成oauth2的版本
+|-- akkad-war3                         ------------常用的示例
+|   |   |-- war3-area                  ------------获取行政区域的版本
+|   |   |-- war3-infi                  ------------集成 RuoYi 前端实现一个通用管理后台
+|   |   |-- war3-oauth2                ------------集成oauth2的版本
 |-- README.md
 |-- LICENSE
 ~~~
 
-## 1.2. 技术选型
+## 1.4. 技术选型
 
 SpringBoot、Maven、Jnuit、MySQL、JDK8+
 
-### 1.2.1. 自动生成实体等文件
+### 1.4.1. 自动生成实体等文件
 
 在pom文件中加上`generator`依赖，在 `configurationFile` 中指定`generatorConfig.xml` 文件的位置，剩下一些数据库连接以及配置项，都在配置文件`generatorConfig.xml`中指定即可，方便又实用。
 
@@ -188,7 +215,7 @@ generator.targetProject=src/main/java
 
 ![generator插件](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201203101834.png)
 
-### 1.2.2. 分页
+### 1.4.2. 分页
 
 分页组件是继承开源**com.github.pagehelper**
 
@@ -211,7 +238,7 @@ public PageInfo<T> selectPage(PaginationInfo pgInfo, T t) {
 }
 ~~~
 
-## 1.3. 测试策略
+## 1.5. 测试策略
 
 测试类型 | 代码目录 | 测试内容
 -- | -- | -- |
@@ -219,11 +246,11 @@ public PageInfo<T> selectPage(PaginationInfo pgInfo, T t) {
 组件测试 | src/componentTest/java | 用于测试一些核心的组件级对象，比如Repository
 API测试 | src/apiTest/java | 模拟客户端调用API
 
-## 1.4. 技术架构
+## 1.6. 技术架构
 
-## 1.5. 部署架构
+## 1.7. 部署架构
 
-## 1.6. 外部依赖
+## 1.8. 外部依赖
 
 项目运行时所依赖的外部集成方；
 
