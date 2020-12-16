@@ -1996,8 +1996,6 @@ public class IndexController {
 @Pattern(regexp = ) | 正则表达式校验
 @Valid | 对象级联校验,即校验对象中对象的属性
 
-
-
 # 3. FAQ
 
 开发过程中常见问题的解答。
