@@ -77,6 +77,8 @@ public enum ResultCode {
     DATA_CALCULATION_EXCEPTION(32006, "数据计算异常"),
     DATA_COMPRESS_EXCEPTION(32007, "数据压缩异常"),
     DATA_DE_COMPRESS_EXCEPTION(32008, "数据解压缩异常"),
+    DATA_HAS_EXISTED(32010, "已存在"),
+    DATA_NOT_EXIST(32010, "不存在"),
     DATA_PARSE_EXCEPTION(32009, "数据转换异常"),
 
     ENCODING_EXCEPTION(33006, "编码异常"),
@@ -84,7 +86,12 @@ public enum ResultCode {
 
     DATE_PARSE_EXCEPTION(34001, "日期转换异常"),
 
-    MAILE_SEND_EXCEPTION(35001, "邮件发送异常");
+    MAILE_SEND_EXCEPTION(35001, "邮件发送异常"),
+
+    SYSNC_LOCK_FAILURE(4001, "获取锁失败"),
+    SYSNC_LOCK_SUCCESS(4002, "获取锁成功"),
+    SYSNC_LOCK_MANY_REQ(4003, "请求太多"),
+    SYSNC_LOCK_NOT_ENOUGH_STOCK(4004, "库存不够");
 
     /**
      *

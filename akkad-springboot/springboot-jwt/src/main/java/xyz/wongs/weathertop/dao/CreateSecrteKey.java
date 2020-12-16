@@ -1,7 +1,5 @@
 package xyz.wongs.weathertop.dao;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 import xyz.wongs.weathertop.jwt.RSA256Key;
 
 import java.security.Key;
@@ -9,6 +7,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,12 +57,12 @@ public class CreateSecrteKey {
 
     //解码返回byte
     public static byte[] decryptBASE64(String key) throws Exception {
-        return (new BASE64Decoder()).decodeBuffer(key);
+        return Base64.getDecoder().decode(key);
     }
 
     //编码返回字符串
     public static String encryptBASE64(byte[] key) throws Exception {
-        return (new BASE64Encoder()).encodeBuffer(key);
+        return Base64.getEncoder().encodeToString(key);
     }
 
     //map对象中存放公私钥

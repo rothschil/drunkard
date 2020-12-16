@@ -1,12 +1,12 @@
 package xyz.wongs.weathertop.entity;
 
 import lombok.Data;
-import xyz.wongs.weathertop.base.persistence.mybatis.entity.BaseEntity;
+import xyz.wongs.drunkard.base.entity.AbstractEntity;
 
 import java.util.Date;
 
 @Data
-public class TLock extends BaseEntity<Integer> {
+public class TLock extends AbstractEntity<Integer> {
 
     private Integer id;
 

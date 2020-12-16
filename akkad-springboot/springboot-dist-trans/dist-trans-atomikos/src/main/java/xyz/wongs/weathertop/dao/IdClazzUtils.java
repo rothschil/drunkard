@@ -2,7 +2,7 @@ package xyz.wongs.weathertop.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import xyz.wongs.weathertop.base.persistence.mybatis.service.RedisUidService;
+import xyz.wongs.drunkard.base.persistence.mybatis.service.RedisUidService;
 
 @Component
 public class IdClazzUtils {

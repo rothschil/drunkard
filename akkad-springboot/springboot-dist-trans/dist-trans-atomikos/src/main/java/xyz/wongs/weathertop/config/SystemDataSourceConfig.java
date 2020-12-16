@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import xyz.wongs.weathertop.base.persistence.mybatis.mapper.BaseMapper;
+import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
 
 import javax.sql.DataSource;
 

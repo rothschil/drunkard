@@ -170,4 +170,7 @@ public class Constant {
      * 句号
      */
     public static final String HF_PERIOD = ".";
+
+    public static final String RESULT="result";
+    public static final String SECKILL="恭喜您，秒杀成功。";
 }

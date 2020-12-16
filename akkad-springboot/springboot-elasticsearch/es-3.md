@@ -11,7 +11,7 @@ http方式提交数据，案例中我将数据格式做了规范，提交过程�
 
 - 前端Web端实现
 
-~~~
+~~~java
 
 /**
     * @Description 新增数据
@@ -49,7 +49,7 @@ public ResponseResult add(@RequestBody ElasticDataVo elasticDataVo){
 
 - ElasticDataVo类
 
-~~~
+~~~java
 
 package xyz.wongs.weathertop.palant.vo;
 
@@ -87,7 +87,7 @@ public class ElasticDataVo<T> {
 
 - ElasticEntity类
 
-~~~
+~~~java
 
 package xyz.wongs.weathertop.base.entiy;
 
@@ -137,7 +137,7 @@ public class ElasticEntity<T> {
 
 - 前端web实现
 
-~~~
+~~~java
 /**
     * @Description
     * @param queryVo 查询实体对象
@@ -184,7 +184,7 @@ public ResponseResult get(@RequestBody QueryVo queryVo){
 
 - QueryVo
 
-~~~
+~~~java
 
 /** 查询Vo对象
  * @ClassName QueryVo
@@ -223,7 +223,7 @@ public class QueryVo {
 
 ### 1.3.1. 单实例删除
 
-~~~
+~~~java
 /**
     * @Description 删除
     * @param elasticDataVo
@@ -253,10 +253,16 @@ public ResponseResult delete(@RequestBody ElasticDataVo elasticDataVo){
 
 ![删除数据](https://i.loli.net/2019/11/21/bm472MhqDjJPRFl.png)
 
-
 ### 1.3.2. 批量删除
-
 
 # 2. 源码
 
 [Github演示源码](https://github.com/king-angmar/weathertop/tree/master/akkad-springboot/springboot-elasticsearch) ，记得给Star
+
+[Gitee演示源码](https://gitee.com/rothschil/weathertop/tree/master/akkad-springboot/springboot-elasticsearch)，记得给Star
+
+# 3. 相关章节
+
+[一、SpringBoot集成Elasticsearch7.4 实战（一）](https://www.jianshu.com/p/1fbfde2aefa5)
+[二、SpringBoot集成Elasticsearch7.4 实战（二）](https://www.jianshu.com/p/acc8e86cc772)
+[三、SpringBoot集成Elasticsearch7.4 实战（三）](https://www.jianshu.com/p/c02e5b412675)

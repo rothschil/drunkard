@@ -10,7 +10,6 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import xyz.wongs.weathertop.base.message.response.ResponseResult;
 import xyz.wongs.weathertop.entity.User;
 
 
@@ -24,11 +23,9 @@ public class TestKafkaProducerController {
     private KafkaTemplate<String, String> kafkaTemplate;
 
     @RequestMapping("/send")
-    public ResponseResult send(){
+    public User send(){
         String topic = "wongs";
         User user = User.getAuther();
-        ResponseResult response = new ResponseResult();
-        response.setData(user);
         String data = JSONObject.toJSON(user).toString();
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, data);
         future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
@@ -42,6 +39,6 @@ public class TestKafkaProducerController {
                 LOG.info("kafka sendMessage success topic = {}, data = {}",topic, data);
             }
         });
-        return response;
+        return user;
     }
 }

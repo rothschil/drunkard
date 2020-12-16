@@ -2,11 +2,11 @@ package xyz.wongs.weathertop.entity.location;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import xyz.wongs.weathertop.base.persistence.mybatis.entity.BaseEntity;
+import xyz.wongs.drunkard.base.entity.AbstractEntity;
 
 @Data
 @NoArgsConstructor
-public class Location extends BaseEntity<Long> {
+public class Location extends AbstractEntity<Long> {
     private Long id;
 
     private String flag;

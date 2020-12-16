@@ -1,5 +1,6 @@
 package xyz.wongs.weathertop.palant.controller;
 
+import com.alibaba.druid.DruidRuntimeException;
 import com.alibaba.fastjson.JSON;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -11,11 +12,11 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import xyz.wongs.weathertop.base.message.enums.ResponseCode;
-import xyz.wongs.weathertop.base.message.exception.WeathertopRuntimeException;
-import xyz.wongs.weathertop.base.message.response.ResponseResult;
-import xyz.wongs.weathertop.base.utils.DateUtils;
-import xyz.wongs.weathertop.base.utils.StringUtils;
+import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
+import xyz.wongs.drunkard.base.message.enums.ResultCode;
+import xyz.wongs.drunkard.base.message.exception.DrunkardException;
+import xyz.wongs.drunkard.base.utils.DateUtils;
+import xyz.wongs.drunkard.base.utils.StringUtils;
 import xyz.wongs.weathertop.dto.JwtDto;
 import xyz.wongs.weathertop.jwt.RSA256Key;
 import xyz.wongs.weathertop.jwt.entity.User;
@@ -26,7 +27,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @RestController
-public class IndexController {
+public class TokenController {
 
     /**
      * 加密密钥
@@ -35,27 +36,23 @@ public class IndexController {
 
     @ApiOperation("获取Token 通过HS256加密")
     @GetMapping("/getTokenByHS256")
-    public ResponseResult generTokenByHS256() throws Exception{
+    public String generTokenByHS256() throws Exception{
         Algorithm algorithm = Algorithm.HMAC256(SECRET);
-        ResponseResult response = new ResponseResult();
-        response.setData(createToken(algorithm, User.getAuther()));
-        return response;
+        return createToken(algorithm, User.getAuther());
     }
 
     @ApiOperation("获取Token 通过RS256加密")
     @GetMapping("/getTokenByRS256")
-    public ResponseResult generTokenByRS256() throws Exception{
+    public String generTokenByRS256() throws Exception{
         RSA256Key rsa256Key = CreateSecrteKey.getRSA256Key();
         Algorithm algorithm = Algorithm.RSA256(rsa256Key.getPublicKey(), rsa256Key.getPrivateKey());
         // 返回token
-        ResponseResult response = new ResponseResult();
-        response.setData(createToken(algorithm, User.getAuther()));
-        return response;
+        return createToken(algorithm, User.getAuther());
     }
 
     @ApiOperation("获取token ,但是 10 秒内，有效")
     @GetMapping("/getTokenExpire")
-    public ResponseResult getTokenByRS256AndTimer() throws Exception{
+    public String getTokenByRS256AndTimer() throws Exception{
         RSA256Key rsa256Key = CreateSecrteKey.getRSA256Key();
         Algorithm algorithm = Algorithm.RSA256(rsa256Key.getPublicKey(), rsa256Key.getPrivateKey());
         String token =JWT.create()
@@ -65,10 +62,7 @@ public class IndexController {
                 .withExpiresAt(DateUtils.offset(new Date(),20, Calendar.SECOND))    // 生成签名的有效期,20秒
                 .withClaim("data", JSON.toJSONString(User.getAuther())) //存数据
                 .sign(algorithm);
-        // 返回token
-        ResponseResult response = new ResponseResult();
-        response.setData(token);
-        return response;
+        return token;
     }
 
     /**
@@ -79,11 +73,11 @@ public class IndexController {
      */
     @ApiOperation("通过token 获取数据")
     @PostMapping("/getDataByToken")
-    public ResponseResult getDataByToken(JwtDto jwtdto) throws Exception{
+    public User getDataByToken(JwtDto jwtdto) throws Exception{
         Algorithm algorithm =null;
         DecodedJWT verify =null;
         if(StringUtils.isEmpty(jwtdto.getAlg())){
-            throw new WeathertopRuntimeException(ResponseCode.ALGORITHM_CAN_NOT_NULL);
+            throw new DrunkardException(ResultCode.PARAMS_IS_BANK);
         }
         if("rs256".equalsIgnoreCase(jwtdto.getAlg())){
             algorithm = Algorithm.RSA256(CreateSecrteKey.getRSA256Key().getPublicKey(), null);
@@ -96,15 +90,12 @@ public class IndexController {
         try {
             verify = verifier.verify(jwtdto.getToken());
         }catch (TokenExpiredException ex){
-            throw new WeathertopRuntimeException(ResponseCode.TOKEN_EXPIRED);
+            throw new DrunkardException(ResultCode.USER_TOKEN_EXPIRED);
         }catch (JWTVerificationException ex){
-            throw new JWTVerificationException(ResponseCode.SIGN_VERIFI_ERROR.getMsg());
+            throw new JWTVerificationException(ResultCode.USER_SIGN_VERIFI_NOT_COMPLIANT.getMsg());
         }
         String dataString = verify.getClaim("data").asString();
-
-        ResponseResult response = new ResponseResult();
-        response.setData(JSON.parseObject(dataString,User.class));
-        return response;
+        return JSON.parseObject(dataString,User.class);
     }
 
     /**
