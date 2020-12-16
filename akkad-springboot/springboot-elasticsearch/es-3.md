@@ -264,5 +264,7 @@ public ResponseResult delete(@RequestBody ElasticDataVo elasticDataVo){
 # 3. 相关章节
 
 [一、SpringBoot集成Elasticsearch7.4 实战（一）](https://www.jianshu.com/p/1fbfde2aefa5)
+
 [二、SpringBoot集成Elasticsearch7.4 实战（二）](https://www.jianshu.com/p/acc8e86cc772)
+
 [三、SpringBoot集成Elasticsearch7.4 实战（三）](https://www.jianshu.com/p/c02e5b412675)
