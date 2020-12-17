@@ -1,6 +1,7 @@
 package xyz.wongs.drunkard.base.message.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import xyz.wongs.drunkard.base.message.enums.ResultCode;
 
 
@@ -12,6 +13,7 @@ import xyz.wongs.drunkard.base.message.enums.ResultCode;
  * @date 2019/9/21 10:07
  * @Version 1.0.0
 */
+@EqualsAndHashCode(callSuper=false)
 @Data
 public class DrunkardException extends RuntimeException{
 

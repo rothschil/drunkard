@@ -1,9 +1,6 @@
 package xyz.wongs.drunkard.base.aop.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import xyz.wongs.drunkard.base.entity.AbstractEntity;
 
 import java.util.Date;
@@ -15,6 +12,7 @@ import java.util.Date;
  * @date 2019/12/3 15:06
  * @Version 1.0.0
 */
+@EqualsAndHashCode(callSuper=false)
 @Builder
 @Data
 @NoArgsConstructor

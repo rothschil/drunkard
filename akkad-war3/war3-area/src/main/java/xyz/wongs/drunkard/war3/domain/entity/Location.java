@@ -1,9 +1,6 @@
 package xyz.wongs.drunkard.war3.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import xyz.wongs.drunkard.base.entity.AbstractEntity;
 
 /** 行政区域实体类
@@ -14,6 +11,7 @@ import xyz.wongs.drunkard.base.entity.AbstractEntity;
  * @date 2020/9/9 15:27
  * @Version 1.0.0
 */
+@EqualsAndHashCode(callSuper=false)
 @Builder(toBuilder=true)
 @Data
 @AllArgsConstructor

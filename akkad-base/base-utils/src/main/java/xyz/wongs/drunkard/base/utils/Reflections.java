@@ -343,10 +343,10 @@ public class Reflections {
 	 * @since
 	 */
 	public static Object getObjInstance(Class clazz){
+		Object o = null;
 		try {
 			Constructor constructor = clazz.getConstructor(null);
-			Object o = constructor.newInstance(null);
-			return o ;
+			o = constructor.newInstance(null);
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		} catch (InstantiationException e) {
@@ -356,7 +356,7 @@ public class Reflections {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return o;
 	}
 
 

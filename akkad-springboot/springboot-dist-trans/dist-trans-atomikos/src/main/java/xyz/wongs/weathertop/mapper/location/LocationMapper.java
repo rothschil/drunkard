@@ -1,17 +1,13 @@
 package xyz.wongs.weathertop.mapper.location;
 
 
-import xyz.wongs.drunkard.base.persistence.mybatis.annotation.MyBatisMapper;
 import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
 import xyz.wongs.weathertop.entity.location.Location;
 
 import java.util.List;
 
-@MyBatisMapper
 public interface LocationMapper extends BaseMapper<Location,Long> {
     int deleteByPrimaryKey(Long id);
-
-    int insertSelective(Location record);
 
     Location selectByPrimaryKey(Long id);
 

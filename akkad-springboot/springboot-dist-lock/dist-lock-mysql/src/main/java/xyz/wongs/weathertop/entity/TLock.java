@@ -1,10 +1,12 @@
 package xyz.wongs.weathertop.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import xyz.wongs.drunkard.base.entity.AbstractEntity;
 
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper=false)
 @Data
 public class TLock extends AbstractEntity<Integer> {
 

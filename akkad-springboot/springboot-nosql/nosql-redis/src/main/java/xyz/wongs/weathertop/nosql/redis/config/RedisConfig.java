@@ -37,7 +37,7 @@ public class RedisConfig {
     private RedisSerializer getJacksonSerializer() {
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        om.activateDefaultTyping(om.getPolymorphicTypeValidator(),ObjectMapper.DefaultTyping.NON_FINAL);
         return new GenericJackson2JsonRedisSerializer(om);
     }
 

@@ -24,7 +24,6 @@ import java.util.Map;
 public abstract class AbstractEntity<ID extends Serializable> extends BaseEntity<ID> {
 
     @Setter
-    @Getter
     /*** 数据库类型 */
     @JSONField(serialize = false)
     private String dtype;
