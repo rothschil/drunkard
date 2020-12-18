@@ -1,9 +1,11 @@
-package xyz.wongs.drunkard.base.persistence.jpa.repository;
+package xyz.wongs.drunkard.base.persistence.jpa.repository.impl;
 
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import xyz.wongs.drunkard.base.constant.Constant;
+import xyz.wongs.drunkard.base.persistence.jpa.repository.BaseRepository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
