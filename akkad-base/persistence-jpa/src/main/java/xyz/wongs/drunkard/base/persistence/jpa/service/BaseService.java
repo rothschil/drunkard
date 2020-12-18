@@ -16,30 +16,21 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @ClassName: BaseService
- * @Description: Service基类
- * @author WCNGS
- * @date 2017年4月24日
- *
- */
+/** Service基类
+ * @ClassName BaseService
+ * @Description
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/12/18 11:05
+ * @Version 1.0.0
+*/
 public abstract class BaseService<T extends AbsEntity<?>, ID extends Serializable> {
-
-
-    /**
-     * 日志对象
-     */
-    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     protected JpaRepository<T, ID> jpaRepository;
 
+    public BaseService() {}
 
-
-
-    public BaseService() {
-    }
-
+    /** 重要 **/
     public abstract void setJpaRepository(JpaRepository<T, ID> jpaRepository);
 
     public boolean retBoolFindByExample(T t){
@@ -118,10 +109,6 @@ public abstract class BaseService<T extends AbsEntity<?>, ID extends Serializabl
         Example<T> example = Example.of(t,matcher);
         return jpaRepository.findAll(example);
     }
-
-
-
-
 
     public Page<T> findPageByEntity(int page, int size, T t) {
         size=size==0?10:size;

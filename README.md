@@ -13,31 +13,42 @@
     - [1.7. 部署架构](#17-部署架构)
     - [1.8. 外部依赖](#18-外部依赖)
 - [2. 内置功能](#2-内置功能)
-    - [2.1. 自动刷新MybatisXML](#21-自动刷新mybatisxml)
-        - [2.1.1. 配置文件](#211-配置文件)
-        - [2.1.2. 关键步骤](#212-关键步骤)
-        - [2.1.3. 源码地址，如果觉得对你有帮助，请Star](#213-源码地址如果觉得对你有帮助请star)
-    - [2.2. 手写爬虫获取国家统计局行政区划数据](#22-手写爬虫获取国家统计局行政区划数据)
-        - [2.2.1. 依赖包](#221-依赖包)
-        - [2.2.2. 核心实现代码](#222-核心实现代码)
-        - [2.2.3. 单元测试](#223-单元测试)
-        - [2.2.4. 打开浏览器](#224-打开浏览器)
-        - [2.2.5. 源码地址，如果觉得对你有帮助，请Star](#225-源码地址如果觉得对你有帮助请star)
-    - [2.3. 集成ip2region离线IP地名映射](#23-集成ip2region离线ip地名映射)
-        - [2.3.1. 打开浏览器](#231-打开浏览器)
-        - [2.3.2. 源码地址，如果觉得对你有帮助，请Star](#232-源码地址如果觉得对你有帮助请star)
-    - [2.4. Http响应内容统一封装](#24-http响应内容统一封装)
-        - [2.4.1. 消息体](#241-消息体)
-            - [2.4.1.1. 正常响应](#2411-正常响应)
-            - [2.4.1.2. 异常响应](#2412-异常响应)
-        - [2.4.2. 拦截器](#242-拦截器)
-            - [2.4.2.1. Annoation注解](#2421-annoation注解)
-            - [2.4.2.2. 拦截器](#2422-拦截器)
-            - [2.4.2.3. 全局异常](#2423-全局异常)
-        - [2.4.3. 例子](#243-例子)
-        - [2.4.4. 源码地址，如果觉得对你有帮助，请Star](#244-源码地址如果觉得对你有帮助请star)
-    - [2.5. 集成OAuth2](#25-集成oauth2)
-    - [2.6. 集成数据校验](#26-集成数据校验)
+    - [2.1. Springboot集成JPA，开箱即用](#21-springboot集成jpa开箱即用)
+        - [2.1.1. pom文件](#211-pom文件)
+        - [2.1.2. 自定义Repository工厂类](#212-自定义repository工厂类)
+        - [2.1.3. 抽象实体基类](#213-抽象实体基类)
+        - [2.1.4. 抽象Service基类](#214-抽象service基类)
+        - [2.1.5. 如何使用？](#215-如何使用)
+            - [2.1.5.1. 继承实体基类](#2151-继承实体基类)
+            - [2.1.5.2. 继承repository基类](#2152-继承repository基类)
+            - [2.1.5.3. 继承Service基类](#2153-继承service基类)
+            - [2.1.5.4. 启动类](#2154-启动类)
+        - [2.1.6. 源码地址，如果觉得对你有帮助，请Star](#216-源码地址如果觉得对你有帮助请star)
+    - [2.2. 自动刷新MybatisXML](#22-自动刷新mybatisxml)
+        - [2.2.1. 配置文件](#221-配置文件)
+        - [2.2.2. 关键步骤](#222-关键步骤)
+        - [2.2.3. 源码地址，如果觉得对你有帮助，请Star](#223-源码地址如果觉得对你有帮助请star)
+    - [2.3. 手写爬虫获取国家统计局行政区划数据](#23-手写爬虫获取国家统计局行政区划数据)
+        - [2.3.1. 依赖包](#231-依赖包)
+        - [2.3.2. 核心实现代码](#232-核心实现代码)
+        - [2.3.3. 单元测试](#233-单元测试)
+        - [2.3.4. 打开浏览器](#234-打开浏览器)
+        - [2.3.5. 源码地址，如果觉得对你有帮助，请Star](#235-源码地址如果觉得对你有帮助请star)
+    - [2.4. 集成ip2region离线IP地名映射](#24-集成ip2region离线ip地名映射)
+        - [2.4.1. 打开浏览器](#241-打开浏览器)
+        - [2.4.2. 源码地址，如果觉得对你有帮助，请Star](#242-源码地址如果觉得对你有帮助请star)
+    - [2.5. Http响应内容统一封装](#25-http响应内容统一封装)
+        - [2.5.1. 消息体](#251-消息体)
+            - [2.5.1.1. 正常响应](#2511-正常响应)
+            - [2.5.1.2. 异常响应](#2512-异常响应)
+        - [2.5.2. 拦截器](#252-拦截器)
+            - [2.5.2.1. Annoation注解](#2521-annoation注解)
+            - [2.5.2.2. 拦截器](#2522-拦截器)
+            - [2.5.2.3. 全局异常](#2523-全局异常)
+        - [2.5.3. 例子](#253-例子)
+        - [2.5.4. 源码地址，如果觉得对你有帮助，请Star](#254-源码地址如果觉得对你有帮助请star)
+    - [2.6. 集成OAuth2](#26-集成oauth2)
+    - [2.7. 集成数据校验](#27-集成数据校验)
 - [3. FAQ](#3-faq)
 
 <!-- /TOC -->
@@ -102,13 +113,14 @@
 
 ~~~
 |-- akkad-base                         ------------基包
-|   |-- persistence-mybatis            ------------基于MyBatis持久层
+|   |-- base-utils                     ------------通用工具包
+|   |-- persistence-jpa                ------------基于JPA封装持久层
+|   |-- persistence-mybatis            ------------基于MyBatis封装持久层
 |   |   |-- mybatis-base               ------------Mybatis抽象基类封装
 |   |   |   |-- resources              ------------
 |   |   |   |   |-- conf               ------------Mybatis自动刷新配置路径
 |   |   |-- mybatis-no-pk              ------------依赖DB主键版本
 |   |   |-- mybatis-pk-redis           ------------依赖Redis生成主键的版本
-|   |-- base-utils                     ------------通用工具包
 |-- akkad-springboot                   ------------springboot集成开源组件
 |   |   |-- springboot-dist-lock       ------------获取行政区域的版本
 |   |   |-- springboot-dist-trans      ------------分布式事物
@@ -260,13 +272,578 @@ API测试 | src/apiTest/java | 模拟客户端调用API
 
 # 2. 内置功能
 
-## 2.1. 自动刷新MybatisXML
+## 2.1. Springboot集成JPA，开箱即用
+
+不知为什么在以前的一段时间内，我特别喜欢用 `JPA` ，它给我印象就是小巧灵便，为我省去了很多不必要的编码，带给我不一样的代码输出效率，因为业务在垂直划分过程中都相对来说封闭，要求在编码过程中相对来说实体关联没有那么复杂，而且项目本身的交付周期特别短，我就选择 `JPA` 作为我们某个特定项目的专用持久层框架，当然  `JPA` 自身的优势就不说啦。
+
+项目架构目的就是为了高质量、低成本、更便捷的交付，也是我那段时间里秉承的思路。
+
+下面言归正传，我们用我之前项目在springboot集成 `JPA` 来做一个演示。
+
+### 2.1.1. pom文件
+
+pom中引入 `spring-boot-starter-data-jpa` 依赖，注意版本。
+
+~~~xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+    <version>2.3.4.RELEASE</version>
+</dependency>
+~~~
+
+### 2.1.2. 自定义Repository工厂类
+
+ `JPA` 默认工厂类 `JpaRepositoryFactoryBean` ，并不能满足我们实际要求，比如我们想在插入或者修改的适合做些事情，默认工厂类就不会支持，所以我们重写一个自己的，继承 `JpaRepositoryFactoryBean`即可。
+
+ ![JpaRepositoryFactoryBean工厂类](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/linux/es/20201218103056.png)
+
+ 继承后重写 `createRepositoryFactory` 方法，指定我们自己的，这里我用一个内静态类来，这个内部类 `BaseRepositoryFactory` 也需要继承 `JpaRepositoryFactory` 工厂，此处我们指定自己真实的工厂类实现 `BaseRepositoryImpl`。
+
+~~~java
+
+@Override
+protected RepositoryFactorySupport createRepositoryFactory(EntityManager entityManager) {
+    return new BaseRepositoryFactory(entityManager);
+}
+
+private static class BaseRepositoryFactory<T,I extends Serializable> extends JpaRepositoryFactory{
+
+        private final EntityManager em;
+
+        public BaseRepositoryFactory(EntityManager em) {
+            super(em);
+            this.em = em;
+        }
+
+        @Override
+        protected JpaRepositoryImplementation<?, ?> getTargetRepository(RepositoryInformation information, EntityManager entityManager) {
+            return new BaseRepositoryImpl<T, I>((Class<T>) information.getDomainType(), em);
+        }
+
+
+        /**
+            *  设置具体的实现类的class
+            * @param metadata
+            * @return
+            */
+        @Override
+        protected Class<?> getRepositoryBaseClass(RepositoryMetadata metadata) {
+            return BaseRepositoryImpl.class;
+        }
+}
+~~~
+
+下面就可以在我们自己的类做我们的自己事情，同时我们实现类中抽象出来一个接口暴露对外，这个接口定义我们需要共用的方法，具体实现我们额外实现。这样设计有个好处，就是耦合度降低，扩展方便。
+
+![类之间关系图](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/linux/es/20201218105948.png)
+
+- 抽象接口
+
+~~~java
+@NoRepositoryBean
+@Transactional(readOnly=true,rollbackFor = Exception.class)
+public interface BaseRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
+
+    /**
+     * 根据主键删除
+     *
+     * @param ids
+     */
+    void delete(ID[] ids);
+
+    /**
+     *
+     * @param sql
+     * @return
+     */
+    List<Object[]> listBySQL(String sql);
+
+    public Long getTargetId(String sql);
+
+    /**
+     *
+     * @param sql
+     * @param args
+     */
+    @Transactional(rollbackFor = Exception.class)
+    void updateBySql(String sql,Object...args);
+
+
+    @Transactional(rollbackFor = Exception.class)
+    void updateByHql(String hql,Object...args);
+
+    Page<T> findCriteria(Specification<T> spec, Pageable pageable);
+
+    int batchInsert(String sql);
+~~~
+
+- 实现类
+
+~~~java
+@SuppressWarnings({"unchecked"})
+public class BaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
+
+	//
+	private final EntityManager entityManager;
+
+	public BaseRepositoryImpl(Class<T> domainClass, EntityManager em) {
+		super(domainClass, em);
+		this.entityManager=em;
+	}
+
+	@Override
+	public void delete(ID[] ids) {
+
+	}
+
+	@Override
+	public Long getTargetId(String sql) {
+		Query query = entityManager.createNativeQuery(sql);
+		return Long.valueOf(query.getSingleResult().toString());
+	}
+
+	@Override
+	public void updateBySql(String sql, Object... args) {
+		Query query = entityManager.createNativeQuery(sql);
+		int i = 0;
+		for(Object arg:args) {
+			query.setParameter(++i,arg);
+		}
+		query.executeUpdate();
+	}
+
+	@Override
+	public void updateByHql(String hql, Object... args) {
+		Query query = entityManager.createQuery(hql);
+		int i = 0;
+		for(Object arg:args) {
+			query.setParameter(++i,arg);
+		}
+		query.executeUpdate();
+	}
+
+	@Override
+	public List<Object[]> listBySQL(String sql) {
+		return entityManager.createNativeQuery(sql).getResultList();
+	}
+
+	@Override
+	public int batchInsert(String sql) {
+		Query query = entityManager.createNativeQuery(sql);
+		return query.executeUpdate();
+	}
+
+
+	public Page<T> find(Class rootCls, CriteriaQuery<T> criteria, int pageNo, int pageSize) {
+
+		//count
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery criteriaC = builder.createQuery();
+		Root root = criteriaC.from(rootCls);
+		criteriaC.select(builder.count(root));
+		criteriaC.where(criteria.getRestriction());
+		List<Long> totals = entityManager.createQuery(criteriaC).getResultList();
+		Long total = 0L;
+		for (Long element : totals) {
+			total += element == null ? 0 : element;
+		}
+		//content
+		TypedQuery<T> query = entityManager.createQuery(criteria);
+		query.setFirstResult((pageNo - 1) * pageSize);
+		query.setMaxResults(pageSize);
+
+		List<T> content = total > query.getFirstResult() ? query.getResultList() : Collections.<T> emptyList();
+		Sort sort = Sort.by(Sort.Direction.DESC, Constant.DEFAULT_SORT);
+		Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+		Page<T> pageRst = new PageImpl<T>(content, pageable, total);
+		return pageRst;
+
+	}
+
+	@Override
+	public Page<T> findCriteria(Specification<T> spec, Pageable pageable){
+		  return super.findAll(spec,pageable);
+	}
+
+}
+
+~~~
+
+### 2.1.3. 抽象实体基类
+
+实例基类，必须要实现一个接口 `Persistable` ，这个接口只定义ID主键。当然我们自己的基类也会定义这个，但是这并不冲突。
+
+~~~java
+@MappedSuperclass
+public abstract class AbsEntity<ID extends Serializable> extends AbstractEntity<ID> implements Persistable<ID> {
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public abstract ID getId();
+
+    /**
+     * Sets the id of the entity.
+     * @param id the id to set
+     */
+    public abstract void setId(final ID id);
+    //......
+}
+~~~
+
+### 2.1.4. 抽象Service基类
+
+抽象 **Service**  提供基础业务类的功能。
+
+~~~java
+/** Service基类
+ * @ClassName BaseService
+ * @Description
+ * @author WCNGS@QQ.COM
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 20/12/18 11:05
+ * @Version 1.0.0
+*/
+public abstract class BaseService<T extends AbsEntity<?>, ID extends Serializable> {
+
+    protected JpaRepository<T, ID> jpaRepository;
+
+    public BaseService() {}
+
+    /** 重要 **/
+    public abstract void setJpaRepository(JpaRepository<T, ID> jpaRepository);
+
+    public boolean retBoolFindByExample(T t){
+        ExampleMatcher matcher = ExampleMatcher.matching();
+        List<String> fields = new ArrayList<String>();
+        Reflections.getField(t,fields);
+        for (String fld: fields){
+            matcher.withMatcher(fld,ExampleMatcher.GenericPropertyMatchers.exact());
+        }
+        Example<T> example = Example.of(t,matcher);
+        if(jpaRepository.findAll(example).size()>0){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean retBoolSave(T t ){
+        try{
+            this.save(t);
+            return true;
+        }catch (RuntimeException re){
+            return false;
+        }
+    }
+
+    public List<T> findByProperty(T t,String propertyName, Object value) {
+        try {
+            Class<?> cls = t.getClass();
+            Field[] fields = cls.getDeclaredFields();
+            Method[] methods = cls.getDeclaredMethods();
+            for (int i=0;i<fields.length;i++) {
+                if(fields[i].getName().equals(propertyName)){
+                    String fieldSetName = StringUtils.parSetName(fields[i].getName());
+                    for (Method met : methods) {
+                        if (fieldSetName.equals(met.getName())) {
+                            met.invoke(t,value);
+                        }
+                    }
+                }
+            }
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return findByEntity(t);
+    }
+
+    public boolean retBoolDelete(T t) {
+        try {
+            this.delete(t);
+            return true;
+        } catch (RuntimeException re) {
+            return false;
+        }
+    }
+
+    public List<T> findByEntity(T t) {
+        ExampleMatcher matcher = ExampleMatcher.matching();
+        List<String> fields = new ArrayList<String>();
+        Reflections.getField(t,fields);
+        for (String fld: fields){
+            matcher.withMatcher(fld,ExampleMatcher.GenericPropertyMatchers.exact());
+        }
+
+/*                .withMatcher("username", ExampleMatcher.GenericPropertyMatchers.startsWith())
+                .withMatcher("address" ,ExampleMatcher.GenericPropertyMatchers.contains())
+                .withIgnorePaths("password");*/
+
+        Example<T> example = Example.of(t,matcher);
+        return jpaRepository.findAll(example);
+    }
+
+    public Page<T> findPageByEntity(int page, int size, T t) {
+        size=size==0?10:size;
+        // TODO Auto-generated method stub
+        Pageable pageable = PageRequest.of(page, size);
+        ExampleMatcher matcher = ExampleMatcher.matching();
+        List<String> fields = new ArrayList<String>();
+        Reflections.getField(t,fields);
+        for (String fld: fields){
+            matcher.withMatcher(fld,ExampleMatcher.GenericPropertyMatchers.exact());
+        }
+
+/*                .withMatcher("username", ExampleMatcher.GenericPropertyMatchers.startsWith())
+                .withMatcher("address" ,ExampleMatcher.GenericPropertyMatchers.contains())
+                .withIgnorePaths("password");*/
+
+        Example<T> example = Example.of(t,matcher);
+        return jpaRepository.findAll(example,pageable);
+    }
+
+    /**
+     * 保存单个实体
+     *
+     * @param t 实体
+     * @return 返回保存的实体
+     */
+    public T save(T t) {
+        return jpaRepository.save(t);
+    }
+
+    public T saveAndFlush(T t) {
+        t = save(t);
+        jpaRepository.flush();
+        return t;
+    }
+
+
+    /**
+     * 根据主键删除相应实体
+     *
+     * @param id 主键
+     */
+    public void delete(ID id) {
+        jpaRepository.delete(findOne(id));
+    }
+
+    /**
+     * 删除实体
+     *
+     * @param t 实体
+     */
+    public void delete(T t) {
+        jpaRepository.delete(t);
+    }
+
+
+
+    /**
+     * 按照主键查询
+     *
+     * @param id 主键
+     * @return 返回id对应的实体
+     */
+    public T findOne(ID id) {
+        return jpaRepository.getOne(id);
+    }
+
+
+    /**
+     * 实体是否存在
+     * @method      exists
+     * @author      WCNGS@QQ.COM
+     * @version
+     * @see
+     * @param id                id 主键
+     * @return      boolean   存在 返回true，否则false
+     * @exception
+     * @date        2018/7/3 22:08
+     */
+    public boolean exists(ID id) {
+        return findOne(id)==null?true:false;
+    }
+
+
+    /**
+     * 统计实体总数
+     * @method      count
+     * @author      WCNGS@QQ.COM
+     * @version
+     * @see
+     * @param
+     * @return      long
+     * @exception
+     * @date        2018/7/3 22:07
+     */
+    public long count() {
+        return jpaRepository.count();
+    }
+
+
+    /**
+     * 查询所有实体
+     * @method      findAll
+     * @author      WCNGS@QQ.COM
+     * @version
+     * @see
+     * @param
+     * @return      java.utils.List<T>
+     * @exception
+     * @date        2018/7/3 22:07
+     */
+    public List<T> findAll() {
+        return jpaRepository.findAll();
+    }
+
+    /**
+     * 按照顺序查询所有实体
+     * @method      findAll
+     * @author      WCNGS@QQ.COM
+     * @version
+     * @see
+     * @param sort
+     * @return      java.utils.List<T>
+     * @exception
+     * @date        2018/7/3 22:06
+     */
+    public List<T> findAll(Sort sort) {
+        return jpaRepository.findAll(sort);
+    }
+
+
+    /**
+     * 分页及排序查询实体
+     *
+     * @param pageable 分页及排序数据
+     * @return
+     */
+    public Page<T> findAll(Pageable pageable) {
+        return jpaRepository.findAll(pageable);
+    }
+
+    public Page<T> findEntityNoCriteria(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return findAll(pageable);
+    }
+
+}
+
+~~~
+
+### 2.1.5. 如何使用？
+
+#### 2.1.5.1. 继承实体基类
+
+用 `lombok` 一目了然，对应字段名以及列与属性对应关系，代码整体简洁。
+
+~~~java
+@EqualsAndHashCode(callSuper=false)
+@Builder(toBuilder=true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name="tb_locations")
+public class Location extends AbsEntity<Long> {
+
+    @Id
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Column(name = "flag")
+    private String flag;
+
+    @Column(name = "local_code")
+    //省略....
+}
+~~~
+
+#### 2.1.5.2. 继承repository基类
+
+直接继承就完事，方法命名的书写，有些讲究，这里就不单独说明，有兴趣童鞋自行恶补。
+
+~~~java
+public interface LocationRepository extends BaseRepository<Location, Long>,JpaSpecificationExecutor<Location> {
+
+    List<Location> findByLv(int lv);
+    //省略....
+}
+~~~
+
+#### 2.1.5.3. 继承Service基类
+
+需要引入我们 `locationRepository` ，这一步很关键，当然我看有的人将引入的 `Repository` 弄在类泛型中，效果一样。
+
+~~~java
+@Service(value="locationService")
+@Transactional(readOnly = true)
+public class LocationService extends BaseService<Location, Long> {
+
+	private LocationRepository locationRepository;
+
+	@Autowired
+	@Qualifier("locationRepository")
+	@Override
+	public void setJpaRepository(JpaRepository<Location, Long> jpaRepository) {
+		this.jpaRepository=jpaRepository;
+		this.locationRepository =(LocationRepository)jpaRepository;
+	}
+
+	public List<Location> getLocationListByLevel(int lv){
+		return locationRepository.findByLv(lv);
+	}
+}
+
+~~~
+
+#### 2.1.5.4. 启动类
+
+因为我们自定义了工厂类，所以我们的启动类需要将我们工厂类引入进来，所以 `repositoryFactoryBeanClass` 属性需要了解下。
+这样子 `springboot` 整合 `JPA` 就完啦。
+
+~~~java
+@EnableSwagger2
+@EnableJpaAuditing
+@SpringBootApplication
+@EnableJpaRepositories(basePackages = {"xyz.wongs.drunkard"},
+        repositoryFactoryBeanClass = BaseRepositoryFactoryBean.class//Specify your own factory class
+)
+public class MoonApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(MoonApplication.class,args);
+    }
+
+}
+~~~
+
+ ![EnableJpaRepositories中指定工厂类](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/linux/es/20201218102932.png)
+
+### 2.1.6. 源码地址，如果觉得对你有帮助，请Star
+
+![觉得对你有帮助，请Star](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165747.png)
+
+[Github源码地址](https://github.com/rothschil/drunkard/tree/master/akkad-war3/war3-moon)
+
+[Gitee源码地址](https://gitee.com/rothschil/drunkard/tree/master/akkad-war3/war3-moon)
+
+## 2.2. 自动刷新MybatisXML
 
 使用Mybatis过程中，很多时候修改了XML文件需要整个项目重新启动，比较耗时，如果没什么业务数据状态还好，有数据状态可就惨啦，所以XML自动线下更新就很有必要。手写一个简单实现，大家参考下。
 
 我的实现思路就是利用一个额外线程扫描`mybatis` XML文件，更新到 `Spring`中的 上下文`ApplicationContext`中。
 
-### 2.1.1. 配置文件
+### 2.2.1. 配置文件
 
 我们定义一套刷新时间和周期频次的配置文件在路径 `persistence-mybatis\mybatis-base\src\main\resources\conf\mybatis-refresh.properties` 中，里面内容如下：
 
@@ -284,7 +861,7 @@ mappingPath=mapper
 
 核心类需要实现上下文接口 `ApplicationContextAware`。
 
-### 2.1.2. 关键步骤
+### 2.2.2. 关键步骤
 
 - @Override重写`setApplicationContext` 方法
 - 用静态语句块，初始化配置文件中的相关参数
@@ -309,7 +886,7 @@ exeTask();
 
 在多线程处理这块有需要注意有一定的线程使用基础，看官自行学习。
 
-### 2.1.3. 源码地址，如果觉得对你有帮助，请Star
+### 2.2.3. 源码地址，如果觉得对你有帮助，请Star
 
 ![觉得对你有帮助，请Star](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165747.png)
 
@@ -317,7 +894,7 @@ exeTask();
 
 [Gitee源码地址](https://gitee.com/rothschil/drunkard.git)
 
-## 2.2. 手写爬虫获取国家统计局行政区划数据
+## 2.3. 手写爬虫获取国家统计局行政区划数据
 
 很多地方需要用到 `统计用区划和城乡划分代码` 这块以国家统计局的权威数据为准，但是人家是一个网页。
 
@@ -351,7 +928,7 @@ CREATE TABLE tb_locations (
 - Mybatis实现的批量提交
 - dom4j解析xml元素
 
-### 2.2.1. 依赖包
+### 2.3.1. 依赖包
 
 ~~~xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -474,7 +1051,7 @@ CREATE TABLE tb_locations (
 </project>
 ~~~
 
-### 2.2.2. 核心实现代码
+### 2.3.2. 核心实现代码
 
 ~~~java
 package xyz.wongs.drunkard.war3.web.area.task.impl;
@@ -884,7 +1461,7 @@ public class ProcessServiceImpl implements ProcessService {
 
 ~~~
 
-### 2.2.3. 单元测试
+### 2.3.3. 单元测试
 
 在单元测试中，自上而下，按个运行测试方法即可。
 
@@ -1093,13 +1670,13 @@ public class ProcessServiceTest extends BaseTest {
 }
 ~~~
 
-### 2.2.4. 打开浏览器
+### 2.3.4. 打开浏览器
 
 访问 `http://localhost:9090/region/ip=109.27.45.12` 这是我之前一个例子，用来解析IP地址，获取地域信息的。
 
 ![样例响应](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165146.png)
 
-### 2.2.5. 源码地址，如果觉得对你有帮助，请Star
+### 2.3.5. 源码地址，如果觉得对你有帮助，请Star
 
 **觉得对你有帮助，请Star**
 
@@ -1107,7 +1684,7 @@ public class ProcessServiceTest extends BaseTest {
 
 [Gitee源码地址](https://gitee.com/rothschil/drunkard.git)
 
-## 2.3. 集成ip2region离线IP地名映射
+## 2.4. 集成ip2region离线IP地名映射
 
 前段时间因业务需要，客户提出分析外网访问的IP，即针对一些热点区域的IP访问想做到事后预警与分析。
 因为我们服务是运行在相对隔离的资源环境中，无法直接去请求外网，于是想到用离线的方式来处理从网关发来的数据。找了下，看到个开源项目
@@ -1243,13 +1820,13 @@ public class IndexController {
 
 ~~~
 
-### 2.3.1. 打开浏览器
+### 2.4.1. 打开浏览器
 
 访问 `http://localhost:9090/region/ip=109.27.45.12` 这是我之前一个例子，用来解析IP地址，获取地域信息的。
 
 ![样例响应](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165146.png)
 
-### 2.3.2. 源码地址，如果觉得对你有帮助，请Star
+### 2.4.2. 源码地址，如果觉得对你有帮助，请Star
 
 ![觉得对你有帮助，请Star](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165747.png)
 
@@ -1257,7 +1834,7 @@ public class IndexController {
 
 [Gitee源码地址](https://gitee.com/rothschil/drunkard.git)
 
-## 2.4. Http响应内容统一封装
+## 2.5. Http响应内容统一封装
 
 我们在开发`前端`和`后端`进行交互服务过程中，受制于前后端的工作职责明确，在交互协议的定义上理解也较为不同，造成一个项目服务中重复定义交互内容以及编码上重复编写，不利于项目维护。所以基于此，将`后端`按照约定请求URL路径，并传入相关参数，`后端`服务器接收请求，进行业务处理，返回数据给前端，进行再次封装，供前端以及外部调用。
 
@@ -1419,11 +1996,11 @@ public enum ResultCode {
 
 摆脱了繁琐的文字，下面开始张罗着贴实现代码啦。
 
-### 2.4.1. 消息体
+### 2.5.1. 消息体
 
 结合我们定义的状态码，我们返回的消息体主要实现一个 `Serializable`，不要问我为什么。
 
-#### 2.4.1.1. 正常响应
+#### 2.5.1.1. 正常响应
 
 ~~~java
 package xyz.wongs.drunkard.base.message.response;
@@ -1523,7 +2100,7 @@ public class Result implements Serializable {
 
 ~~~
 
-#### 2.4.1.2. 异常响应
+#### 2.5.1.2. 异常响应
 
 ~~~java
 package xyz.wongs.drunkard.base.message.response;
@@ -1586,13 +2163,13 @@ public class ErrorResult implements Serializable {
 
 这样两个消息体就写完啦。
 
-### 2.4.2. 拦截器
+### 2.5.2. 拦截器
 
 我们这里需要做的就是利用拦截器拦截请求，检查判断是否此请求返回的值需要包装。核心就是判断一个注解`annoation`是否存在方法或类中。
 
 为了演示的完整，我将代码贴完整。
 
-#### 2.4.2.1. Annoation注解
+#### 2.5.2.1. Annoation注解
 
 ~~~java
 /**
@@ -1610,7 +2187,7 @@ public @interface ResponseResult {
 }
 ~~~
 
-#### 2.4.2.2. 拦截器
+#### 2.5.2.2. 拦截器
 
 ~~~java
 
@@ -1724,7 +2301,7 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
 
 ~~~
 
-#### 2.4.2.3. 全局异常
+#### 2.5.2.3. 全局异常
 
 这里所有的异常都使用到 `ErrorResult` 类。
 
@@ -1836,7 +2413,7 @@ public class GlobalExceptionHandler {
 
 ~~~
 
-### 2.4.3. 例子
+### 2.5.3. 例子
 
 以上虽然将所有代码贴出，这列为凑完整，顺道将写个例子来，写个 `Controller`
 
@@ -1952,7 +2529,7 @@ public class IndexController {
 
 ![异常响应](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165250.png)
 
-### 2.4.4. 源码地址，如果觉得对你有帮助，请Star
+### 2.5.4. 源码地址，如果觉得对你有帮助，请Star
 
 ![觉得对你有帮助，请Star](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165747.png)
 
@@ -1960,10 +2537,10 @@ public class IndexController {
 
 [Gitee源码地址](https://gitee.com/rothschil/drunkard.git)
 
-## 2.5. 集成OAuth2
+## 2.6. 集成OAuth2
 
 
-## 2.6. 集成数据校验
+## 2.7. 集成数据校验
 
 `Spring Validation` 对 `hibernate validatio`n 进行了二次封装，可以让我们更加方便地使用数据校验功能。这边我们通过 Spring Boot 来引用校验功能。
 

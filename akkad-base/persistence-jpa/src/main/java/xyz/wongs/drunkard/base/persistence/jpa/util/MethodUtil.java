@@ -1,5 +1,8 @@
 package xyz.wongs.drunkard.base.persistence.jpa.util;
 
+import xyz.wongs.drunkard.base.constant.Constant;
+import xyz.wongs.drunkard.base.message.enums.ResultCode;
+import xyz.wongs.drunkard.base.message.exception.DrunkardException;
 import xyz.wongs.drunkard.base.utils.DateUtils;
 import xyz.wongs.drunkard.base.utils.StringUtils;
 
@@ -24,53 +27,87 @@ import java.util.List;
 public class MethodUtil {
 
 
-
-    public static int getFieldValue(Object bean, Root<?> root, CriteriaBuilder cb, List<Predicate> lp){
+    /**
+     *
+     * if (Constant.BASIC_TYPE_INTEGER.equals(fieldType)) {
+         lp.add(cb.equal(root.get(fields[i].getName()).as(Integer.class), Integer.valueOf(value)));
+         } else if("BigDecimal".equals(fieldType)) {
+         lp.add(cb.equal(root.get(fields[i].getName()).as(BigDecimal.class), new BigDecimal(value)));
+         } else if("Long".equals(fieldType)) {
+         lp.add(cb.equal(root.get(fields[i].getName()).as(Long.class), Long.valueOf(value)));
+         } else if("Date".equals(fieldType)) {
+         lp.add(cb.equal(root.get(fields[i].getName()).as(Date.class), DateUtils.parseDate(value)));
+         } else if("int".equals(fieldType)) {
+         lp.add(cb.equal(root.get(fields[i].getName()).as(Integer.class), Integer.valueOf(value)));
+         } else if("String".equals(fieldType)) {
+         lp.add(cb.equal(root.get(fields[i].getName()).as(String.class), value));
+         }
+     * @Description
+     * @param bean
+     * @param root
+     * @param cb
+     * @param lp
+     * @return void
+     * @throws
+     * @date 20/12/18 10:12
+     */
+    public static void getFieldValue(Object bean, Root<?> root, CriteriaBuilder cb, List<Predicate> lp){
         try {
             Class<?> cls = bean.getClass();
             Field[] fields = cls.getDeclaredFields();
             Method[] methods = cls.getDeclaredMethods();
+            Predicate predicate = null;
+
             for (int i=0;i<fields.length;i++) {
                 String fieldType = fields[i].getType().getSimpleName();
                 String fieldGetName = StringUtils.parGetName(fields[i].getName());
+                String fieldSetName = StringUtils.parSetName(fields[i].getName());
                 //校验是否有GETTER、SETTER的方法
-                if (!StringUtils.checkGetMet(methods, fieldGetName)) {
+                if (!StringUtils.checkGetMet(methods, fieldGetName) || StringUtils.checkSetMet(methods, fieldSetName)) {
                     continue;
                 }
                 Method fieldSetMet = cls.getMethod(fieldGetName);
                 Object o =fieldSetMet.invoke(bean);
                 //Type conversion
-                if(null!=o){
-                    String value = o.toString();
-                    if ("Integer".equals(fieldType)) {
-                        lp.add(cb.equal(root.get(fields[i].getName()).as(Integer.class), Integer.valueOf(value)));
-                    } else if("BigDecimal".equals(fieldType)) {
-                        lp.add(cb.equal(root.get(fields[i].getName()).as(BigDecimal.class), new BigDecimal(value)));
-                    } else if("Long".equals(fieldType)) {
-                        lp.add(cb.equal(root.get(fields[i].getName()).as(Long.class), Long.valueOf(value)));
-                    } else if("Date".equals(fieldType)) {
-                        lp.add(cb.equal(root.get(fields[i].getName()).as(Date.class), DateUtils.parseDate(value)));
-                    } else if("int".equals(fieldType)) {
-                        lp.add(cb.equal(root.get(fields[i].getName()).as(Integer.class), Integer.valueOf(value)));
-                    } else if("String".equals(fieldType)) {
-                        lp.add(cb.equal(root.get(fields[i].getName()).as(String.class), value));
-                    }
+                if(null==o) {
+                    continue;
                 }
+                String value = o.toString();
+                switch (fieldType){
+                    case Constant.BASIC_TYPE_INTEGER:
+                        predicate = cb.equal(root.get(fields[i].getName()).as(Integer.class), Integer.valueOf(value));
+                        break;
+                    case Constant.BASIC_TYPE_BIGDECIMAL:
+                        predicate = cb.equal(root.get(fields[i].getName()).as(BigDecimal.class), new BigDecimal(value));
+                        break;
+                    case Constant.BASIC_TYPE_Long:
+                        predicate = cb.equal(root.get(fields[i].getName()).as(Long.class), Long.valueOf(value));
+                        break;
+                    case Constant.BASIC_TYPE_DATE:
+                        predicate = cb.equal(root.get(fields[i].getName()).as(Date.class), DateUtils.parseDate(value));
+                        break;
+                    case Constant.BASIC_TYPE_INT:
+                        predicate = cb.equal(root.get(fields[i].getName()).as(Integer.class), Integer.valueOf(value));
+                        break;
+                    default:
+                        predicate = cb.equal(root.get(fields[i].getName()).as(String.class), value);
+                        break;
+                }
+                lp.add(predicate);
             }
         } catch (SecurityException e) {
-            e.printStackTrace();
+            throw new DrunkardException(ResultCode.DATA_PARSE_EXCEPTION,e);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            throw new DrunkardException(ResultCode.DATA_PARSE_EXCEPTION,e);
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            throw new DrunkardException(ResultCode.DATA_PARSE_EXCEPTION,e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            throw new DrunkardException(ResultCode.DATA_PARSE_EXCEPTION,e);
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            throw new DrunkardException(ResultCode.DATA_PARSE_EXCEPTION,e);
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            throw new DrunkardException(ResultCode.DATA_PARSE_EXCEPTION,e);
         }
-        return 0;
     }
 
 

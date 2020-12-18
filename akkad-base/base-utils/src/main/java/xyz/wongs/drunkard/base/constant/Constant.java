@@ -16,6 +16,16 @@ public class Constant {
     public static final String UNKNOWN = "unknown";
     public static final String HEADER_X_FORWARDED_FOR ="x-forwarded-for";
 
+    /** BEGIN  JAVA基础类型 **/
+    public static final String BASIC_TYPE_INTEGER = "Integer";
+    public static final String BASIC_TYPE_BIGDECIMAL = "BigDecimal";
+    public static final String BASIC_TYPE_Long = "Long";
+    public static final String BASIC_TYPE_DATE = "Date";
+    public static final String BASIC_TYPE_INT = "int";
+    public static final String BASIC_TYPE_STRING = "String";
+    /** END  JAVA基础类型 **/
+
+
     /**
      * d
      */

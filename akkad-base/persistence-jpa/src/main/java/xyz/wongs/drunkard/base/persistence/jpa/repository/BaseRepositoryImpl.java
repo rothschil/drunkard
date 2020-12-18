@@ -4,7 +4,6 @@ import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import xyz.wongs.drunkard.base.constant.Constant;
-
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -19,7 +18,6 @@ import java.util.List;
 @SuppressWarnings({"unchecked"})
 public class BaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
 
-	//
 	private final EntityManager entityManager;
 
 	public BaseRepositoryImpl(Class<T> domainClass, EntityManager em) {
@@ -100,8 +98,5 @@ public class BaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRep
 	public Page<T> findCriteria(Specification<T> spec, Pageable pageable){
 		  return super.findAll(spec,pageable);
 	}
-
-
-
 
 }

@@ -35,7 +35,7 @@ public class LocationService extends BaseService<Location, Long> {
 		this.locationRepository =(LocationRepository)jpaRepository;
 	}
 
-	public Location getLocationListByLevel(int lv){
-		return locationRepository.getOne(2288671L);
+	public List<Location> getLocationListByLevel(int lv){
+		return locationRepository.findByLv(lv);
 	}
 }

@@ -13,6 +13,7 @@ import xyz.wongs.drunkard.war3.domain.service.LocationService;
 
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,7 +52,7 @@ public class LocationController{
             @ApiResponse(code = 500, message = "服务器不能完成请求")}
     )
     @RequestMapping(value = "/{lv}", method = RequestMethod.GET)
-    public Location getLocationListByLevel(@PathVariable(value = "lv") Integer lv) {
+    public List<Location> getLocationListByLevel(@PathVariable(value = "lv") Integer lv) {
         return locationService.getLocationListByLevel(lv);
     }
 

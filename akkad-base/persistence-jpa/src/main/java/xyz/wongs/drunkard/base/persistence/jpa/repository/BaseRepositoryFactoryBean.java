@@ -7,9 +7,10 @@ import org.springframework.data.jpa.repository.support.JpaRepositoryImplementati
 import org.springframework.data.repository.core.RepositoryInformation;
 import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
-
 import javax.persistence.EntityManager;
 import java.io.Serializable;
+
+
 @SuppressWarnings({"rawtypes","unchecked"})
 public class BaseRepositoryFactoryBean<R extends JpaRepository<T, I>, T,I extends Serializable> extends JpaRepositoryFactoryBean<R, T, I> {
 
@@ -37,15 +38,6 @@ public class BaseRepositoryFactoryBean<R extends JpaRepository<T, I>, T,I extend
             return new BaseRepositoryImpl<T, I>((Class<T>) information.getDomainType(), em);
         }
 
-        //        /**
-//         * 设置具体的实现类是BaseRepositoryImple
-//         * @param information
-//         * @return
-//         */
-//        @Override
-//        protected Object getTargetRepository(RepositoryInformation information) {
-//            return new BaseRepositoryImpl<T, I>((Class<T>) information.getDomainType(), em);
-//        }
 
         /**
          *  设置具体的实现类的class
