@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.war3.domain.mapper;
+package xyz.wongs.drunkard.war3.domain.repository;
 
 import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
 import xyz.wongs.drunkard.war3.domain.entity.Location;

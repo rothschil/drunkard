@@ -17,6 +17,16 @@ public class Constant {
     public static final String HEADER_X_FORWARDED_FOR ="x-forwarded-for";
 
     /**
+     * d
+     */
+    public static final String DEFAULT_SORT="id";
+
+    /**
+     * d
+     */
+    public static final String PREIX_SORT="d";
+
+    /**
      * 斜杠
      */
     public static final String POINT=".";

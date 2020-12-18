@@ -91,6 +91,12 @@
                 <artifactId>mybatis-base</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>xyz.wongs.drunkard</groupId>
+                <artifactId>persistence-jpa</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>xyz.wongs.drunkard</groupId>
                 <artifactId>mybatis-no-pk</artifactId>

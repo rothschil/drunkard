@@ -12,6 +12,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>war3-area</module>
+        <module>war3-moon</module>
         <module>war3-infi</module>
         <module>war3-oauth2</module>
     </modules>

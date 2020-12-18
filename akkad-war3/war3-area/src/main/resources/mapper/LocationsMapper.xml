@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="xyz.wongs.drunkard.war3.domain.mapper.LocationMapper">
+<mapper namespace="xyz.wongs.drunkard.war3.domain.repository.LocationMapper">
   <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.war3.domain.entity.Location">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="flag" jdbcType="VARCHAR" property="flag" />

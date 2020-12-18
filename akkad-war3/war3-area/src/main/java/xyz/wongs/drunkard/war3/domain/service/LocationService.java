@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
 import xyz.wongs.drunkard.base.persistence.mybatis.service.BaseService;
 import xyz.wongs.drunkard.war3.domain.entity.Location;
-import xyz.wongs.drunkard.war3.domain.mapper.LocationMapper;
+import xyz.wongs.drunkard.war3.domain.repository.LocationMapper;
 
 import java.util.List;
 
