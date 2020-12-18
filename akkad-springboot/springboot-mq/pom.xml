@@ -12,6 +12,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>mq-kafka</module>
+        <module>mq-rocketmq</module>
     </modules>
 
 
