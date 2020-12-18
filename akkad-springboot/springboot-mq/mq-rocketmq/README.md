@@ -171,68 +171,68 @@ drwxr-xr-x. 2 root root  4096 Jun 24 02:49 lib
 
 ~~~
 
-# 4. 所属集群名字
+// 所属集群名字
 brokerClusterName=rocketmq-cluster
-# 5. broker名字，注意此处不同的配置文件填写的不一样
+//  broker名字，注意此处不同的配置文件填写的不一样
 brokerName=broker-a/broker-b ## 需要按机器A/B 区分
-# 6. 0 表示 Master，>0 表示 Slave
+// 0 表示 Master，>0 表示 Slave
 brokerId=0
-# 7. nameServer地址，分号分割
+//  nameServer地址，分号分割
 
 namesrvAddr=rocketmq-nameserver1:9876;rocketmq-nameserver2:9876
-# 8. 在发送消息时，自动创建服务器不存在的topic，默认创建的队列数
+// 在发送消息时，自动创建服务器不存在的topic，默认创建的队列数
 defaultTopicQueueNums=4
-# 9. 是否允许 Broker 自动创建Topic，建议线下开启，线上关闭
+// 是否允许 Broker 自动创建Topic，建议线下开启，线上关闭
 autoCreateTopicEnable=true
-# 10. 是否允许 Broker 自动创建订阅组，建议线下开启，线上关闭
+// 是否允许 Broker 自动创建订阅组，建议线下开启，线上关闭
 autoCreateSubscriptionGroup=true
-# 11. Broker 对外服务的监听端口
+// Broker 对外服务的监听端口
 listenPort=10911
-# 12. 删除文件时间点，默认凌晨 4点
+// 删除文件时间点，默认凌晨 4点
 deleteWhen=04
-# 13. 文件保留时间，默认 48 小时
+// 文件保留时间，默认 48 小时
 fileReservedTime=120
-# 14. commitLog每个文件的大小默认1G
+// commitLog每个文件的大小默认1G
 mapedFileSizeCommitLog=1073741824
-# 15. ConsumeQueue每个文件默认存30W条，根据业务情况调整
+//  ConsumeQueue每个文件默认存30W条，根据业务情况调整
 mapedFileSizeConsumeQueue=300000
-# 16. destroyMapedFileIntervalForcibly=120000
-# 17. redeleteHangedFileInterval=120000
-# 18. 检测物理文件磁盘空间
+// destroyMapedFileIntervalForcibly=120000
+// redeleteHangedFileInterval=120000
+// 检测物理文件磁盘空间
 diskMaxUsedSpaceRatio=88
-# 19. 存储路径
+// 存储路径
 storePathRootDir=/usr/local/rocketmq/store
-# 20. commitLog 存储路径
+// commitLog 存储路径
 storePathCommitLog=/usr/local/rocketmq/store/commitlog
-# 21. 消费队列存储路径存储路径
+// 消费队列存储路径存储路径
 storePathConsumeQueue=/usr/local/rocketmq/store/consumequeue
-# 22. 消息索引存储路径
+// 消息索引存储路径
 storePathIndex=/usr/local/rocketmq/store/index
-# 23. checkpoint 文件存储路径
+// checkpoint 文件存储路径
 storeCheckpoint=/usr/local/rocketmq/store/checkpoint
-# 24. abort 文件存储路径
+// abort 文件存储路径
 abortFile=/usr/local/rocketmq/store/abort
-# 25. 限制的消息大小
+// 限制的消息大小
 maxMessageSize=65536
-# 26. flushCommitLogLeastPages=4
-# 27. flushConsumeQueueLeastPages=2
-# 28. flushCommitLogThoroughInterval=10000
-# 29. flushConsumeQueueThoroughInterval=60000
-# 30. Broker 的角色
-# 31. - ASYNC_MASTER 异步复制Master
-# 32. - SYNC_MASTER 同步双写Master
-# 33. - SLAVE
+// flushCommitLogLeastPages=4
+// flushConsumeQueueLeastPages=2
+// flushCommitLogThoroughInterval=10000
+// flushConsumeQueueThoroughInterval=60000
+// Broker 的角色
+//  - ASYNC_MASTER 异步复制Master
+//  - SYNC_MASTER 同步双写Master
+//  - SLAVE
 brokerRole=ASYNC_MASTER
-# 34. 刷盘方式
-# 35. - ASYNC_FLUSH 异步刷盘
-# 36. - SYNC_FLUSH 同步刷盘
+//  刷盘方式
+//  - ASYNC_FLUSH 异步刷盘
+//  - SYNC_FLUSH 同步刷盘
 flushDiskType=ASYNC_FLUSH
-# 37. checkTransactionMessageEnable=false
+//  checkTransactionMessageEnable=false
 
-# 38. 发消息线程池数量
-# 39. sendMessageThreadPoolNums=128
-# 40. 拉消息线程池数量
-# 41. pullMessageThreadPoolNums=128
+//  发消息线程池数量
+//  sendMessageThreadPoolNums=128
+//  拉消息线程池数量
+//  pullMessageThreadPoolNums=128
 ~~~
 
 机器A
@@ -340,7 +340,7 @@ JAVA_OPT="${JAVA_OPT} -server -Xms1g -Xmx1g -Xmn512m"
 
 最终按照以上步骤重启NameServer和BrokerServer即可！
 
-# 42. SpringBoot集成
+# 4. SpringBoot集成
 
 - POM文件添加依赖
 
@@ -355,7 +355,7 @@ JAVA_OPT="${JAVA_OPT} -server -Xms1g -Xmx1g -Xmn512m"
 - application.yml
 
 ~~~
-######### 42.1. RocketMQ ##########
+######### 4.1. RocketMQ ##########
 rocketmq:
   name-server: 192.168.244.128:9876;192.168.244.129:9876;
   producer:
@@ -399,6 +399,10 @@ public class UserConsumer implements RocketMQListener<UserVo> {
 
 ~~~
 
-# 43. 案例下载
+# 5. 案例下载
 
-[案例下载](https://gitee.com/rothschil/drunkard.git)，希望多多给Star。
+![觉得对你有帮助，请Star](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/20201201165747.png)
+
+[**Gitee下载**](https://gitee.com/rothschil/drunkard/tree/master/akkad-springboot/springboot-mq/mq-rocketmq)，希望多多给Star。
+
+[**Github下载**](https://github.com/rothschil/drunkard/tree/master/akkad-springboot/springboot-mq/mq-rocketmq)，希望多多给Star。
