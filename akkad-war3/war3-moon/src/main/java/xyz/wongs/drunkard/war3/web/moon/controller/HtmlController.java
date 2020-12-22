@@ -58,6 +58,7 @@ public class HtmlController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model, @RequestParam(value = "pageNum", defaultValue = "0") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         Location location = new Location();
+        location.setLv(0);
         Page<Location> pages = locationService.getList(location,pageNum,pageSize);
         model.addAttribute("pages", pages);
         return "location";

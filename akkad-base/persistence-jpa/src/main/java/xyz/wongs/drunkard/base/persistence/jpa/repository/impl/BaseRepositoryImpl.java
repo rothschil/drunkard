@@ -1,104 +1,170 @@
 package xyz.wongs.drunkard.base.persistence.jpa.repository.impl;
 
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import xyz.wongs.drunkard.base.constant.Constant;
+import xyz.wongs.drunkard.base.persistence.jpa.entity.AbsEntity;
 import xyz.wongs.drunkard.base.persistence.jpa.repository.BaseRepository;
+import xyz.wongs.drunkard.base.persistence.jpa.util.MethodUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@SuppressWarnings({"unchecked"})
-public class BaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
+public class BaseRepositoryImpl<T extends AbsEntity, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
 
-	private final EntityManager entityManager;
+    private final EntityManager entityManager;
 
-	public BaseRepositoryImpl(Class<T> domainClass, EntityManager em) {
-		super(domainClass, em);
-		this.entityManager=em;
-	}
+    public BaseRepositoryImpl(Class<T> domainClass, EntityManager em) {
+        super(domainClass, em);
+        this.entityManager = em;
+    }
 
-	@Override
-	public void delete(ID[] ids) {
+    @Override
+    public void delete(ID[] ids) {
 
-	}
+    }
 
-	@Override
-	public Long getTargetId(String sql) {
-		Query query = entityManager.createNativeQuery(sql);
-		return Long.valueOf(query.getSingleResult().toString());
-	}
+    @Override
+    public Long getTargetId(String sql) {
+        Query query = entityManager.createNativeQuery(sql);
+        return Long.valueOf(query.getSingleResult().toString());
+    }
 
-	@Override
-	public void updateBySql(String sql, Object... args) {
-		Query query = entityManager.createNativeQuery(sql);
-		int i = 0;
-		for(Object arg:args) {
-			query.setParameter(++i,arg);
-		}
-		query.executeUpdate();
-	}
+    @Override
+    public void updateBySql(String sql, Object... args) {
+        Query query = entityManager.createNativeQuery(sql);
+        int i = 0;
+        for (Object arg : args) {
+            query.setParameter(++i, arg);
+        }
+        query.executeUpdate();
+    }
 
-	@Override
-	public void updateByHql(String hql, Object... args) {
-		Query query = entityManager.createQuery(hql);
-		int i = 0;
-		for(Object arg:args) {
-			query.setParameter(++i,arg);
-		}
-		query.executeUpdate();
-	}
+    @Override
+    public void updateByHql(String hql, Object... args) {
+        Query query = entityManager.createQuery(hql);
+        int i = 0;
+        for (Object arg : args) {
+            query.setParameter(++i, arg);
+        }
+        query.executeUpdate();
+    }
 
-	@Override
-	public List<Object[]> listBySQL(String sql) {
-		return entityManager.createNativeQuery(sql).getResultList();
-	}
+    @Override
+    public List<Object[]> listBySQL(String sql) {
+        return entityManager.createNativeQuery(sql).getResultList();
+    }
 
-	@Override
-	public int batchInsert(String sql) {
-		Query query = entityManager.createNativeQuery(sql);
-		return query.executeUpdate();
-	}
+    @Override
+    public int batchInsert(String sql) {
+        Query query = entityManager.createNativeQuery(sql);
+        return query.executeUpdate();
+    }
+
+    /** 利用Specification 默认设置进行分页
+     * @Description
+     * @param spec
+     * @param pageable
+     * @return org.springframework.data.domain.Page<T>
+     * @throws
+     * @date 20/12/22 16:26
+     */
+    @Override
+    public Page<T> find(Specification<T> spec, Pageable pageable) {
+        return super.findAll(spec, pageable);
+    }
+
+    /** 利用实体结合 Specification 默认设置进行分页
+     * @Description
+     * @param t
+     * @param pageable
+     * @return org.springframework.data.domain.Page<T>
+     * @throws
+     * @date 20/12/22 16:26
+     */
+    @Override
+    public Page<T> find(T t, Pageable pageable) {
+        Specification spec = MethodUtil.getSpecification(t);
+        return find(spec, pageable);
+    }
 
 
-	public Page<T> find(Class rootCls, CriteriaQuery<T> criteria, int pageNo, int pageSize) {
+    /**
+     * @Description
+     * @param t 非空
+     * @param pageable 非空
+     * @param list 多种查询条件,可以自定义实现，拓展为动态查询，可以为空，为空时候，自动从实体的属性中获取
+     * @return org.springframework.data.domain.Page<T>
+     * @throws
+     * @date 20/12/22 16:25
+     */
+    @Override
+	public Page<T> findByCriteriaQuery(T t,Pageable pageable,List<Predicate> list) {
 
-		//count
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery criteriaC = builder.createQuery();
-		Root root = criteriaC.from(rootCls);
-		criteriaC.select(builder.count(root));
-		criteriaC.where(criteria.getRestriction());
-		List<Long> totals = entityManager.createQuery(criteriaC).getResultList();
-		Long total = 0L;
-		for (Long element : totals) {
-			total += element == null ? 0 : element;
-		}
-		//content
-		TypedQuery<T> query = entityManager.createQuery(criteria);
-		query.setFirstResult((pageNo - 1) * pageSize);
-		query.setMaxResults(pageSize);
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery query = cb.createQuery();
+		// Root 定义查询的From子句中能出现的类型
+		Root<T> root = query.from(t.getClass());
 
-		List<T> content = total > query.getFirstResult() ? query.getResultList() : Collections.<T> emptyList();
-		Sort sort = Sort.by(Sort.Direction.DESC, Constant.DEFAULT_SORT);
-		Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
-		Page<T> pageRst = new PageImpl<T>(content, pageable, total);
-		return pageRst;
+        // 多种查询条件,可以自定义实现，拓展为动态查询，可以为空，为空时候，自动从实体的属性中获取
+        if(list.isEmpty()){
+            list = MethodUtil.getFieldValue(t,root,cb);
+        }
 
-	}
+        List<Expression<?>> grouping = new ArrayList<Expression<?>>();
+        grouping.add(root.get("id"));
+        grouping.add(root.get("flag"));
+        grouping.add(root.get("localCode"));
+        grouping.add(root.get("localName"));
+        grouping.add(root.get("lv"));
+        grouping.add(root.get("supLocalCode"));
+        grouping.add(root.get("url"));
+        query.multiselect(
+                root.get("id"),
+                root.get("flag"),
+                root.get("localCode"),
+                root.get("localName"),
+                root.get("lv"),
+                root.get("supLocalCode"),
+                root.get("url"),
+                cb.sum(root.get("id")));
 
-	@Override
-	public Page<T> findCriteria(Specification<T> spec, Pageable pageable){
-		  return super.findAll(spec,pageable);
-	}
 
+		query.where(list.toArray(new Predicate[list.size()]));
+        query.groupBy(grouping);
+
+        TypedQuery<T> typedQuery = entityManager.createQuery(query);
+//        typedQuery.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
+//        typedQuery.setMaxResults(pageable.getPageSize());
+
+
+        Long total = getTotal(query);
+		List<T> content = total > typedQuery.getFirstResult() ? typedQuery.getResultList() : Collections.<T>emptyList();
+		return new PageImpl<T>(content, pageable, total);
+    }
+
+    /**
+     * @Description
+     * @param query
+     * @return long
+     * @throws
+     * @date 20/12/22 16:17
+     */
+    private Long getTotal(CriteriaQuery query){
+        Long total = 0L;
+        List<T> totals = entityManager.createQuery(query).getResultList();
+        if(!totals.isEmpty()){
+            Integer size = totals.size();
+            total = size.longValue();
+        }
+        return total;
+    }
 }

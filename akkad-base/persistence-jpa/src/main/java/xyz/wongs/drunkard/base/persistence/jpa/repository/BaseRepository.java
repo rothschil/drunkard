@@ -6,7 +6,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
+import xyz.wongs.drunkard.base.persistence.jpa.entity.AbsEntity;
 
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,7 +26,7 @@ import java.util.List;
  */
 @NoRepositoryBean
 @Transactional(readOnly=true,rollbackFor = Exception.class)
-public interface BaseRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
+public interface BaseRepository<T extends AbsEntity, ID extends Serializable> extends JpaRepository<T, ID> {
 
     /**
      * 根据主键删除
@@ -52,7 +55,20 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
     @Transactional(rollbackFor = Exception.class)
     void updateByHql(String hql,Object...args);
 
-    Page<T> findCriteria(Specification<T> spec, Pageable pageable);
+    Page<T> find(T t, Pageable pageable);
+
+    Page<T> find(Specification<T> spec, Pageable pageable);
+
+    /**
+     * @Description
+     * @param t 非空
+     * @param pageable 非空
+     * @param list 多种查询条件,可以自定义实现，拓展为动态查询，可以为空，为空时候，自动从实体的属性中获取
+     * @return org.springframework.data.domain.Page<T>
+     * @throws
+     * @date 20/12/22 16:25
+     */
+    Page<T> findByCriteriaQuery(T t, Pageable pageable,List<Predicate> list);
 
     int batchInsert(String sql);
 

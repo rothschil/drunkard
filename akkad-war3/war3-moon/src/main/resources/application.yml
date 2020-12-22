@@ -53,7 +53,7 @@ spring:
       ## 配置一个连接在池中最小生存的时间，单位是毫秒
       min-evictable-idle-time-millis: 300000
       max-evictable-idle-time-millis: 600000
-      remove-abandoned: true
+      remove-abandoned: false
       remove-abandoned-timeout: 180
       log-abandoned: false
       validation-query: select 1
