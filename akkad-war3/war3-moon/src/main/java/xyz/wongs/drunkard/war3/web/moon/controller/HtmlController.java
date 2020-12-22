@@ -2,6 +2,9 @@ package xyz.wongs.drunkard.war3.web.moon.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import xyz.wongs.drunkard.base.aop.annotion.ApplicationLog;
@@ -25,9 +28,8 @@ import java.util.Map;
 */
 @Validated
 @ResponseResult
-@RestController
-@RequestMapping(value = "/areas")
-public class LocationController{
+@Controller
+public class HtmlController {
 
     @Autowired
     @Qualifier("locationService")
@@ -40,38 +42,25 @@ public class LocationController{
      * @param lv
      * @return  List<LocationEntity>
      */
-    @RequestMapping(value = "/{lv}", method = RequestMethod.GET)
-    public List<Location> getLocationListByLevel(@PathVariable(value = "lv") Integer lv) {
-        return locationService.getLocationListByLevel(lv);
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String idex() {
+        return "redirect:/list";
     }
 
+    /**
+     *
+     * @Title: getLocationListByLevel
+     * @Description: 请求参数在URL中，需要在 @ApiImplicitParam 中加上 "paramType="path""
+     * @param lv
+     * @return  List<LocationEntity>
+     */
     @ApplicationLog
-    @GetMapping("/test")
-    public Map<String, Object> test() {
-        HashMap<String, Object> data = new HashMap<>(3);
-        data.put("info", "测试成功");
-        return data;
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(Model model, @RequestParam(value = "pageNum", defaultValue = "0") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        Location location = new Location();
+        Page<Location> pages = locationService.getList(location,pageNum,pageSize);
+        model.addAttribute("pages", pages);
+        return "location";
     }
-
-    @ApplicationLog
-    @GetMapping("/fail")
-    public Integer error() {
-        // 查询结果数
-        int res = 0;
-        if( res == 0 ) {
-            throw new DrunkardException("没有数据");
-        }
-        return res;
-    }
-
-    @ApplicationLog
-    @GetMapping("/vali")
-    public Map<String, Object> testValidator(@NotNull(message = "userId不能为空") Integer userId) {
-        HashMap<String, Object> data = new HashMap<>(3);
-        data.put("info", "测试成功");
-        return data;
-    }
-
-
 }
 

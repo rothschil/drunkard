@@ -49,7 +49,6 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
     @Transactional(rollbackFor = Exception.class)
     void updateBySql(String sql,Object...args);
 
-
     @Transactional(rollbackFor = Exception.class)
     void updateByHql(String hql,Object...args);
 

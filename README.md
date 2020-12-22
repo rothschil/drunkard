@@ -122,7 +122,7 @@
 |   |   |-- mybatis-no-pk              ------------依赖DB主键版本
 |   |   |-- mybatis-pk-redis           ------------依赖Redis生成主键的版本
 |-- akkad-springboot                   ------------springboot集成开源组件
-|   |   |-- springboot-dist-lock       ------------获取行政区域的版本
+|   |   |-- springboot-dist-lock       ------------分布式锁例子
 |   |   |-- springboot-dist-trans      ------------分布式事物
 |   |   |-- springboot-elasticsearch   ------------集成ES
 |   |   |-- springboot-jwt             ------------JWT示例
