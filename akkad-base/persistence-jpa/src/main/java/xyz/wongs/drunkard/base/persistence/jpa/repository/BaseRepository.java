@@ -70,6 +70,10 @@ public interface BaseRepository<T extends AbsEntity, ID extends Serializable> ex
      */
     Page<T> findByCriteriaQuery(T t, Pageable pageable,List<Predicate> list);
 
+    @Transactional(rollbackFor = Exception.class)
     int batchInsert(String sql);
+
+    @Transactional(rollbackFor = Exception.class)
+    int batchInsert(List<T> list);
 
 }

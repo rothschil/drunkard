@@ -69,6 +69,20 @@ public class BaseRepositoryImpl<T extends AbsEntity, ID extends Serializable> ex
         return query.executeUpdate();
     }
 
+    @Override
+    public int batchInsert(List<T> list) {
+        int i = 0;
+        for (T t : list) {
+            i++;
+            entityManager.persist(t);
+            if (i % 1000 == 0) {
+                entityManager.flush();
+                entityManager.clear();
+            }
+        }
+        return 0;
+    }
+
     /** 利用Specification 默认设置进行分页
      * @Description
      * @param spec
