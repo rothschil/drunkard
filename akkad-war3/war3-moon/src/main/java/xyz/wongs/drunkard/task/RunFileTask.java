@@ -44,8 +44,11 @@ public class RunFileTask {
                 listFiles(fl);
                 continue;
             }
-            String fileName = FileUtil.getName(fl);
             String suffixName = FileUtil.getSuffix(fl);
+            if(!ImageConst.LIST_SUFFIX.contains(suffixName.toUpperCase())){
+                continue;
+            }
+            String fileName = FileUtil.getName(fl);
             float size = fl.length()/1024;
             size = scale(size);
             String filePath = FileUtil.getAbsolutePath(fl);
