@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="file_name" property="fileName" jdbcType="VARCHAR" />
     <result column="file_path" property="filePath" jdbcType="VARCHAR" />
-    <result column="file_size" property="fileSize" jdbcType="REAL" />
+    <result column="file_size" property="fileSize" jdbcType="BIGINT" />
     <result column="suffix_name" property="suffixName" jdbcType="VARCHAR" />
     <result column="md5" property="md5" jdbcType="VARCHAR" />
   </resultMap>
@@ -20,7 +20,7 @@
     ) values
     <foreach collection="list" item="item" index="index" separator=",">
       (#{item.id,jdbcType=BIGINT}, #{item.fileName,jdbcType=VARCHAR}, #{item.filePath,jdbcType=VARCHAR},
-      #{item.fileSize,jdbcType=REAL}, #{item.suffixName,jdbcType=VARCHAR}, #{item.md5,jdbcType=VARCHAR}
+      #{item.fileSize,jdbcType=BIGINT}, #{item.suffixName,jdbcType=VARCHAR}, #{item.md5,jdbcType=VARCHAR}
       )
     </foreach>
   </insert>
@@ -40,7 +40,7 @@
       file_size, suffix_name, md5
       )
     values (#{id,jdbcType=BIGINT}, #{fileName,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
-      #{fileSize,jdbcType=REAL}, #{suffixName,jdbcType=VARCHAR}, #{md5,jdbcType=VARCHAR}
+      #{fileSize,jdbcType=BIGINT}, #{suffixName,jdbcType=VARCHAR}, #{md5,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="xyz.wongs.drunkard.war3.moon.entity.FileInfo" >
@@ -76,7 +76,7 @@
         #{filePath,jdbcType=VARCHAR},
       </if>
       <if test="fileSize != null" >
-        #{fileSize,jdbcType=REAL},
+        #{fileSize,jdbcType=BIGINT},
       </if>
       <if test="suffixName != null" >
         #{suffixName,jdbcType=VARCHAR},
@@ -96,7 +96,7 @@
         file_path = #{filePath,jdbcType=VARCHAR},
       </if>
       <if test="fileSize != null" >
-        file_size = #{fileSize,jdbcType=REAL},
+        file_size = #{fileSize,jdbcType=BIGINT},
       </if>
       <if test="suffixName != null" >
         suffix_name = #{suffixName,jdbcType=VARCHAR},
@@ -111,7 +111,7 @@
     update tb_file_info
     set file_name = #{fileName,jdbcType=VARCHAR},
       file_path = #{filePath,jdbcType=VARCHAR},
-      file_size = #{fileSize,jdbcType=REAL},
+      file_size = #{fileSize,jdbcType=BIGINT},
       suffix_name = #{suffixName,jdbcType=VARCHAR},
       md5 = #{md5,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}

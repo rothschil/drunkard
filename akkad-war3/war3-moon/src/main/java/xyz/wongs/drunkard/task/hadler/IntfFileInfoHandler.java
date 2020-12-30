@@ -1,9 +1,7 @@
 package xyz.wongs.drunkard.task.hadler;
 
-
 import xyz.wongs.drunkard.base.aop.pojo.OperationLog;
 import xyz.wongs.drunkard.war3.moon.entity.FileInfo;
-
 import java.security.PrivateKey;
 import java.util.List;
 

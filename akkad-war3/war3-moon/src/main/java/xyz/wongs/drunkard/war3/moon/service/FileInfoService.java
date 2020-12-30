@@ -1,6 +1,5 @@
 package xyz.wongs.drunkard.war3.moon.service;//package xyz.wongs.drunkard.war3.domain.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,11 +7,10 @@ import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
 import xyz.wongs.drunkard.base.persistence.mybatis.service.AbstractService;
 import xyz.wongs.drunkard.war3.moon.entity.FileInfo;
 import xyz.wongs.drunkard.war3.moon.mapper.FileInfoMapper;
-
 import java.util.List;
 
 /**
- * @ClassName LocationService
+ * @ClassName FileInfoService
  * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
@@ -22,7 +20,6 @@ import java.util.List;
 @Service(value="fileInfoService")
 @Transactional(readOnly = true)
 public class FileInfoService extends AbstractService<FileInfo, Long> {
-
 
     @Autowired
     private FileInfoMapper fileInfoMapper;

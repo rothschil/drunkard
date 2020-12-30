@@ -16,7 +16,7 @@ public class FileInfo extends AbstractEntity<Long> {
 
     private String filePath;
 
-    private Float fileSize;
+    private Long fileSize;
 
     private String suffixName;
 

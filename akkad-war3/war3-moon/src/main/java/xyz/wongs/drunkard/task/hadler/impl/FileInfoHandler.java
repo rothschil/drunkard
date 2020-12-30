@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import xyz.wongs.drunkard.task.hadler.IntfFileInfoHandler;
 import xyz.wongs.drunkard.war3.moon.entity.FileInfo;
 import xyz.wongs.drunkard.war3.moon.service.FileInfoService;
-
 import java.util.List;
 
 @Data

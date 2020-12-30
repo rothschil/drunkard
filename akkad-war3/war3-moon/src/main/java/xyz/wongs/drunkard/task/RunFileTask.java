@@ -1,31 +1,43 @@
 package xyz.wongs.drunkard.task;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.wongs.drunkard.base.utils.file.FileUtil;
 import xyz.wongs.drunkard.base.utils.security.Md5Utils;
+import xyz.wongs.drunkard.base.utils.thread.ThreadPoolUtils;
 import xyz.wongs.drunkard.task.hadler.impl.FileInfoHandler;
 import xyz.wongs.drunkard.task.queue.FileInfoQueue;
+import xyz.wongs.drunkard.task.thread.FileSizeThread;
 import xyz.wongs.drunkard.war3.moon.entity.FileInfo;
 import xyz.wongs.drunkard.war3.moon.service.FileInfoService;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
+ * @ClassName RunFileTask
+ * @Description 
  * @author WCNGS@QQ.COM
- * @ClassName ResultCode 定义的接口状态码
- * @Description
  * @Github <a>https://github.com/rothschil</a>
- * @date 2020/12/28 17:21
+ * @date 20/12/30 12:58
  * @Version 1.0.0
- */
+*/
 @Component
 @Slf4j
 public class RunFileTask {
+
+    public static final String THREAD_NAME ="RUN_FILE_NAME";
 
     @Autowired
     public FileInfoService fileInfoService;
@@ -56,35 +68,24 @@ public class RunFileTask {
             if(!ImageConst.LIST_SUFFIX.contains(suffixName.toUpperCase())){
                 continue;
             }
+            ThreadPoolExecutor executor = ThreadPoolUtils.doCreate(1,1,THREAD_NAME);
+            Future<String> result = executor.submit(new FileSizeThread(fl));
             String fileName = FileUtil.getName(fl);
-            float size = fl.length()/1024;
-            size = scale(size);
+            long size = fl.length();
             String filePath = FileUtil.getAbsolutePath(fl);
-            FileInfo fileInfo = FileInfo.builder().fileName(fileName).filePath(filePath).fileSize(size).suffixName(suffixName)
-                    .md5(Md5Utils.getMd5(fl)).build();
-            lists.add(fileInfo);
+            try {
+                FileInfo fileInfo = FileInfo.builder().fileName(fileName).filePath(filePath).fileSize(size).suffixName(suffixName)
+                        .md5(result.get()).build();
+                lists.add(fileInfo);
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            } catch (ExecutionException e){
+                e.printStackTrace();
+            }
         }
         if(!lists.isEmpty()){
-            //fileInfoService.insert(lists);
             fileInfoHandler.setLists(lists);
             fileInfoQueue.addQueue(fileInfoHandler);
         }
-    }
-
-    public static void main(String[] args) {
-        new RunFileTask().run("G:\\Image");
-    }
-
-
-    float scale(Float floatValue) {
-        DecimalFormat format = new DecimalFormat("#.00");
-        String scaled = format.format(floatValue);
-        return Float.parseFloat(scaled);
-    }
-
-    double scale(Double doubleValue) {
-        DecimalFormat format = new DecimalFormat("#.00");
-        String scaled = format.format(doubleValue);
-        return Double.parseDouble(scaled);
     }
 }

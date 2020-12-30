@@ -2,15 +2,13 @@ package xyz.wongs.drunkard.task.queue;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import xyz.wongs.drunkard.base.handler.IQueueTaskHandler;
 import xyz.wongs.drunkard.task.hadler.IntfFileInfoHandler;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.concurrent.*;
 
-/** 异步处理日志的队列
- * @ClassName AppLogQueue
+/** 异步文件写入队列
+ * @ClassName FileInfoQueue
  * @Description 
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
