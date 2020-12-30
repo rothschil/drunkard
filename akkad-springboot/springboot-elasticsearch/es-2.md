@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-![20191205172258.png](https://i.loli.net/2019/12/05/lLXVdyOnWavqioM.png)
+![20201230114440](https://abram.oss-cn-shanghai.aliyuncs.com/blog/springboot/es/20201230114440.png)
 
 # 2. SpringBoot集成
 
@@ -354,9 +354,9 @@ public class BaseElasticDao {
 
 我们在创建索引过程中需要先判断是否有这个索引，否则不允许创建，由于我案例采用的是手动指定indexName和Settings，大家看的过程中要特别注意下，而且还有一点indexName必须是小写，如果是大写在创建过程中会有错误
 
-![官方索引创建说明](https://i.loli.net/2019/11/19/5QCdq691l7EOwnf.png)
+![官方索引创建说明](https://abram.oss-cn-shanghai.aliyuncs.com/blog/gradle/20201230114242.png)
 
-![索引名大写](https://i.loli.net/2019/12/05/W7YevidXZyQxSVK.png)
+![索引名大写](https://abram.oss-cn-shanghai.aliyuncs.com/blog/springboot/es/20201230114337.png)
 
 。详细的代码实现见如下：
 
@@ -418,7 +418,7 @@ public void buildSetting(CreateIndexRequest request){
 
 这时候我们通过Postman工具调用**Controller**，发现创建索引成功。
 
-![新增索引](https://i.loli.net/2019/11/19/VwKLQceuNHA6vTJ.png)
+![新增索引](https://abram.oss-cn-shanghai.aliyuncs.com/blog/springboot/es/20201230114608.png)
 
 再命令行执行**curl -H "Content-Type: application/json" -X GET "http://localhost:9200/_cat/indices?v"**，效果如图：
 

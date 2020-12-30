@@ -5,16 +5,16 @@ server:
 spring:
   application:
     name: war3-moon
-  jpa:
-    hibernate:
-      ddl-auto: none
-    #        use_sql_comments: true
-    open-in-view: false
-    show-sql: false
-    properties:
-      hibernate:
-        format_sql: false
-        enable_lazy_load_no_trans: true
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#    #        use_sql_comments: true
+#    open-in-view: false
+#    show-sql: false
+#    properties:
+#      hibernate:
+#        format_sql: false
+#        enable_lazy_load_no_trans: true
   transaction:
     rollback-on-commit-failure: true
   mvc:
@@ -119,6 +119,10 @@ spring:
         login-username: admin
         url-pattern: /druid/*
         reset-enable: true
+
+# mybatis配置
+mybatis:
+  mapperLocations: classpath:mapper/**/*.xml
 
 # ===== 自定义swagger配置 ===== #
 swagger:

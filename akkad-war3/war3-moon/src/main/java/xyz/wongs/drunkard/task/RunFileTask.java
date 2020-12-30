@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.wongs.drunkard.base.utils.file.FileUtil;
 import xyz.wongs.drunkard.base.utils.security.Md5Utils;
-import xyz.wongs.drunkard.war3.domain.entity.FileInfo;
-import xyz.wongs.drunkard.war3.domain.service.FileInfoService;
+import xyz.wongs.drunkard.task.hadler.impl.FileInfoHandler;
+import xyz.wongs.drunkard.task.queue.FileInfoQueue;
+import xyz.wongs.drunkard.war3.moon.entity.FileInfo;
+import xyz.wongs.drunkard.war3.moon.service.FileInfoService;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -27,6 +29,12 @@ public class RunFileTask {
 
     @Autowired
     public FileInfoService fileInfoService;
+
+    @Autowired
+    private FileInfoQueue fileInfoQueue;
+
+    @Autowired
+    private FileInfoHandler fileInfoHandler;
 
     public void run(String path){
         File file = new File(path);
@@ -57,12 +65,14 @@ public class RunFileTask {
             lists.add(fileInfo);
         }
         if(!lists.isEmpty()){
-            fileInfoService.insert(lists);
+            //fileInfoService.insert(lists);
+            fileInfoHandler.setLists(lists);
+            fileInfoQueue.addQueue(fileInfoHandler);
         }
     }
 
     public static void main(String[] args) {
-        new RunFileTask().run("G:\\Image\\200323\\2015");
+        new RunFileTask().run("G:\\Image");
     }
 
 

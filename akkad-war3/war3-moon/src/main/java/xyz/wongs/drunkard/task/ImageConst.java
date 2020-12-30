@@ -12,5 +12,6 @@ import java.util.List;
  * @Version 1.0.0
  */
 public class ImageConst {
-    public static List<String> LIST_SUFFIX = Arrays.asList("JPG","PNG","JPEG","BMP","NEF","CR2","GIF","PSD","TIFF","SVG");
+    //public static List<String> LIST_SUFFIX = Arrays.asList("JPG","PNG","JPEG","BMP","NEF","CR2","GIF","PSD","TIFF","SVG");
+    public static List<String> LIST_SUFFIX = Arrays.asList("JPG","PNG","JPEG","BMP","PSD");
 }

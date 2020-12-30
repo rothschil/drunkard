@@ -13,7 +13,7 @@
     <dependencies>
         <dependency>
             <groupId>xyz.wongs.drunkard</groupId>
-            <artifactId>persistence-jpa</artifactId>
+            <artifactId>mybatis-no-pk</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>com.oracle</groupId>

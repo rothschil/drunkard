@@ -217,7 +217,7 @@ public class QueryVo {
 
 - Postman提交
 
-![条件查询](https://i.loli.net/2019/11/21/pceid3Fxk8ynKD7.png)
+![条件查询](https://abram.oss-cn-shanghai.aliyuncs.com/blog/springboot/es/20201230114822.png)
 
 ## 1.3. 删除数据
 
@@ -251,7 +251,7 @@ public ResponseResult delete(@RequestBody ElasticDataVo elasticDataVo){
 }
 ~~~
 
-![删除数据](https://i.loli.net/2019/11/21/bm472MhqDjJPRFl.png)
+![删除数据](https://abram.oss-cn-shanghai.aliyuncs.com/blog/springboot/es/20201230114903.png)
 
 ### 1.3.2. 批量删除
 

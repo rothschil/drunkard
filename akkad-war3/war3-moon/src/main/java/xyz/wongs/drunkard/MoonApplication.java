@@ -1,10 +1,8 @@
 package xyz.wongs.drunkard;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import xyz.wongs.drunkard.base.persistence.jpa.repository.factory.BaseRepositoryFactoryBean;
 
 /**
  * @ClassName DustAreaApplication
@@ -14,11 +12,13 @@ import xyz.wongs.drunkard.base.persistence.jpa.repository.factory.BaseRepository
  * @date 20/11/18 11:03
  * @Version 1.0.0
 */
-@EnableJpaAuditing
+//@EnableJpaAuditing
+//@SpringBootApplication
+//@EnableJpaRepositories(basePackages = {"xyz.wongs.drunkard"},
+//        repositoryFactoryBeanClass = BaseRepositoryFactoryBean.class//Specify your own factory class
+//)
+@MapperScan(basePackages = {"xyz.wongs.drunkard.**.mapper"})
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = {"xyz.wongs.drunkard"},
-        repositoryFactoryBeanClass = BaseRepositoryFactoryBean.class//Specify your own factory class
-)
 public class MoonApplication {
 
     public static void main(String[] args) {
@@ -26,3 +26,4 @@ public class MoonApplication {
     }
 
 }
+

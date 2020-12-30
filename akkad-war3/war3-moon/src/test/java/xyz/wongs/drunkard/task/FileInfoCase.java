@@ -17,7 +17,7 @@ public class FileInfoCase extends BaseTest {
     @Test
     public void test(){
         long start  = System.currentTimeMillis();
-        runFileTask.run("G:\\Image\\Iphone\\2019");
+        runFileTask.run("G:\\Image");
         long end  = System.currentTimeMillis();
         log.info("耗时 cost ={} 秒",(end-start)/1000);
     }
