@@ -48,6 +48,8 @@ public class RunFileTask {
     @Autowired
     private FileInfoHandler fileInfoHandler;
 
+    private ThreadPoolExecutor executor = ThreadPoolUtils.doCreate(3,5,THREAD_NAME);
+
     public void run(String path){
         File file = new File(path);
         if(!file.isDirectory()){
@@ -68,7 +70,6 @@ public class RunFileTask {
             if(!ImageConst.LIST_SUFFIX.contains(suffixName.toUpperCase())){
                 continue;
             }
-            ThreadPoolExecutor executor = ThreadPoolUtils.doCreate(1,1,THREAD_NAME);
             Future<String> result = executor.submit(new FileSizeThread(fl));
             String fileName = FileUtil.getName(fl);
             long size = fl.length();
