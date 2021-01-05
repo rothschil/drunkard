@@ -1,0 +1,15 @@
+archivesBaseName = 'nosql-redis'
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web:2.3.4.RELEASE'){
+        exclude(group:'org.springframework.boot', module: 'spring-boot-starter-logging')
+    }
+    implementation('log4j:log4j:1.2.17')
+    implementation('org.springframework.boot:spring-boot-starter-data-redis:2.3.4.RELEASE')
+    implementation('org.springframework.boot:spring-boot-starter-integration:2.3.4.RELEASE')
+    implementation('org.springframework.integration:spring-integration-redis:5.3.4.RELEASE')
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.4.RELEASE')
+}
+jar.enabled = true
+bootJar.enabled = true
+

@@ -1,0 +1,15 @@
+archivesBaseName = 'mq-rocketmq'
+dependencies {
+    compile project(':akkad-base:base-utils')
+//    {
+//        exclude group: 'com.alibaba', module: 'druid-spring-boot-starter'
+//        exclude group: 'mysql', module: 'mysql-connector-java'
+//    }
+    implementation('org.apache.rocketmq:rocketmq-spring-boot-starter:2.1.1'){
+        exclude(group:'commons-logging', module: 'commons-logging')
+    }
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.4.RELEASE')
+}
+jar.enabled = true
+bootJar.enabled = true
+

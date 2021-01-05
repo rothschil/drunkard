@@ -1,0 +1,101 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+group project_group
+version project_version
+
+sourceCompatibility = project_jdk
+targetCompatibility = project_jdk
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    mavenCentral()
+}
+
+subprojects {
+//    apply plugin: 'maven'
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'jacoco'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    sourceCompatibility = project_jdk
+    targetCompatibility = project_jdk
+    repositories {
+        mavenCentral()
+    }
+
+    test{
+        useJUnitPlatform()
+    }
+    bootJar {
+        enabled = false  // 默认不需要打可执行jar包
+    }
+    dependencies {
+        compile 'org.projectlombok:lombok:1.18.12'
+        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+        testCompile 'org.projectlombok:lombok:1.18.12'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+    }
+    task sourceTask(type:Jar,dependsOn: classes){
+        archiveClassifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocTask(type :Javadoc){
+        // 定义所有JAVA代码
+        source = sourceSets.main.allJava
+    }
+
+    task javadocJarTask(type :Jar,dependsOn: javadocTask){
+        archiveClassifier = 'javadoc'
+        from javadocTask.destinationDir
+    }
+
+    // 打包的操作任务
+    artifacts {
+        archives(sourceTask)
+        archives(javadocJarTask)
+    }
+
+    // 文档编码
+    tasks.withType(Javadoc){
+        options.encoding("UTF-8")
+        //
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+    }
+
+    // 程序编译
+    tasks.withType(JavaCompile){
+        options.encoding("UTF-8")
+    }
+
+    // 所有操作准备好触发该任务
+    gradle.taskGraph.whenReady {
+        tasks.each {
+            if (it.getName().contains('test')){
+                it.enabled(false)
+            }
+        }
+    }
+
+    // 所有操作准备好触发该任务
+    gradle.taskGraph.whenReady {
+        tasks.each {
+            if (it.getName().contains('test')){
+                it.enabled(true)
+            }
+        }
+    }
+    configurations {
+        //compile.exclude module: 'cglib'
+        all*.exclude group:'com.oracle', module: 'ojdbc6'
+        all*.exclude group:'com.zaxxer', module: 'HikariCP'
+    }
+
+}
+

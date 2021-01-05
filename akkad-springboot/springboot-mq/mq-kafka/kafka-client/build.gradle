@@ -1,0 +1,10 @@
+archivesBaseName = 'kafka-client'
+dependencies {
+
+    implementation project(':akkad-base:base-persistence:persistence-mybatis:mybatis-pk-redis')
+    implementation('org.springframework.kafka:spring-kafka:2.5.10.RELEASE')
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.4.RELEASE')
+}
+jar.enabled = true
+bootJar.enabled = true
+

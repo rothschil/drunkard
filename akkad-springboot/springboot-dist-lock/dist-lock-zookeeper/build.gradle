@@ -1,0 +1,17 @@
+archivesBaseName = 'dist-lock-zookeeper'
+dependencies {
+    implementation project(':akkad-base:base-utils')
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.4.RELEASE')
+    implementation('org.apache.zookeeper:zookeeper:3.4.10') {
+        exclude(group: 'org.slf4j', module: 'slf4j-log4j12')
+        exclude(group: 'org.slf4j', module: 'slf4j-api')
+        exclude(group: 'log4j', module: 'log4j')
+    }
+    implementation('org.apache.curator:curator-recipes:2.12.0'){
+        exclude(group: 'org.slf4j', module: 'slf4j-api')
+    }
+}
+jar.enabled = true
+/* 需要org.springframework.boot插件 不需要打包成可执行的jar*/
+bootJar.enabled = true
+

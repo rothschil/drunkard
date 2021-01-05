@@ -1,0 +1,11 @@
+archivesBaseName = 'dist-lock-mysql'
+dependencies {
+    implementation project(':akkad-base:base-persistence:persistence-mybatis:mybatis-pk-redis')
+    implementation('mysql:mysql-connector-java:5.1.40')
+    implementation('com.github.zheng93775:spring-boot-starter-mysql-lock:1.0.0')
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.4.RELEASE')
+}
+jar.enabled = true
+/* 需要org.springframework.boot插件 不需要打包成可执行的jar*/
+bootJar.enabled = true
+

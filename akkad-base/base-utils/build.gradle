@@ -1,0 +1,38 @@
+apply from : 'dependencies.gradle'
+description = 'base-utils'
+jar.enabled=true
+bootJar.enabled=true
+dependencies {
+//    compileOnly libraries.'lombok'
+//    annotationProcessor libraries.'lombok'
+//    testCompileOnly libraries.'lombok'
+//    testAnnotationProcessor libraries.'lombok'
+    compile(
+            libraries.'hibernate-validator',
+            libraries.'commons-compress',
+            libraries.'commons-text',
+            libraries.'commons-fileupload',
+            libraries.'commons-io',
+            libraries.'commons-lang3',
+            libraries.'commons-codec',
+            libraries.'druid-spring-boot-starter',
+            libraries.'commons-configuration',
+            libraries.'ojdbc6',
+            libraries.'mysql-connector-java',
+            libraries.'spring-boot-starter-web',
+            libraries.'spring-boot-starter',
+            libraries.'validation-api',
+            libraries.'javax.servlet-api',
+            libraries.'spring-tx',
+            libraries.'fastjson',
+            libraries.'guava',
+//            libraries.'lombok',
+            libraries.'hutool-all',
+            libraries.'spring-boot-starter-aop'
+    )
+    compile(libraries.'commons-httpclient'){
+        exclude group:'commons-logging', module: 'commons-logging'
+    }
+}
+
+

@@ -1,0 +1,6 @@
+archivesBaseName = 'mybatis-no-pk'
+dependencies {
+    compile project(':akkad-base:base-persistence:persistence-mybatis:mybatis-base')
+}
+jar.enabled = true
+bootJar.enabled = true

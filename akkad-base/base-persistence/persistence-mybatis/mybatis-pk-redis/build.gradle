@@ -1,0 +1,8 @@
+archivesBaseName = 'mybatis-pk-redis'
+dependencies {
+    compile project(':akkad-base:base-persistence:persistence-mybatis:mybatis-base')
+    compile('org.springframework.boot:spring-boot-starter-data-redis:2.3.4.RELEASE')
+    compile('redis.clients:jedis:3.4.1')
+}
+jar.enabled = true
+bootJar.enabled = true

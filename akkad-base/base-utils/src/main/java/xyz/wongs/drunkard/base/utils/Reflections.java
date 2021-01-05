@@ -345,8 +345,8 @@ public class Reflections {
 	public static Object getObjInstance(Class clazz){
 		Object o = null;
 		try {
-			Constructor constructor = clazz.getConstructor(null);
-			o = constructor.newInstance(null);
+			Constructor constructor = clazz.getConstructor(new Class[]{});
+			o = constructor.newInstance(new Object[]{});
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		} catch (InstantiationException e) {
