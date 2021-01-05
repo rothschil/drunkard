@@ -56,6 +56,8 @@ public class RunFileTask {
             return;
         }
         listFiles(file);
+        //关闭线程池
+        executor.shutdown();
     }
 
     public void listFiles(File file){
