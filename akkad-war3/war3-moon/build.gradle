@@ -6,6 +6,3 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.4.RELEASE')
 
 }
-jar.enabled = true
-bootJar.enabled = true
-

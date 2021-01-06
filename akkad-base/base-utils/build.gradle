@@ -1,7 +1,5 @@
 apply from : 'dependencies.gradle'
 description = 'base-utils'
-jar.enabled=true
-bootJar.enabled=true
 dependencies {
 //    compileOnly libraries.'lombok'
 //    annotationProcessor libraries.'lombok'

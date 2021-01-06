@@ -16,7 +16,7 @@ repositories {
 }
 
 subprojects {
-//    apply plugin: 'maven'
+    apply plugin: 'maven'
     apply plugin: 'java'
     apply plugin: 'idea'
     apply plugin: 'jacoco'
@@ -31,8 +31,14 @@ subprojects {
     test{
         useJUnitPlatform()
     }
+
+    jar {
+        enabled = true
+    }
+
+    // 默认不需要打可执行jar包
     bootJar {
-        enabled = false  // 默认不需要打可执行jar包
+        enabled = false
     }
     dependencies {
         compile 'org.projectlombok:lombok:1.18.12'

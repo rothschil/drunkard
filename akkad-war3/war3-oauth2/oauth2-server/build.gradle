@@ -8,7 +8,4 @@ dependencies {
     implementation('net.sourceforge.nekohtml:nekohtml:1.9.22')
 
 }
-jar.enabled = true
-/* 需要org.springframework.boot插件 不需要打包成可执行的jar*/
 bootJar.enabled = true
-

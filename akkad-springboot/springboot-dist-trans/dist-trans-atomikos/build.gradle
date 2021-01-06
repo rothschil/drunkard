@@ -4,6 +4,4 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-jta-atomikos:2.3.7.RELEASE')
     testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.4.RELEASE')
 }
-jar.enabled = true
 bootJar.enabled = true
-

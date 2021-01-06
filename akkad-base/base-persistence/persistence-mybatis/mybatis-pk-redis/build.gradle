@@ -4,5 +4,3 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-redis:2.3.4.RELEASE')
     compile('redis.clients:jedis:3.4.1')
 }
-jar.enabled = true
-bootJar.enabled = true
