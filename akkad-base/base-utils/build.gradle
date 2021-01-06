@@ -1,10 +1,6 @@
 apply from : 'dependencies.gradle'
 description = 'base-utils'
 dependencies {
-//    compileOnly libraries.'lombok'
-//    annotationProcessor libraries.'lombok'
-//    testCompileOnly libraries.'lombok'
-//    testAnnotationProcessor libraries.'lombok'
     compile(
             libraries.'hibernate-validator',
             libraries.'commons-compress',
@@ -28,6 +24,7 @@ dependencies {
             libraries.'hutool-all',
             libraries.'spring-boot-starter-aop'
     )
+
     compile(libraries.'commons-httpclient'){
         exclude group:'commons-logging', module: 'commons-logging'
     }

@@ -70,4 +70,7 @@ findProject(':akkad-base:base-persistence:persistence-mybatis:mybatis-no-pk')?.n
 include 'akkad-base:base-persistence:persistence-mybatis:mybatis-pk-redis'
 findProject(':akkad-base:base-persistence:persistence-mybatis:mybatis-pk-redis')?.name = 'mybatis-pk-redis'
 
+include 'akkad-war3:war3-dior'
+include 'akkad-war3:war3-dior:dior-thumbnailator'
+findProject(':akkad-war3:war3-dior:dior-thumbnailator')?.name = 'dior-thumbnailator'
 
