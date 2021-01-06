@@ -62,7 +62,7 @@
 ![Drunkard-license](https://img.shields.io/badge/license-MIT-green)
 ![Drunkard-coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
 ![Java](https://img.shields.io/badge/Java-%3E%3D%201.8-green)
-![Maven](https://img.shields.io/badge/Maven-%3E%3D%203.6.3-yellowgreen)
+![Gradle](https://img.shields.io/badge/Gradle-%3E%3D%206.5-yellowgreen)
 ![MySQL](https://img.shields.io/badge/MySQL-%3E%3D%205.7-important)
 ![Redis](https://img.shields.io/badge/Redis-%3E%3D%204.0-yellowgreen)
 ![Idea](https://img.shields.io/badge/IDEA-%3E%3D%202020.2-informational)
@@ -88,6 +88,10 @@
 [Github首页](https://github.com/rothschil)：Github首页
 
 ![Git首页](https://abram.oss-cn-shanghai.aliyuncs.com/blog/java/drunkard/linux/es/20201216153436.png)
+
+[CSDN](https://blog.csdn.net/rothchil)：CSDN首页
+
+![CSDN首页](https://abram.oss-cn-shanghai.aliyuncs.com/blog/drunkard/20210106100317.png)
 
 [Weathertop](https://github.com/king-angmar/weathertop)：其他开源的部分,已停止维护
 
