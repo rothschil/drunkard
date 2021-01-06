@@ -134,15 +134,17 @@
 |   |   |-- springboot-nosql           ------------集成oauth2的版本
 |-- akkad-war3                         ------------常用的示例
 |   |   |-- war3-area                  ------------获取行政区域的版本
-|   |   |-- war3-infi                  ------------集成 RuoYi 前端实现一个通用管理后台
+|   |   |-- war3-infi                  ------------集成RuoYi 实现通用管理后台
+|   |   |-- war3-moon                  ------------集成Mybatis扫描文件
 |   |   |-- war3-oauth2                ------------集成oauth2的版本
+|   |   |-- war3-sky                   ------------集成JPA的样例
 |-- README.md
 |-- LICENSE
 ~~~
 
 ## 1.4. 技术选型
 
-SpringBoot、Maven、Jnuit、MySQL、JDK8+
+SpringBoot、Gradle、Jnuit、MySQL、JDK8+
 
 ### 1.4.1. 自动生成实体等文件
 

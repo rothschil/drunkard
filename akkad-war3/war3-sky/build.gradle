@@ -1,0 +1,11 @@
+archivesBaseName = 'war3-sky'
+dependencies {
+    implementation project(':akkad-base:base-persistence:persistence-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.3.4.RELEASE')
+    implementation('javax.persistence:javax.persistence-api:2.2')
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.4.RELEASE')
+
+}
+jar.enabled = true
+bootJar.enabled = true
+

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.wongs.drunkard.war3.moon.mapper.FileInfoMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.war3.moon.entity.FileInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="file_size" property="fileSize" jdbcType="BIGINT" />
+    <result column="suffix_name" property="suffixName" jdbcType="VARCHAR" />
+    <result column="md5" property="md5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, file_name, file_path, file_size, suffix_name, md5
+  </sql>
+
+
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into tb_file_info (id, file_name, file_path,
+    file_size, suffix_name, md5
+    ) values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.fileName,jdbcType=VARCHAR}, #{item.filePath,jdbcType=VARCHAR},
+      #{item.fileSize,jdbcType=BIGINT}, #{item.suffixName,jdbcType=VARCHAR}, #{item.md5,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_file_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_file_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="xyz.wongs.drunkard.war3.moon.entity.FileInfo" >
+    insert into tb_file_info (id, file_name, file_path, 
+      file_size, suffix_name, md5
+      )
+    values (#{id,jdbcType=BIGINT}, #{fileName,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
+      #{fileSize,jdbcType=BIGINT}, #{suffixName,jdbcType=VARCHAR}, #{md5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="xyz.wongs.drunkard.war3.moon.entity.FileInfo" >
+    insert into tb_file_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="fileSize != null" >
+        file_size,
+      </if>
+      <if test="suffixName != null" >
+        suffix_name,
+      </if>
+      <if test="md5 != null" >
+        md5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null" >
+        #{fileSize,jdbcType=BIGINT},
+      </if>
+      <if test="suffixName != null" >
+        #{suffixName,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null" >
+        #{md5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunkard.war3.moon.entity.FileInfo" >
+    update tb_file_info
+    <set >
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null" >
+        file_size = #{fileSize,jdbcType=BIGINT},
+      </if>
+      <if test="suffixName != null" >
+        suffix_name = #{suffixName,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null" >
+        md5 = #{md5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunkard.war3.moon.entity.FileInfo" >
+    update tb_file_info
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      file_size = #{fileSize,jdbcType=BIGINT},
+      suffix_name = #{suffixName,jdbcType=VARCHAR},
+      md5 = #{md5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
