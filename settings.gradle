@@ -17,26 +17,28 @@ findProject(':akkad-springboot:springboot-dist-lock:dist-lock-mysql')?.name = 'd
 findProject(':akkad-springboot:springboot-dist-lock:dist-lock-redis')?.name = 'dist-lock-redis'
 findProject(':akkad-springboot:springboot-dist-lock:dist-lock-zookeeper')?.name = 'dist-lock-zookeeper'
 
-//include 'akkad-springboot:springboot-dist-trans'
-//include 'akkad-springboot:springboot-dist-trans:dist-trans-atomikos'
-//findProject(':akkad-springboot:springboot-dist-trans:dist-trans-atomikos')?.name = 'dist-trans-atomikos'
+include 'akkad-springboot:springboot-dist-trans'
+include 'akkad-springboot:springboot-dist-trans:dist-trans-atomikos'
+findProject(':akkad-springboot:springboot-dist-trans:dist-trans-atomikos')?.name = 'dist-trans-atomikos'
 
-//include 'akkad-springboot:springboot-elasticsearch'
-//include 'akkad-springboot:springboot-elasticsearch:es-footman'
-//findProject(':akkad-springboot:springboot-elasticsearch:es-footman')?.name = 'es-footman'
+include 'akkad-springboot:springboot-elasticsearch'
+include 'akkad-springboot:springboot-elasticsearch:es-footman'
+findProject(':akkad-springboot:springboot-elasticsearch:es-footman')?.name = 'es-footman'
+
 include 'akkad-springboot:springboot-jwt'
 findProject(':akkad-springboot:springboot-jwt')?.name = 'springboot-jwt'
-//include 'akkad-springboot:springboot-mq'
-//include 'akkad-springboot:springboot-mq:mq-kafka'
-//include 'akkad-springboot:springboot-mq:mq-kafka:kafka-server'
-//include 'akkad-springboot:springboot-mq:mq-kafka:kafka-client'
-//findProject(':akkad-springboot:springboot-mq:mq-kafka:kafka-client')?.name = 'kafka-client'
-//findProject(':akkad-springboot:springboot-mq:mq-kafka:kafka-server')?.name = 'kafka-server'
+include 'akkad-springboot:springboot-mq'
+include 'akkad-springboot:springboot-mq:mq-kafka'
+include 'akkad-springboot:springboot-mq:mq-kafka:kafka-server'
+include 'akkad-springboot:springboot-mq:mq-kafka:kafka-client'
+findProject(':akkad-springboot:springboot-mq:mq-kafka:kafka-client')?.name = 'kafka-client'
+findProject(':akkad-springboot:springboot-mq:mq-kafka:kafka-server')?.name = 'kafka-server'
 
-//include 'akkad-springboot:springboot-mq:mq-rocketmq'
-//findProject(':akkad-springboot:springboot-mq:mq-rocketmq')?.name = 'mq-rocketmq'
-//include 'akkad-springboot:springboot-nosql:nosql-redis'
-//findProject(':akkad-springboot:springboot-nosql:nosql-redis')?.name = 'nosql-redis'
+include 'akkad-springboot:springboot-mq:mq-rocketmq'
+findProject(':akkad-springboot:springboot-mq:mq-rocketmq')?.name = 'mq-rocketmq'
+
+include 'akkad-springboot:springboot-nosql:nosql-redis'
+findProject(':akkad-springboot:springboot-nosql:nosql-redis')?.name = 'nosql-redis'
 
 project(':akkad-base:base-utils').projectDir = file('akkad-base/base-utils')
 
