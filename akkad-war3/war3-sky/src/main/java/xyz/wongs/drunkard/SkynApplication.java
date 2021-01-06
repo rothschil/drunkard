@@ -8,7 +8,7 @@ import xyz.wongs.drunkard.base.persistence.jpa.repository.factory.BaseRepository
 
 /**
  * @ClassName DustAreaApplication
- * @Description 
+ * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 20/11/18 11:03
@@ -17,7 +17,7 @@ import xyz.wongs.drunkard.base.persistence.jpa.repository.factory.BaseRepository
 @EnableJpaAuditing
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = {"xyz.wongs.drunkard"},
-        repositoryFactoryBeanClass = BaseRepositoryFactoryBean.class//Specify your own factory class
+        repositoryFactoryBeanClass = BaseRepositoryFactoryBean.class
 )
 public class SkynApplication {
 
