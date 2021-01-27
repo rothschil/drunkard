@@ -1,57 +1,7 @@
+[TOC]
 
-<!-- TOC -->
 
-- [1. 项目简介](#1-项目简介)
-    - [1.1. 友情关联](#11-友情关联)
-    - [1.2. 概述](#12-概述)
-    - [1.3. 项目结构](#13-项目结构)
-    - [1.4. 技术选型](#14-技术选型)
-        - [1.4.1. 自动生成实体等文件](#141-自动生成实体等文件)
-        - [1.4.2. 分页](#142-分页)
-    - [1.5. 测试策略](#15-测试策略)
-    - [1.6. 技术架构](#16-技术架构)
-    - [1.7. 部署架构](#17-部署架构)
-    - [1.8. 外部依赖](#18-外部依赖)
-- [2. 内置功能](#2-内置功能)
-    - [2.1. Springboot集成JPA，开箱即用](#21-springboot集成jpa开箱即用)
-        - [2.1.1. pom文件](#211-pom文件)
-        - [2.1.2. 自定义Repository工厂类](#212-自定义repository工厂类)
-        - [2.1.3. 抽象实体基类](#213-抽象实体基类)
-        - [2.1.4. 抽象Service基类](#214-抽象service基类)
-        - [2.1.5. 如何使用？](#215-如何使用)
-            - [2.1.5.1. 继承实体基类](#2151-继承实体基类)
-            - [2.1.5.2. 继承repository基类](#2152-继承repository基类)
-            - [2.1.5.3. 继承Service基类](#2153-继承service基类)
-            - [2.1.5.4. 启动类](#2154-启动类)
-        - [2.1.6. 源码地址，如果觉得对你有帮助，请Star](#216-源码地址如果觉得对你有帮助请star)
-    - [2.2. 自动刷新MybatisXML](#22-自动刷新mybatisxml)
-        - [2.2.1. 配置文件](#221-配置文件)
-        - [2.2.2. 关键步骤](#222-关键步骤)
-        - [2.2.3. 源码地址，如果觉得对你有帮助，请Star](#223-源码地址如果觉得对你有帮助请star)
-    - [2.3. 手写爬虫获取国家统计局行政区划数据](#23-手写爬虫获取国家统计局行政区划数据)
-        - [2.3.1. 依赖包](#231-依赖包)
-        - [2.3.2. 核心实现代码](#232-核心实现代码)
-        - [2.3.3. 单元测试](#233-单元测试)
-        - [2.3.4. 打开浏览器](#234-打开浏览器)
-        - [2.3.5. 源码地址，如果觉得对你有帮助，请Star](#235-源码地址如果觉得对你有帮助请star)
-    - [2.4. 集成ip2region离线IP地名映射](#24-集成ip2region离线ip地名映射)
-        - [2.4.1. 打开浏览器](#241-打开浏览器)
-        - [2.4.2. 源码地址，如果觉得对你有帮助，请Star](#242-源码地址如果觉得对你有帮助请star)
-    - [2.5. Http响应内容统一封装](#25-http响应内容统一封装)
-        - [2.5.1. 消息体](#251-消息体)
-            - [2.5.1.1. 正常响应](#2511-正常响应)
-            - [2.5.1.2. 异常响应](#2512-异常响应)
-        - [2.5.2. 拦截器](#252-拦截器)
-            - [2.5.2.1. Annoation注解](#2521-annoation注解)
-            - [2.5.2.2. 拦截器](#2522-拦截器)
-            - [2.5.2.3. 全局异常](#2523-全局异常)
-        - [2.5.3. 例子](#253-例子)
-        - [2.5.4. 源码地址，如果觉得对你有帮助，请Star](#254-源码地址如果觉得对你有帮助请star)
-    - [2.6. 集成OAuth2](#26-集成oauth2)
-    - [2.7. 集成数据校验](#27-集成数据校验)
-- [3. FAQ](#3-faq)
 
-<!-- /TOC -->
 # 1. 项目简介
 
 ![Drunkard-WONGS](https://img.shields.io/badge/Drunkard-WONGS-blueviolet)
@@ -148,24 +98,22 @@ SpringBoot、Gradle、Jnuit、MySQL、JDK8+
 
 ### 1.4.1. 自动生成实体等文件
 
-在pom文件中加上`generator`依赖，在 `configurationFile` 中指定`generatorConfig.xml` 文件的位置，剩下一些数据库连接以及配置项，都在配置文件`generatorConfig.xml`中指定即可，方便又实用。
+在  `build.gradle` 文件中加上`generator`依赖，在 `mybatisGenerator` 中指定`generatorConfig.xml` 文件的位置，剩下一些数据库连接以及配置项，都在配置文件`generatorConfig.xml`中指定即可，方便又实用。
 
-- pom文件
+- gradle文件
 
-~~~yml
-<build>
-        <plugin>
-            <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator-maven-plugin</artifactId>
-            <version>1.3.2</version>
-            <configuration>
-                <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
-                <overwrite>true</overwrite>
-                <verbose>true</verbose>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
+~~~gradle
+plugins {
+    id "com.arenagod.gradle.MybatisGenerator" version "1.4"
+}
+
+configurations {
+    mybatisGenerator
+}
+mybatisGenerator {
+    verbose = true
+    configFile = 'src/main/resources/generator/generatorConfig.xml'
+}
 
 ~~~
 
@@ -241,6 +189,14 @@ generator.targetProject=src/main/java
 
 分页组件是继承开源**com.github.pagehelper**
 
+`Gradle` 集成的使用下面的
+
+```gradle
+compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '${Last Version}'
+```
+
+`Maven` 使用这个：
+
 ~~~xml
 <dependency>
     <groupId>com.github.pagehelper</groupId>
@@ -286,16 +242,12 @@ API测试 | src/apiTest/java | 模拟客户端调用API
 
 下面言归正传，我们用我之前项目在springboot集成 `JPA` 来做一个演示。
 
-### 2.1.1. pom文件
+### 2.1.1. gradle文件
 
-pom中引入 `spring-boot-starter-data-jpa` 依赖，注意版本。
+`build.gradle` 中引入 `spring-boot-starter-data-jpa` 依赖，注意版本。
 
-~~~xml
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-jpa</artifactId>
-    <version>2.3.4.RELEASE</version>
-</dependency>
+~~~gradle
+compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.4.1'
 ~~~
 
 ### 2.1.2. 自定义Repository工厂类
