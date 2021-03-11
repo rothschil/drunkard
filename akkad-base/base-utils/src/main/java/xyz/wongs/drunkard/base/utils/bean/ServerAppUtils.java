@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.base.utils.bean;//package cn.ffcs.np.common.config;
+package xyz.wongs.drunkard.base.utils.bean;
 //
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.boot.context.embedded.EmbeddedServletContainerInitializedEvent;
