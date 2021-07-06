@@ -323,8 +323,8 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
      * offset = 1,date=2018-11-02 16:47:00
      * 结果：2018-11-03 16:47:00
      *
-     * @param date
-     * @param offset
+     * @param date  具体日期
+     * @param offset    偏移的量
      * @return
      */
     public static Date offset(Date date, int offset) {
@@ -336,10 +336,9 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
     /**
      * 日期偏移
-     *
-     * @param date
-     * @param offset
-     * @param calendar
+     * @param date  具体日期
+     * @param offset    偏移的量，与 date 的差值
+     * @param calendar 日期偏移的单位：Calendar.SECOND、Calendar.DAY_OF_MONTH等
      * @return java.util.Date
      * @throws
      * @author WCNGS@QQ.COM
@@ -348,12 +347,19 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
      * @since
      */
     public static Date offset(Date date, int offset, int calendar) {
-
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.add(calendar, offset);
         return cal.getTime();
     }
+
+    public static void main(String[] args) {
+        Date dateNow = DateUtils.getNowDate();
+        Date dateSet = DateUtils.offset(dateNow,10, Calendar.SECOND);
+        System.out.println("[dateNow] =" + dateNow);
+        System.out.println("[dateSet] =" + dateSet);
+    }
+
 
     /**
      * @param i 与当前月份的偏移，负数 则是往前

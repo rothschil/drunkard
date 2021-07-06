@@ -2,4 +2,5 @@ archivesBaseName = 'persistence-jpa'
 dependencies {
     compile project(':akkad-base:base-utils')
     compile 'org.springframework.boot:spring-boot-starter-data-jpa:2.3.4.RELEASE'
+    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
 }

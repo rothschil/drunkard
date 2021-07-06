@@ -23,6 +23,9 @@ findProject(':akkad-springboot:springboot-elasticsearch:es-footman')?.name = 'es
 
 include 'akkad-springboot:springboot-jwt'
 findProject(':akkad-springboot:springboot-jwt')?.name = 'springboot-jwt'
+include 'akkad-springboot:springboot-jwt:jwt-encry'
+include 'akkad-springboot:springboot-jwt:jwt-safety'
+
 include 'akkad-springboot:springboot-mq'
 include 'akkad-springboot:springboot-mq:mq-kafka'
 include 'akkad-springboot:springboot-mq:mq-kafka:kafka-server'

@@ -60,10 +60,9 @@ public class MethodUtil<T extends AbsEntity> {
          lp.add(cb.equal(root.get(fields[i].getName()).as(String.class), value));
          }
      * @Description
-     * @param bean
+     * @param entity
      * @param root
      * @param cb
-     * @param lp
      * @return void
      * @throws
      * @date 20/12/18 10:12
