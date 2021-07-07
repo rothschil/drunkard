@@ -3,9 +3,6 @@ package xyz.wongs.drunkard.base.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -14,23 +11,19 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import xyz.wongs.drunkard.base.constant.Constant;
 import xyz.wongs.drunkard.base.interceptor.ResponseResultInterceptor;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @ClassName WebMvcConfig
- * @Description 
+ * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 20/11/18 11:13
  * @Version 1.0.0
 */
-@Slf4j
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
@@ -38,14 +31,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private ResponseResultInterceptor responseResultInterceptor;
 
     /**
-     * 自定义消息转换器
-     * @param converters
-     */
+     * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
+     * @Description 自定义消息转换器
+     * @Date 2021/7/7-20:48
+     * @Param converters
+     * @return
+     **/
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         // 清除默认 Json 转换器
         converters.removeIf(converter -> converter instanceof MappingJackson2HttpMessageConverter);
-
         // 配置 FastJson
         FastJsonConfig config = new FastJsonConfig();
         config.setSerializerFeatures(SerializerFeature.QuoteFieldNames, SerializerFeature.WriteEnumUsingToString,
@@ -65,7 +60,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(responseResultInterceptor).addPathPatterns("/**");;
+        registry.addInterceptor(responseResultInterceptor).addPathPatterns("/**");
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 }

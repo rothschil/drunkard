@@ -1,4 +1,4 @@
-package xyz.wongs.weathertop.jwt.service;
+package xyz.wongs.weathertop.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

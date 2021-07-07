@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 
 /**
- * @ClassName AbstractIdEntity
- * @Description 
+ * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/8/2 13:32
@@ -15,9 +14,7 @@ public abstract class BaseEntity<ID extends Serializable> implements Serializabl
 
     /** 无
      * @Description
-     * @param null
      * @return ID
-     * @throws
      * @date 2020/8/2 13:23
     */
     public abstract ID getId();
@@ -25,8 +22,6 @@ public abstract class BaseEntity<ID extends Serializable> implements Serializabl
     /** 无
      * @Description
      * @param id
-     * @return
-     * @throws
      * @date 2020/8/2 13:22
      */
     public abstract void setId(ID id);

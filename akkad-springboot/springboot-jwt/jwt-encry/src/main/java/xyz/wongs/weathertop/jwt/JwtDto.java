@@ -1,4 +1,4 @@
-package xyz.wongs.weathertop.jwt.dto;
+package xyz.wongs.weathertop.jwt;
 
 /**
  * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>

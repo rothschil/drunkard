@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
 import xyz.wongs.weathertop.jwt.annotation.LoginToken;
 import xyz.wongs.weathertop.jwt.pojo.User;
-import xyz.wongs.weathertop.jwt.service.JwtService;
-import xyz.wongs.weathertop.jwt.service.UserService;
+import xyz.wongs.weathertop.service.JwtService;
+import xyz.wongs.weathertop.service.UserService;
 
 /**
  * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>

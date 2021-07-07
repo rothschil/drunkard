@@ -4,6 +4,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.annotation.Nullable;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
@@ -16,7 +17,6 @@ import java.util.Enumeration;
 import java.util.Map;
 
 /**
- * @ClassName CaseInsensitiveRequestParameterNameFilter
  * @Description 请求参数忽略大小写，启动类上加入@ServletComponentScan注解
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
@@ -29,7 +29,7 @@ public class CaseInsensitiveRequestParameterNameFilter extends OncePerRequestFil
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@Nullable HttpServletRequest request, @Nullable HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         filterChain.doFilter(new CaseInsensitiveParameterNameHttpServletRequest(request), response);
     }
 
@@ -45,8 +45,9 @@ public class CaseInsensitiveRequestParameterNameFilter extends OncePerRequestFil
         public String getParameter(String name) {
 
             String[] array = this.map.get(name);
-            if (array != null && array.length > 0)
+            if (array != null && array.length > 0) {
                 return array[0];
+            }
             return null;
         }
 

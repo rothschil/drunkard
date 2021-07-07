@@ -77,10 +77,12 @@ public class SysMenu extends AbstractEntity<Long> {
      */
     private List<SysMenu> children = new ArrayList<SysMenu>();
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

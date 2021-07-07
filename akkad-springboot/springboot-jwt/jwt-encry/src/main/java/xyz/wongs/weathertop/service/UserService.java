@@ -1,4 +1,4 @@
-package xyz.wongs.weathertop.jwt.service;
+package xyz.wongs.weathertop.service;
 
 import org.springframework.stereotype.Component;
 import xyz.wongs.weathertop.jwt.entity.User;

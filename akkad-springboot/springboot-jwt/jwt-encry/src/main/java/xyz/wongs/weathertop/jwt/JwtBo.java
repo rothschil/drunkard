@@ -1,4 +1,4 @@
-package xyz.wongs.weathertop.tool;
+package xyz.wongs.weathertop.jwt;
 
 import com.auth0.jwt.algorithms.Algorithm;
 
@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @date 2021/7/6 - 15:29
  * @Version 1.0.0
  */
-public class JwtInfo implements Serializable {
+public class JwtBo implements Serializable {
 
     private static final String ISSUER ="weathertop";
     private static final String SUBJECT ="drunkard";
@@ -42,10 +42,10 @@ public class JwtInfo implements Serializable {
      */
     int expTime;
 
-    public JwtInfo() {
+    public JwtBo() {
     }
 
-    public JwtInfo(Algorithm algorithm, Object data) {
+    public JwtBo(Algorithm algorithm, Object data) {
         this.audience = new String[]{"app", "web"};
         this.algorithm = algorithm;
         this.data = data;
@@ -54,7 +54,7 @@ public class JwtInfo implements Serializable {
         this.expTime = 30;
     }
 
-    public JwtInfo(Algorithm algorithm, Object data, String issuer, String subject) {
+    public JwtBo(Algorithm algorithm, Object data, String issuer, String subject) {
         this.audience = new String[]{"app", "web"};
         this.algorithm = algorithm;
         this.data = data;
@@ -63,7 +63,7 @@ public class JwtInfo implements Serializable {
         this.expTime = 30;
     }
 
-    public JwtInfo(Algorithm algorithm, Object data, String issuer, String subject, int expTime) {
+    public JwtBo(Algorithm algorithm, Object data, String issuer, String subject, int expTime) {
         this.audience = new String[]{"app", "web"};
         this.algorithm = algorithm;
         this.data = data;

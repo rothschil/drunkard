@@ -1,4 +1,4 @@
-package xyz.wongs.weathertop.palant.controller;
+package xyz.wongs.weathertop.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.auth0.jwt.JWT;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import xyz.wongs.drunkard.base.message.enums.ResultCode;
 import xyz.wongs.drunkard.base.message.exception.DrunkardException;
 import xyz.wongs.drunkard.base.utils.StringUtils;
-import xyz.wongs.weathertop.dao.KeyFactory;
-import xyz.wongs.weathertop.jwt.dto.JwtDto;
-import xyz.wongs.weathertop.jwt.RsaKey;
+import xyz.wongs.weathertop.factory.KeyFactory;
+import xyz.wongs.weathertop.jwt.JwtDto;
+import xyz.wongs.weathertop.jwt.RsaKeyBo;
 import xyz.wongs.weathertop.jwt.entity.User;
-import xyz.wongs.weathertop.jwt.service.UserService;
-import xyz.wongs.weathertop.tool.JwtInfo;
-import xyz.wongs.weathertop.tool.TokenTool;
+import xyz.wongs.weathertop.service.UserService;
+import xyz.wongs.weathertop.jwt.JwtBo;
+import xyz.wongs.weathertop.factory.TokenFactory;
 import java.util.Calendar;
 
 /**
@@ -52,8 +52,8 @@ public class TokenController {
     @GetMapping("/getTokenByHS256")
     public String generateTokenByHS256() throws Exception{
         Algorithm algorithm = Algorithm.HMAC256(SECRET);
-        JwtInfo jwtInfo = new JwtInfo(algorithm,userService.getUser());
-        return TokenTool.createToken(jwtInfo, Calendar.SECOND);
+        JwtBo jwtBo = new JwtBo(algorithm,userService.getUser());
+        return TokenFactory.createToken(jwtBo, Calendar.SECOND);
     }
 
     /**
@@ -111,18 +111,18 @@ public class TokenController {
     }
 
     private String generateToken(int expTime){
-        RsaKey rsaKey = null;
-        JwtInfo jwtInfo = null;
+        RsaKeyBo rsaKeyBo = null;
+        JwtBo jwtBo = null;
         try {
-            rsaKey = KeyFactory.getRSA256Key();
-            Algorithm algorithm = Algorithm.RSA256(rsaKey.getPublicKey(), rsaKey.getPrivateKey());
-            jwtInfo = new JwtInfo(algorithm,userService.getUser());
+            rsaKeyBo = KeyFactory.getRSA256Key();
+            Algorithm algorithm = Algorithm.RSA256(rsaKeyBo.getPublicKey(), rsaKeyBo.getPrivateKey());
+            jwtBo = new JwtBo(algorithm,userService.getUser());
             if(expTime>0){
-                jwtInfo.setExpTime(expTime);
+                jwtBo.setExpTime(expTime);
             }
         } catch (Exception e) {
             throw new DrunkardException(ResultCode.USER_KEY_EXCEPTION);
         }
-        return TokenTool.createToken(jwtInfo, Calendar.SECOND);
+        return TokenFactory.createToken(jwtBo, Calendar.SECOND);
     }
 }

@@ -27,6 +27,7 @@ public abstract class AbsEntity<ID extends Serializable> extends AbstractEntity<
      * Sets the id of the entity.
      * @param id the id to set
      */
+    @Override
     public abstract void setId(final ID id);
 
     @Override

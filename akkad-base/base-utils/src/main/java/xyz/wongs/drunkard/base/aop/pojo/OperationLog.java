@@ -5,7 +5,6 @@ import xyz.wongs.drunkard.base.entity.AbstractEntity;
 
 import java.util.Date;
 /**
- * @ClassName OperationLog
  * @Description 操作日志
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
@@ -18,9 +17,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OperationLog extends AbstractEntity<Long> {
+
     private Long id;
 
-    private String ipAddr;
+    private String ipAddress;
 
     private String logType;
 

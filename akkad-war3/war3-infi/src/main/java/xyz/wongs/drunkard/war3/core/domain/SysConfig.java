@@ -47,10 +47,12 @@ public class SysConfig extends AbstractEntity<Long> {
     @Excel(name = "系统内置", readConverterExp = "Y=是,N=否")
     private String configType;
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

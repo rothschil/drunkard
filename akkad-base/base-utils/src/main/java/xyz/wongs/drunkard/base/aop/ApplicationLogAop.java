@@ -8,14 +8,13 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import xyz.wongs.drunkard.base.aop.annotion.ApplicationLog;
 import xyz.wongs.drunkard.base.aop.pojo.OperationLog;
-import xyz.wongs.drunkard.base.aop.service.OperationLogService;
 import xyz.wongs.drunkard.base.handler.impl.QueueTaskHandler;
 import xyz.wongs.drunkard.base.queue.AppLogQueue;
 import xyz.wongs.drunkard.base.utils.DateUtils;
@@ -27,7 +26,6 @@ import java.time.Instant;
 import java.util.Date;
 
 /**
- * @ClassName ApplicationLogAop
  * @Description 应用全局日志APO 异步日志，正常下执行次序是：@Around @Before ${METHOD} @Around @After @AfterReturning；异常下执行次序是：@Around @Before ${METHOD} @After @AfterThrowing;
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
@@ -39,7 +37,7 @@ import java.util.Date;
 @Component
 public class ApplicationLogAop {
 
-    private ThreadLocal<OperationLog> threadLocal = new ThreadLocal<OperationLog>();
+    private final ThreadLocal<OperationLog> threadLocal = new ThreadLocal<>();
 
     @Autowired
     private QueueTaskHandler queueTaskHandler;
@@ -62,27 +60,27 @@ public class ApplicationLogAop {
 
     @AfterReturning(returning = "ret",pointcut = "cutService()")
     public void afterReturning(Object ret){
-        doFinal(null,ret,null);
+        doFinal(ret,null);
     }
 
     @AfterThrowing(value ="cutService()", throwing = "e")
-    public void afterThrowing(JoinPoint point, Exception e) throws Throwable {
-        doFinal(point,null,e);
+    public void afterThrowing(Exception e) {
+        doFinal(null,e);
     }
 
-    protected void doFinal(JoinPoint point,Object ret, Exception e){
-        int sucess = 0;
+    protected void doFinal(Object ret, Exception e){
+        int success = 0;
         Date endTime = Date.from(Instant.now());
         OperationLog operationLog = threadLocal.get();
         if(null!=e){
-            sucess=-1;
+            success=-1;
             operationLog.setErrMsg(e.getMessage());
         }
         if(null!=ret){
             operationLog.setRespContent(JSON.toJSONString(ret));
         }
         operationLog.setEndTime(endTime);
-        operationLog.setIsSuccess(sucess);
+        operationLog.setIsSuccess(success);
         operationLog.setCost(DateUtils.getMills(operationLog.getBeginTime(),endTime));
         threadLocal.remove();
         queueTaskHandler.setOperationLog(operationLog);
@@ -92,11 +90,12 @@ public class ApplicationLogAop {
     protected OperationLog getOperationLog(ApplicationLog applicationLog, JoinPoint joinPoint){
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) requestAttributes;
+        Assert.notNull(sra,"The ServletRequestAttributes must not be null");
         HttpServletRequest request = sra.getRequest();
         //获取拦截的方法名
         Date beginTime = Date.from(Instant.now());
         String methodName = joinPoint.getSignature().getName();
-        String bussinessName = applicationLog.value();
+        String businessName = applicationLog.value();
         String key = applicationLog.key();
         // 类名
         String className =joinPoint.getTarget().getClass().getName();
@@ -104,8 +103,8 @@ public class ApplicationLogAop {
         Object[] params = joinPoint.getArgs();
         OperationLog.OperationLogBuilder opt = OperationLog.builder();
 
-        opt.className(className).methodName(methodName).logName(bussinessName).logType(key)
-                .ipAddr(IpUtils.getIpAddr(request)).actionUrl(URLUtil.getPath(request.getRequestURI()))
+        opt.className(className).methodName(methodName).logName(businessName).logType(key)
+                .ipAddress(IpUtils.getIpAddr(request)).actionUrl(URLUtil.getPath(request.getRequestURI()))
                 .requestMethod(request.getMethod()).userAgent(request.getHeader("user-agent"))
                 .beginTime(beginTime).reqContent(JSON.toJSONString(params));
         return opt.build();

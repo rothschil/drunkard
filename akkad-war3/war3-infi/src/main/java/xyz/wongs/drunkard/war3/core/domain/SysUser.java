@@ -149,10 +149,12 @@ public class SysUser extends AbstractEntity<Long> {
         this.id = id;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

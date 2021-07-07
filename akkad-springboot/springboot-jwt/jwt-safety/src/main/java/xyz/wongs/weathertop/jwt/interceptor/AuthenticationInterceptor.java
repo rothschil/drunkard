@@ -14,7 +14,7 @@ import xyz.wongs.drunkard.base.message.exception.DrunkardException;
 import xyz.wongs.weathertop.jwt.annotation.IgnoreTokenCheck;
 import xyz.wongs.weathertop.jwt.annotation.LoginToken;
 import xyz.wongs.weathertop.jwt.pojo.User;
-import xyz.wongs.weathertop.jwt.service.UserService;
+import xyz.wongs.weathertop.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

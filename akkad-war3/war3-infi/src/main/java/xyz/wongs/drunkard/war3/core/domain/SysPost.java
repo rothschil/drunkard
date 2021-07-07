@@ -54,10 +54,12 @@ public class SysPost extends AbstractEntity<Long> {
      */
     private boolean flag = false;
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

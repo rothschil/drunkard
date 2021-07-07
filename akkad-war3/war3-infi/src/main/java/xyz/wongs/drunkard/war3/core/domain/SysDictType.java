@@ -40,10 +40,12 @@ public class SysDictType extends AbstractEntity<Long> {
     @Excel(name = "状态", readConverterExp = "0=正常,1=停用")
     private String status;
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

@@ -15,9 +15,13 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IgnoreTokenCheck {
+
     /**
-     * 默认 为 true，需要检查
-     * @return
-     */
+     * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
+     * @Description 默认 为 true，需要检查
+     * @Date 2021/7/7-20:10
+     * @Param null
+     * @return null
+     **/
     boolean required() default true;
 }

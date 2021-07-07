@@ -70,22 +70,31 @@ public class ThreadPoolUtils {
         return doCreate(corePoolSize, maximumPoolSize,keepAliveTime, unit, queue,threadFactory, policy);
     }
 
-    /** 判断 核心线程池大小 是否 超出 CPU数量，设定合理的线程池大小
+
+    /**
      * @Description
-     * @param corePoolSize
-     * @return int
+     * @param corePoolSize  核心线程数
+     * @param maximumPoolSize   允许并行最大核心线程数
+     * @param keepAliveTime 当线程数大于内核数时，这是多余的空闲线程将在终止之前等待新任务的最长时间
+     * @param unit
+     * @param queueSize 有界队列的大小
+     * @param theadName 指定线程名字
+     * @return java.util.concurrent.ExecutorService
      * @throws
-     * @date 20/11/19 16:13
+     * @date 20/11/19 16:23
      */
-    public static int getCorePoolSize(int corePoolSize){
-        int prcessorSize = Runtime.getRuntime().availableProcessors();
-        //核心线程池大小 超出 CPU数量两倍
-        int bic = 2;
-        if(corePoolSize > prcessorSize * bic){
-            corePoolSize = prcessorSize * bic;
-        }
-        return corePoolSize;
+    public static ThreadPoolExecutor doCreate(int corePoolSize,int maximumPoolSize,int keepAliveTime,TimeUnit unit,
+                                              @NotNull int queueSize,
+                                              @NotNull String theadName,
+                                              @NotNull RejectedExecutionHandler handler){
+        // 1、指定有界队列，并明确大小
+        queueSize= queueSize==0?8:queueSize;
+        BlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(queueSize);
+        // 2、自定义线程名字
+        ThreadFactory threadFactory = new CoustomThreadFactory(theadName);
+        return doCreate(corePoolSize, maximumPoolSize,keepAliveTime, unit, queue,threadFactory, handler);
     }
+
 
     /**
      * @Description
@@ -107,5 +116,23 @@ public class ThreadPoolUtils {
         // 初始化大小
         int poolSize = getCorePoolSize(corePoolSize);
         return new ThreadPoolExecutor(poolSize, maximumPoolSize,keepAliveTime, unit, workQueue,threadFactory, handler);
+    }
+
+
+    /** 判断 核心线程池大小 是否 超出 CPU数量，设定合理的线程池大小
+     * @Description
+     * @param corePoolSize
+     * @return int
+     * @throws
+     * @date 20/11/19 16:13
+     */
+    public static int getCorePoolSize(int corePoolSize){
+        int prcessorSize = Runtime.getRuntime().availableProcessors();
+        //核心线程池大小 超出 CPU数量两倍
+        int bic = 2;
+        if(corePoolSize > prcessorSize * bic){
+            corePoolSize = prcessorSize * bic;
+        }
+        return corePoolSize;
     }
 }

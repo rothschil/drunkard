@@ -81,10 +81,12 @@ public class SysRole extends AbstractEntity<Long> {
         this.id = id;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long roleId) {
         this.id = id;
     }

@@ -4,12 +4,12 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 /**
  * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
- * @Description //TODO
+ * @Description 公钥-私钥封装实体
  * @Github <a>https://github.com/rothschil</a>
  * @date 2021/7/6 - 17:00
  * @Version 1.0.0
  */
-public class RsaKey {
+public class RsaKeyBo {
     /**
      * 公钥
      */

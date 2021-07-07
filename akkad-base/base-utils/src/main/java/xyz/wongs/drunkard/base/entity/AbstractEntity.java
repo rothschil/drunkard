@@ -2,7 +2,6 @@ package xyz.wongs.drunkard.base.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import xyz.wongs.drunkard.base.config.Global;
@@ -15,7 +14,6 @@ import java.util.Map;
 
 /**
  * @author WCNGS@QQ.COM
- * @ClassName BaseEntityAbstract
  * @Description
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/8/2 13:32
@@ -23,10 +21,12 @@ import java.util.Map;
  */
 public abstract class AbstractEntity<ID extends Serializable> extends BaseEntity<ID> {
 
-    @Setter
-    /*** 数据库类型 */
+    /**
+     * 数据库类型
+     * */
     @JSONField(serialize = false)
-    private String dtype;
+    @Setter
+    private String dbType;
 
     /**
      * 搜索值
@@ -48,7 +48,6 @@ public abstract class AbstractEntity<ID extends Serializable> extends BaseEntity
     @Setter
     @Getter
     private String createBy;
-
 
     /**
      * 更新者
@@ -77,7 +76,7 @@ public abstract class AbstractEntity<ID extends Serializable> extends BaseEntity
      */
     private Map<String, Object> params;
 
-    public String getDtype() {
+    public String getDbType() {
         return Global.getConfig(Cons.DB_TYPE);
     }
 

@@ -1,6 +1,6 @@
-package xyz.wongs.weathertop.dao;
+package xyz.wongs.weathertop.factory;
 
-import xyz.wongs.weathertop.jwt.RsaKey;
+import xyz.wongs.weathertop.jwt.RsaKeyBo;
 
 import java.security.Key;
 import java.security.KeyPair;
@@ -26,7 +26,7 @@ public class KeyFactory {
     private static final String PUBLIC_KEY = "RSAPublicKey";
     private static final String PRIVATE_KEY = "RSAPrivateKey";
 
-    private static RsaKey rsaKey;
+    private static RsaKeyBo rsaKeyBo;
 
     /**
      * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
@@ -47,8 +47,8 @@ public class KeyFactory {
      * @Param rsa256Key
      * @return String
      **/
-    public static String getPublicKey(RsaKey rsaKey) throws Exception {
-        Key key = rsaKey.getPublicKey();
+    public static String getPublicKey(RsaKeyBo rsaKeyBo) throws Exception {
+        Key key = rsaKeyBo.getPublicKey();
         return encryptBASE64(key.getEncoded());
     }
 
@@ -70,8 +70,8 @@ public class KeyFactory {
      * @Param rsa256Key
      * @return String
      **/
-    public static String getPrivateKey(RsaKey rsaKey) throws Exception {
-        Key key = rsaKey.getPrivateKey();
+    public static String getPrivateKey(RsaKeyBo rsaKeyBo) throws Exception {
+        Key key = rsaKeyBo.getPrivateKey();
         return encryptBASE64(key.getEncoded());
     }
 
@@ -127,17 +127,17 @@ public class KeyFactory {
      * @Param
      * @return RSA256Key
      **/
-    public static synchronized RsaKey getRSA256Key() throws Exception {
-        if(rsaKey == null){
-            synchronized (RsaKey.class){
-                if(rsaKey == null) {
-                    rsaKey = new RsaKey();
+    public static synchronized RsaKeyBo getRSA256Key() throws Exception {
+        if(rsaKeyBo == null){
+            synchronized (RsaKeyBo.class){
+                if(rsaKeyBo == null) {
+                    rsaKeyBo = new RsaKeyBo();
                     Map<String, Object> map = initKey();
-                    rsaKey.setPrivateKey((RSAPrivateKey) map.get(KeyFactory.PRIVATE_KEY));
-                    rsaKey.setPublicKey((RSAPublicKey) map.get(KeyFactory.PUBLIC_KEY));
+                    rsaKeyBo.setPrivateKey((RSAPrivateKey) map.get(KeyFactory.PRIVATE_KEY));
+                    rsaKeyBo.setPublicKey((RSAPublicKey) map.get(KeyFactory.PUBLIC_KEY));
                 }
             }
         }
-        return rsaKey;
+        return rsaKeyBo;
     }
 }
