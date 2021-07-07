@@ -1,6 +1,7 @@
 archivesBaseName = 'jwt-safety'
 dependencies {
     implementation('com.auth0:java-jwt:3.8.0')
+
 //    implementation project(':akkad-base:base-utils')
     compile(project(':akkad-base:base-utils')) {
         exclude group:'com.alibaba', module: 'druid-spring-boot-starter'

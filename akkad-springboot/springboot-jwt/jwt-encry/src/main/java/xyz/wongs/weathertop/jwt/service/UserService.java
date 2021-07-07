@@ -17,19 +17,17 @@ import java.util.Random;
  */
 @Component
 public class UserService implements Serializable {
-    private static List<User> users = new ArrayList<User>();
+    private static final List<User> USERS = new ArrayList<>();
 
     static {
-        users.add(new User(1L, "张三",23,1));
-        users.add(new User(2L, "李四",17,0));
-        users.add(new User(3L, "钱九",9,0));
-        users.add(new User(4L, "赵十三",27,0));
+        USERS.add(new User(1L, "张三",23,1));
+        USERS.add(new User(2L, "李四",17,0));
+        USERS.add(new User(3L, "钱九",9,0));
+        USERS.add(new User(4L, "赵十三",27,0));
     }
 
     public User getUser(){
-        int idx = new Random().nextInt(users.size()-1);
-        idx=idx<0?0:idx;
-        return users.get(idx);
+        int idx =new Random().nextInt(USERS.size());
+        return USERS.get(idx);
     }
-
 }

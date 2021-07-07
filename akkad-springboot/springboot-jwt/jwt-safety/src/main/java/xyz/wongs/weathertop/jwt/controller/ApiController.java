@@ -9,14 +9,21 @@ import xyz.wongs.weathertop.jwt.pojo.User;
 import xyz.wongs.weathertop.jwt.service.JwtService;
 import xyz.wongs.weathertop.jwt.service.UserService;
 
+/**
+ * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
+ * @Description //TODO
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 2021/7/7 - 19:19
+ * @Version 1.0.0
+ */
 @RestController
 @RequestMapping("api")
 public class ApiController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    JwtService jwtService;
+    private JwtService jwtService;
 
     @ResponseResult
     @PostMapping("/login")
@@ -25,18 +32,16 @@ public class ApiController {
         User userForBase=userService.findByUsername(user);
         if(userForBase==null){
             jsonObject.put("message","登录失败,用户不存在");
-            return jsonObject;
         }else {
             if(!userForBase.getName().equals(user.getName())){
                 jsonObject.put("message","登录失败,密码错误");
-                return jsonObject;
             }else {
                 String token = jwtService.getToken(userForBase);
                 jsonObject.put("token", token);
                 jsonObject.put("user", userForBase);
-                return jsonObject;
             }
         }
+        return jsonObject;
     }
 
     @ResponseResult
