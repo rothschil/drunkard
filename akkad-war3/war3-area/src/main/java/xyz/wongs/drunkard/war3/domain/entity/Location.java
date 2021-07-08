@@ -1,7 +1,7 @@
 package xyz.wongs.drunkard.war3.domain.entity;
 
 import lombok.*;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 
 /** 行政区域实体类
  * @ClassName Location
@@ -16,7 +16,7 @@ import xyz.wongs.drunkard.base.entity.AbstractEntity;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Location extends AbstractEntity<Long> {
+public class Location extends BasePo<Long> {
 
     private Long id;
 

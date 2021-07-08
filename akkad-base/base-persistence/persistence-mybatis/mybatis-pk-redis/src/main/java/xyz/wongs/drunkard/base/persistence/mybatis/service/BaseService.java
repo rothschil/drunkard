@@ -2,13 +2,12 @@ package xyz.wongs.drunkard.base.persistence.mybatis.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
 import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
+import xyz.wongs.drunkard.base.po.BasePo;
 
 import java.io.Serializable;
 
 /**
- * @ClassName BaseService
  * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
@@ -16,13 +15,10 @@ import java.io.Serializable;
  * @Version 1.0.0
  */
 @Transactional(readOnly = true)
-public abstract class BaseService<T extends AbstractEntity,ID extends Serializable> extends AbstractRootService<T,ID> implements IBaseService<T,ID>  {
+public abstract class BaseService<T extends BasePo,ID extends Serializable> extends AbstractSuperService<T,ID>  {
 
     /** 待补充
      * @Description
-     * @param null
-     * @return
-     * @throws
      * @date 2020/8/2 14:12
      */
     @Override
@@ -31,8 +27,7 @@ public abstract class BaseService<T extends AbstractEntity,ID extends Serializab
     @Autowired
     private RedisUidService redisUidService;
 
-    @Transactional(readOnly = false)
-    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long insert(T t) {
         Long id = getPrimaryKey(t);
         t.setId(id);
@@ -41,11 +36,10 @@ public abstract class BaseService<T extends AbstractEntity,ID extends Serializab
     }
 
     public Long getPrimaryKey(T t){
-        return Long.valueOf(redisUidService.generate(t.getClass().getSimpleName().toUpperCase()));
+        return redisUidService.generate(t.getClass().getSimpleName().toUpperCase());
     }
 
-    @Transactional(readOnly = false)
-    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long insertSelective(T t) {
         Long id = getPrimaryKey(t);
         t.setId(id);

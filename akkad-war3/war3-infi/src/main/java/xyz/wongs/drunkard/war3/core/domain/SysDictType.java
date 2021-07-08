@@ -4,7 +4,7 @@ import javax.validation.constraints.*;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 import xyz.wongs.drunkard.common.annotation.Excel;
 import xyz.wongs.drunkard.common.annotation.Excel.*;
 
@@ -13,7 +13,7 @@ import xyz.wongs.drunkard.common.annotation.Excel.*;
  *
  * @author ruoyi
  */
-public class SysDictType extends AbstractEntity<Long> {
+public class SysDictType extends BasePo<Long> {
     private static final long serialVersionUID = 1L;
 
     /**

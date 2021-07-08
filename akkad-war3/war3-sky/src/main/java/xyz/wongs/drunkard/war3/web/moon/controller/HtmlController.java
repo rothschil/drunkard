@@ -6,20 +6,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import xyz.wongs.drunkard.base.aop.annotion.ApplicationLog;
 import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
-import xyz.wongs.drunkard.base.message.exception.DrunkardException;
 import xyz.wongs.drunkard.war3.domain.entity.Location;
 import xyz.wongs.drunkard.war3.domain.service.LocationService;
 
-import javax.validation.constraints.NotNull;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
- * @ClassName LocationController
  * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
@@ -35,25 +30,27 @@ public class HtmlController {
     @Qualifier("locationService")
     private LocationService locationService;
 
-    /**
-     *
-     * @Title: getLocationListByLevel
-     * @Description: 请求参数在URL中，需要在 @ApiImplicitParam 中加上 "paramType="path""
-     * @param lv
-     * @return  List<LocationEntity>
-     */
+    /** idx
+     * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
+     * @Description 请求参数在URL中，需要在 @ApiImplicitParam 中加上 "paramType="path""
+     * @Date 2021/7/8-14:57
+     * @Param
+     * @return String
+     **/
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String idex() {
+    public String index() {
         return "redirect:/list";
     }
 
-    /**
-     *
-     * @Title: getLocationListByLevel
-     * @Description: 请求参数在URL中，需要在 @ApiImplicitParam 中加上 "paramType="path""
-     * @param lv
-     * @return  List<LocationEntity>
-     */
+    /** 查询列表
+     * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
+     * @Description 请求参数在URL中，需要在 @ApiImplicitParam 中加上 "paramType="path""
+     * @Date 2021/7/8-14:58
+     * @Param model MODEL
+     * @param pageNum   页数
+     * @param pageSize  每页大小
+     * @return String
+     **/
     @ApplicationLog
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model, @RequestParam(value = "pageNum", defaultValue = "0") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {

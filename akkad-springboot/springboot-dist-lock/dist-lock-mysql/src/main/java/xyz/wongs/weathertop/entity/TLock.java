@@ -2,13 +2,13 @@ package xyz.wongs.weathertop.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 
 import java.util.Date;
 
 @EqualsAndHashCode(callSuper=false)
 @Data
-public class TLock extends AbstractEntity<Integer> {
+public class TLock extends BasePo<Integer> {
 
     private Integer id;
 

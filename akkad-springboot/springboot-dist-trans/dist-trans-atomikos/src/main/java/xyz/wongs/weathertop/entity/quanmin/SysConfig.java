@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 
 import java.util.Date;
 
@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SysConfig extends AbstractEntity<Long> {
+public class SysConfig extends BasePo<Long> {
     private Long id;
 
     private String key;

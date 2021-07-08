@@ -9,12 +9,16 @@ import xyz.wongs.drunkard.war3.moon.entity.FileInfo;
 import java.util.List;
 
 public interface FileInfoMapper extends BaseMapper<FileInfo,Long> {
+    @Override
     int deleteByPrimaryKey(Long id);
 
+    @Override
     FileInfo selectByPrimaryKey(Long id);
 
+    @Override
     int updateByPrimaryKeySelective(FileInfo record);
 
+    @Override
     int updateByPrimaryKey(FileInfo record);
 
     void batchInsert(List<FileInfo> lists);

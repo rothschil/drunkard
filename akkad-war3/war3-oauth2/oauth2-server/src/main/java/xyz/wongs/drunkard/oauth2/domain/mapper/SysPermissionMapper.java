@@ -8,12 +8,16 @@ import java.util.List;
 
 public interface SysPermissionMapper extends BaseMapper<SysPermission,Long> {
 
+    @Override
     int deleteByPrimaryKey(Long id);
 
+    @Override
     SysPermission selectByPrimaryKey(Long id);
 
+    @Override
     int updateByPrimaryKeySelective(SysPermission record);
 
+    @Override
     int updateByPrimaryKey(SysPermission record);
 
     List<SysPermission> findByAdminUserId(Long uId);

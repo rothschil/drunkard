@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.Date;
 
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 import xyz.wongs.drunkard.common.annotation.Excel;
 
 /**
@@ -13,7 +13,7 @@ import xyz.wongs.drunkard.common.annotation.Excel;
  *
  * @author ruoyi
  */
-public class SysOperLog extends AbstractEntity<Long> {
+public class SysOperLog extends BasePo<Long> {
     private static final long serialVersionUID = 1L;
 
     /**

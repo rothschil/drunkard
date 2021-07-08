@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 
 /**
  * @ClassName OauthUser
@@ -18,7 +18,7 @@ import xyz.wongs.drunkard.base.entity.AbstractEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class OauthUser extends AbstractEntity<Long> {
+public class OauthUser extends BasePo<Long> {
 
     private Long id;
 

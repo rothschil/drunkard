@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * @ClassName
  * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>

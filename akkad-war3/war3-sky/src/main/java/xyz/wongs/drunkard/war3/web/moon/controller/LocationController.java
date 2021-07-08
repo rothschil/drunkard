@@ -6,7 +6,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import xyz.wongs.drunkard.base.aop.annotion.ApplicationLog;
 import xyz.wongs.drunkard.base.message.annoation.ResponseResult;
-import xyz.wongs.drunkard.base.message.exception.DrunkardException;
 import xyz.wongs.drunkard.war3.domain.entity.Location;
 import xyz.wongs.drunkard.war3.domain.service.LocationService;
 
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @ClassName LocationController
  * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
@@ -26,7 +24,7 @@ import java.util.Map;
 @Validated
 @ResponseResult
 @RestController
-@RequestMapping(value = "/areas")
+@RequestMapping(value = "/area")
 public class LocationController{
 
     @Autowired
@@ -34,17 +32,23 @@ public class LocationController{
     private LocationService locationService;
 
     /**
-     *
-     * @Title: getLocationListByLevel
-     * @Description: 请求参数在URL中，需要在 @ApiImplicitParam 中加上 "paramType="path""
-     * @param lv
-     * @return  List<LocationEntity>
-     */
+     * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
+     * @Description //TODO
+     * @Date 2021/7/8-14:59
+     * @Param lv 层级
+     * @return Location
+     **/
     @RequestMapping(value = "/{lv}", method = RequestMethod.GET)
     public List<Location> getLocationListByLevel(@PathVariable(value = "lv") Integer lv) {
         return locationService.getLocationListByLevel(lv);
     }
 
+    /**
+     * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
+     * @Description //TODO
+     * @Date 2021/7/8-14:59
+     * @return Map
+     **/
     @ApplicationLog
     @GetMapping("/test")
     public Map<String, Object> test() {
@@ -53,22 +57,18 @@ public class LocationController{
         return data;
     }
 
+    /**
+     * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
+     * @Description //TODO
+     * @Date 2021/7/8-14:59
+     * @Param userId id
+     * @return Map
+     **/
     @ApplicationLog
-    @GetMapping("/fail")
-    public Integer error() {
-        // 查询结果数
-        int res = 0;
-        if( res == 0 ) {
-            throw new DrunkardException("没有数据");
-        }
-        return res;
-    }
-
-    @ApplicationLog
-    @GetMapping("/vali")
+    @GetMapping("/valid")
     public Map<String, Object> testValidator(@NotNull(message = "userId不能为空") Integer userId) {
         HashMap<String, Object> data = new HashMap<>(3);
-        data.put("info", "测试成功");
+        data.put("info", "测试成功 [userId]="+userId);
         return data;
     }
 

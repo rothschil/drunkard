@@ -4,7 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.Date;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 import xyz.wongs.drunkard.common.annotation.Excel;
 
 /**
@@ -15,7 +15,7 @@ import xyz.wongs.drunkard.common.annotation.Excel;
  * @date 20/12/9 10:46
  * @Version 1.0.0
  */
-public class SysLogininfor extends AbstractEntity<Long> {
+public class SysLogininfor extends BasePo<Long> {
     private static final long serialVersionUID = 1L;
 
     /**

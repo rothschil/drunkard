@@ -2,7 +2,7 @@ package xyz.wongs.drunkard.war3.core.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
-public class SysMenu extends AbstractEntity<Long> {
+public class SysMenu extends BasePo<Long> {
     private static final long serialVersionUID = 1L;
 
     /**

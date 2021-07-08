@@ -2,7 +2,7 @@ package xyz.wongs.drunkard.war3.core.domain;
 
 import javax.validation.constraints.*;
 
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 import xyz.wongs.drunkard.common.annotation.Excel;
 
 /**
@@ -13,7 +13,7 @@ import xyz.wongs.drunkard.common.annotation.Excel;
  * @date 20/12/9 10:27
  * @Version 1.0.0
  */
-public class SysConfig extends AbstractEntity<Long> {
+public class SysConfig extends BasePo<Long> {
 
     private static final long serialVersionUID = 1L;
 

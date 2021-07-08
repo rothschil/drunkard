@@ -8,9 +8,12 @@ import xyz.wongs.weathertop.entity.quanmin.SysConfig;
 public interface InformSmsMapper extends BaseMapper<InformSms,Long> {
     int deleteByPrimaryKey(Integer informId);
 
+    @Override
     InformSms selectByPrimaryKey(Long informId);
 
+    @Override
     int updateByPrimaryKeySelective(InformSms record);
 
+    @Override
     int updateByPrimaryKey(InformSms record);
 }

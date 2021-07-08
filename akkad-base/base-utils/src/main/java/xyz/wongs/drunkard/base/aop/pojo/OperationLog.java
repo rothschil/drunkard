@@ -1,7 +1,7 @@
 package xyz.wongs.drunkard.base.aop.pojo;
 
 import lombok.*;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 
 import java.util.Date;
 /**
@@ -16,7 +16,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OperationLog extends AbstractEntity<Long> {
+public class OperationLog extends BasePo<Long> {
 
     private Long id;
 

@@ -1,8 +1,7 @@
 package xyz.wongs.drunkard.war3.domain.entity;
 
 import lombok.*;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
-import xyz.wongs.drunkard.base.persistence.jpa.entity.AbsEntity;
+import xyz.wongs.drunkard.base.persistence.jpa.entity.AbstractPo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /** 行政区域实体类
- * @ClassName Location
  * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
@@ -24,7 +22,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Table(name="tb_locations")
-public class Location extends AbsEntity<Long> {
+public class Location extends AbstractPo<Long> {
 
     @Id
     @Column(name = "id", nullable = false)
@@ -47,32 +45,5 @@ public class Location extends AbsEntity<Long> {
 
     @Column(name = "url")
     private String url;
-
-    public Location(Long id, String localName, String supLocalCode, String url, Integer lv) {
-        this.id=id;
-        this.localName = localName;
-        this.supLocalCode = supLocalCode;
-        this.url = url;
-        this.lv=lv;
-    }
-
-    public Location(String localCode, String localName, String supLocalCode, String url, Integer lv) {
-        super();
-        this.localCode = localCode;
-        this.localName = localName;
-        this.supLocalCode = supLocalCode;
-        this.url = url;
-        this.lv=lv;
-    }
-
-    public Location(String localCode, String localName, String supLocalCode, String url, Integer lv,String flag) {
-        super();
-        this.localCode = localCode;
-        this.localName = localName;
-        this.supLocalCode = supLocalCode;
-        this.url = url;
-        this.lv=lv;
-        this.flag=flag;
-    }
 
 }

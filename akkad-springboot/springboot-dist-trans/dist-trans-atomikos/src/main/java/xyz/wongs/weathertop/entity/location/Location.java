@@ -3,12 +3,12 @@ package xyz.wongs.weathertop.entity.location;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 
 @EqualsAndHashCode(callSuper=false)
 @Data
 @NoArgsConstructor
-public class Location extends AbstractEntity<Long> {
+public class Location extends BasePo<Long> {
     private Long id;
 
     private String flag;

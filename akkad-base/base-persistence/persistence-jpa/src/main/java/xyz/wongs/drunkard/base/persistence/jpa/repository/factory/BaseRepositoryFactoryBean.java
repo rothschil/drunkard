@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.support.JpaRepositoryImplementati
 import org.springframework.data.repository.core.RepositoryInformation;
 import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
-import xyz.wongs.drunkard.base.persistence.jpa.entity.AbsEntity;
+import xyz.wongs.drunkard.base.persistence.jpa.entity.AbstractPo;
 import xyz.wongs.drunkard.base.persistence.jpa.repository.impl.BaseRepositoryImpl;
 
 import javax.persistence.EntityManager;
@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 
 @SuppressWarnings({"rawtypes","unchecked"})
-public class BaseRepositoryFactoryBean<R extends JpaRepository<T, I>, T extends AbsEntity,I extends Serializable> extends JpaRepositoryFactoryBean<R, T, I> {
+public class BaseRepositoryFactoryBean<R extends JpaRepository<T, I>, T extends AbstractPo,I extends Serializable> extends JpaRepositoryFactoryBean<R, T, I> {
 
 
     public BaseRepositoryFactoryBean(Class<? extends R> repositoryInterface) {

@@ -2,7 +2,7 @@ package xyz.wongs.drunkard.war3.core.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 import xyz.wongs.drunkard.common.annotation.Excel;
 import xyz.wongs.drunkard.common.annotation.Excel.ColumnType;
 
@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
  *
  * @author ruoyi
  */
-public class SysRole extends AbstractEntity<Long> {
+public class SysRole extends BasePo<Long> {
     private static final long serialVersionUID = 1L;
 
     /**

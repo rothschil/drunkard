@@ -4,7 +4,7 @@ import javax.validation.constraints.*;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 import xyz.wongs.drunkard.common.annotation.Excel;
 import xyz.wongs.drunkard.common.annotation.Excel.*;
 import xyz.wongs.drunkard.war3.constant.UserConstants;
@@ -17,7 +17,7 @@ import xyz.wongs.drunkard.war3.constant.UserConstants;
  * @date 20/12/9 11:11
  * @Version 1.0.0
 */
-public class SysDictData extends AbstractEntity<Long> {
+public class SysDictData extends BasePo<Long> {
     private static final long serialVersionUID = 1L;
 
     /**

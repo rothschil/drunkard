@@ -27,6 +27,7 @@ dependencies {
     annotationProcessor libraries.'lombok'
     testCompile libraries.'lombok'
     testAnnotationProcessor libraries.'lombok'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.200'
 
     compile(libraries.'commons-httpclient'){
         exclude group:'commons-logging', module: 'commons-logging'

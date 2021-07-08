@@ -11,8 +11,7 @@ import java.util.*;
 import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 
 /**
- * @ClassName GitCommitController
- * @Description 
+ * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/8/2 14:13
@@ -22,51 +21,38 @@ import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 public class GitCommitController {
 
     /**
-     * @author WCNGS@QQ.COM
-     * @See
-     * @date 2019/7/1 16:14
-     * @param
-     * @return java.lang.String
-     * @throws
-     * @since
-     */
+     * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
+     * @Description //TODO
+     * @Date 2021/7/8-10:54
+     * @Param
+     * @return String
+     **/
     @RequestMapping("/git/commit/info")
     @ResponseBody
     public String showGitCommitInfo() {
-
-        //git.properties
         ResourceBundle resourceBundle = ResourceBundle.getBundle("git", defaultIfNull(null, Locale.getDefault()));
-
         Map<String, String> map = new TreeMap<>();
-
         Enumeration<String> keysEnumeration = resourceBundle.getKeys();
 
         while (keysEnumeration.hasMoreElements()) {
             String key = keysEnumeration.nextElement();
-
             map.put(key, resourceBundle.getString(key));
         }
-
         return JSON.toJSONString(map, SerializerFeature.PrettyFormat);
     }
 
-
     /**
-     * @author WCNGS@QQ.COM
-     * @See
-     * @date 2019/7/1 16:13
-     * @param
-     * @return java.lang.String
-     * @throws
-     * @since
-     */
+     * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
+     * @Description //TODO
+     * @Date 2021/7/8-10:55
+     * @Param
+     * @return String
+     **/
     @RequestMapping("/git/commit/id")
     @ResponseBody
     public String showGitCommitId() {
-
         ResourceBundle resourceBundle = ResourceBundle.getBundle("git", defaultIfNull(null, Locale.getDefault()));
         return resourceBundle.getString("git.commit.id");
     }
-
 
 }

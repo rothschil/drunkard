@@ -17,7 +17,6 @@ import xyz.wongs.drunkard.war3.domain.repository.LocationRepository;
 import java.util.List;
 
 /**
- * @ClassName LocationService
  * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
@@ -46,5 +45,27 @@ public class LocationService extends BaseService<Location, Long> {
 		Sort sort = Sort.by(Sort.Direction.DESC, "id");
 		Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
 		return locationRepository.find(location,pageable);
+	}
+
+	/** 根据SQL，查询结果，获取结果列表
+	 * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
+	 * @Description //TODO
+	 * @Date 2021/7/8-14:42
+	 * @Param sql 原生SQL语句
+	 * @return List
+	 **/
+	public List<Location> listBySql(String sql) {
+		return locationRepository.listBySql(sql);
+	}
+
+	/** 根据hql，查询结果，获取结果列表
+	 * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
+	 * @Description //TODO
+	 * @Date 2021/7/8-14:42
+	 * @Param hql
+	 * @return List
+	 **/
+	public List<Location> listByHql(String hql) {
+		return locationRepository.listByHql(hql);
 	}
 }

@@ -7,30 +7,37 @@ ext.versions = [
         commonsLang3Version:'3.11',
         commonsCodecVersion:'1.15',
         druidSpringBootStarterVersion:'1.2.3',
-        commonsHttpclientVersion:'1.2.3'
+        commonsHttpclientVersion:'1.2.3',
+        lombokVersion:'1.18.20',
+        httpclientVersion:'3.1',
+        hutoolVersion:'5.7.3',
+        mysqlVersion:'8.0.21',
+]
+ext.libraries = [
+        'hibernate-validator':"org.hibernate.validator:hibernate-validator:${versions.hibernateValidatorVersion}",
+        'commons-compress':"org.apache.commons:commons-compress:${versions.commonsCompressVersion}",
+        'commons-text':"org.apache.commons:commons-text:${versions.commonsTextVersion}",
+        'commons-fileupload':"commons-fileupload:commons-fileupload:${versions.commonsFileuploadVersion}",
+        'commons-io':"commons-io:commons-io:${versions.commonsIoVersion}",
+        'commons-lang3':"org.apache.commons:commons-lang3:${versions.commonsLang3Version}",
+        'commons-codec':"commons-codec:commons-codec:${versions.commonsCodecVersion}",
+        'druid-spring-boot-starter':"com.alibaba:druid-spring-boot-starter:${versions.druidSpringBootStarterVersion}",
+        'lombok':"org.projectlombok:lombok:${versions.lombokVersion}",
+        'commons-httpclient':"commons-httpclient:commons-httpclient:${versions.httpclientVersion}",
+        'hutool-all':"cn.hutool:hutool-all:${versions.hutoolVersion}",
+        'mysql-connector-java':"mysql:mysql-connector-java:${versions.mysqlVersion}",
+
+        'commons-configuration':"commons-configuration:commons-configuration:1.10",
+        'ojdbc6':'com.oracle:ojdbc6:11.2.0.3',
+
+        'spring-boot-starter-web':'org.springframework.boot:spring-boot-starter-web:2.3.4.RELEASE',
+        'spring-boot-starter':'org.springframework.boot:spring-boot-starter:2.3.4.RELEASE',
+        'spring-boot-starter-aop':'org.springframework.boot:spring-boot-starter-aop:2.3.4.RELEASE',
+        'validation-api':'javax.validation:validation-api:2.0.1.Final',
+        'javax.servlet-api':'javax.servlet:javax.servlet-api:4.0.1',
+        'spring-tx':'org.springframework:spring-tx:5.2.9.RELEASE',
+        'fastjson':'com.alibaba:fastjson:1.2.74',
+        'guava':'com.google.guava:guava:23.0-rc1',
+
 ]
 
-ext.libraries = [
-    'hibernate-validator':"org.hibernate.validator:hibernate-validator:${versions.hibernateValidatorVersion}",
-    'commons-compress':"org.apache.commons:commons-compress:${versions.commonsCompressVersion}",
-    'commons-text':"org.apache.commons:commons-text:${versions.commonsTextVersion}",
-    'commons-fileupload':"commons-fileupload:commons-fileupload:${versions.commonsFileuploadVersion}",
-    'commons-io':"commons-io:commons-io:${versions.commonsIoVersion}",
-    'commons-lang3':"org.apache.commons:commons-lang3:${versions.commonsLang3Version}",
-    'commons-codec':"commons-codec:commons-codec:${versions.commonsCodecVersion}",
-    'druid-spring-boot-starter':"com.alibaba:druid-spring-boot-starter:${versions.druidSpringBootStarterVersion}",
-    'commons-configuration':"commons-configuration:commons-configuration:1.10",
-    'ojdbc6':'com.oracle:ojdbc6:11.2.0.3',
-    'mysql-connector-java':'mysql:mysql-connector-java:8.0.21',
-    'spring-boot-starter-web':'org.springframework.boot:spring-boot-starter-web:2.3.4.RELEASE',
-    'spring-boot-starter':'org.springframework.boot:spring-boot-starter:2.3.4.RELEASE',
-    'spring-boot-starter-aop':'org.springframework.boot:spring-boot-starter-aop:2.3.4.RELEASE',
-    'validation-api':'javax.validation:validation-api:2.0.1.Final',
-    'javax.servlet-api':'javax.servlet:javax.servlet-api:4.0.1',
-    'spring-tx':'org.springframework:spring-tx:5.2.9.RELEASE',
-    'lombok':'org.projectlombok:lombok:1.18.20',
-    'fastjson':'com.alibaba:fastjson:1.2.74',
-    'guava':'com.google.guava:guava:23.0-rc1',
-    'hutool-all':'cn.hutool:hutool-all:5.4.1',
-    'commons-httpclient':'commons-httpclient:commons-httpclient:3.1'
-]

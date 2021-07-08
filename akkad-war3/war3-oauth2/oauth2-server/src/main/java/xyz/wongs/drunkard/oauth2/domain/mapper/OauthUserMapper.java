@@ -17,12 +17,16 @@ import java.util.List;
 */
 public interface OauthUserMapper extends BaseMapper<OauthUser,Long> {
 
+    @Override
     int deleteByPrimaryKey(Long uId);
 
+    @Override
     OauthUser selectByPrimaryKey(Long uId);
 
+    @Override
     int updateByPrimaryKeySelective(OauthUser record);
 
+    @Override
     int updateByPrimaryKey(OauthUser record);
 
     List<OauthUser> select(OauthUser record);

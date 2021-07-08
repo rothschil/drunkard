@@ -1,14 +1,14 @@
 package xyz.wongs.drunkard.war3.moon.entity;
 
 import lombok.*;
-import xyz.wongs.drunkard.base.entity.AbstractEntity;
+import xyz.wongs.drunkard.base.po.BasePo;
 
 @EqualsAndHashCode(callSuper=false)
 @Builder(toBuilder=true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FileInfo extends AbstractEntity<Long> {
+public class FileInfo extends BasePo<Long> {
 
     private Long id;
 
