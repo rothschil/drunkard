@@ -1,20 +1,15 @@
 package xyz.wongs.drunkard.base.message.exception;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import xyz.wongs.drunkard.base.message.enums.ResultCode;
 
 
 /**
- * @ClassName DrunkardException
  * @Description 自定义异常
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 2019/9/21 10:07
  * @Version 1.0.0
 */
-@EqualsAndHashCode(callSuper=false)
-@Data
 public class DrunkardException extends RuntimeException{
 
     private static final long serialVersionUID = -6370612186038915645L;
@@ -72,5 +67,22 @@ public class DrunkardException extends RuntimeException{
     @Override
     public synchronized Throwable fillInStackTrace() {
         return this;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

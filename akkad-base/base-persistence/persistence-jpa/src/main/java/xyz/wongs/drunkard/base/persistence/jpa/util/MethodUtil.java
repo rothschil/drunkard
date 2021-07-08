@@ -95,10 +95,10 @@ public class MethodUtil<T extends AbsEntity> {
                     case Constant.BASIC_TYPE_INTEGER:
                         predicate = doInteger(cb, root, field, value);
                         break;
-                    case Constant.BASIC_TYPE_BIGDECIMAL:
+                    case Constant.BASIC_TYPE_BIG_DECIMAL:
                         predicate = cb.equal(root.get(field.getName()).as(BigDecimal.class), new BigDecimal(value));
                         break;
-                    case Constant.BASIC_TYPE_Long:
+                    case Constant.BASIC_TYPE_LONG:
                         predicate = cb.equal(root.get(field.getName()).as(Long.class), Long.valueOf(value));
                         break;
                     case Constant.BASIC_TYPE_DATE:

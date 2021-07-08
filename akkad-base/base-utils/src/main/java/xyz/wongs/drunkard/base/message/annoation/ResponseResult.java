@@ -3,8 +3,7 @@ package xyz.wongs.drunkard.base.message.annoation;
 import java.lang.annotation.*;
 
 /**
- * @ClassName ResponseResult
- * @Description 
+ * @Description 注解用于统一处理响应内容
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 20/10/30 21:57

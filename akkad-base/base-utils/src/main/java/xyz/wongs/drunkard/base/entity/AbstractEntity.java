@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import xyz.wongs.drunkard.base.config.Global;
-import xyz.wongs.drunkard.base.stas.Cons;
+import xyz.wongs.drunkard.base.constant.Constant;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -77,7 +77,7 @@ public abstract class AbstractEntity<ID extends Serializable> extends BaseEntity
     private Map<String, Object> params;
 
     public String getDbType() {
-        return Global.getConfig(Cons.DB_TYPE);
+        return Global.getConfig(Constant.DB_TYPE);
     }
 
     public Map<String, Object> getParams() {

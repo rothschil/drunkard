@@ -41,7 +41,7 @@ public class IpUtils {
 
     public static boolean internalIp(String ip) {
         byte[] addr = textToNumericFormatV4(ip);
-        return internalIp(addr) || Constant.IP_LOCAL_ADDREE.equals(ip);
+        return internalIp(addr) || Constant.IP_LOCAL_ADDRESS.equals(ip);
     }
 
     private static boolean internalIp(byte[] addr) {

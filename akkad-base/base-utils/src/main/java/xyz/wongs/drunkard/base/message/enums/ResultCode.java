@@ -1,8 +1,7 @@
 package xyz.wongs.drunkard.base.message.enums;
 
 /**
- * @ClassName ResultCode 定义的接口状态码
- * @Description     1000～1999 区间表示参数错误；000～2999 区间表示用户错误；3000～3999 区间表示接口异常
+ * @Description  定义的接口状态码   1000～1999 区间表示参数错误；000～2999 区间表示用户错误；3000～3999 区间表示接口异常
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/8/2 13:31
@@ -41,17 +40,17 @@ public enum ResultCode {
     USER_HAS_EXISTED(2005,"账号已存在"),
     USER_IS_EXPIRED(2006,"账号已过期"),
     USER_FIRST_LANDING(2007, "账号首次登录"),
-    USER_SIGN_VERIFI_NOT_COMPLIANT(2010,"签名校验不合规"),
+    USER_SIGN_VERIFY_NOT_COMPLIANT(2010,"签名校验不合规"),
     USER_PASSWORD_RESET_FAILED(2011, "重置密码失败"),
-    USER_UNKONWN_INDENTITY(2012, "未知身份"),
+    USER_UNKNOWN_IDENTITY(2012, "未知身份"),
     MANY_USER_LOGINS(2111,"多用户在线"),
     USER_KEY_EXCEPTION(2108,"密钥生成失败"),
     TOO_MANY_PASSWD_ENTER(2112, "密码输入次数过多"),
-    VERIFICATION_CODE_INCORECT(2202,"图形验证码不正确"),
+    VERIFICATION_CODE_INCORRECT(2202,"图形验证码不正确"),
     VERIFICATION_CODE_FAIL(2203,"图形验证码生产失败"),
 
     TOKEN_EXPIRED(2308,"Token Expired"),
-    TOKEN_GENERTATION_FAIL(2309,"The Token generation failed"),
+    TOKEN_GENERATION_FAIL(2309,"The Token generation failed"),
     TOKEN_INVALID(2310,"The Token is invalid"),
     TOKEN_VERIFICATION_FAIL(2311,"The Token verification failed"),
     TOKEN_VERIFICATION_PROCESS_ERR(2311,"The Token verification process error"),
@@ -65,7 +64,7 @@ public enum ResultCode {
     API_PARAM_EXCEPTION(3005, "参数异常"),
     API_PARAM_MISSING_EXCEPTION(3006, "缺少参数"),
     API_METHOD_NOT_SUPPORTED_EXCEPTION(3007, "不支持的Method类型"),
-    API_METHOD_PARAM_TYPE_EXCEPTIION(3008, "参数类型不匹配"),
+    API_METHOD_PARAM_TYPE_EXCEPTION(3008, "参数类型不匹配"),
 
     ARRAY_EXCEPTION(11001, "数组异常"),
     ARRAY_OUT_OF_BOUNDS_EXCEPTION(11002, "数组越界异常"),
@@ -73,8 +72,8 @@ public enum ResultCode {
     JSON_SERIALIZE_EXCEPTION(30000, "序列化数据异常"),
     JSON_DESERIALIZE_EXCEPTION(30001, "反序列化数据异常"),
 
-    READ_RESOURSE_EXCEPTION(31002, "读取资源异常"),
-    READ_RESOURSE_NOT_FOUND_EXCEPTION(31003, "资源不存在异常"),
+    READ_RESOURCE_EXCEPTION(31002, "读取资源异常"),
+    READ_RESOURCE_NOT_FOUND_EXCEPTION(31003, "资源不存在异常"),
 
     DATA_EXCEPTION(32004, "数据异常"),
     DATA_NOT_FOUND_EXCEPTION(32005, "未找到符合条件的数据异常"),
@@ -90,12 +89,12 @@ public enum ResultCode {
 
     DATE_PARSE_EXCEPTION(34001, "日期转换异常"),
 
-    MAILE_SEND_EXCEPTION(35001, "邮件发送异常"),
+    MALE_SEND_EXCEPTION(35001, "邮件发送异常"),
 
-    SYSNC_LOCK_FAILURE(4001, "获取锁失败"),
-    SYSNC_LOCK_SUCCESS(4002, "获取锁成功"),
-    SYSNC_LOCK_MANY_REQ(4003, "请求太多"),
-    SYSNC_LOCK_NOT_ENOUGH_STOCK(4004, "库存不够");
+    SYNC_LOCK_FAILURE(4001, "获取锁失败"),
+    SYNC_LOCK_SUCCESS(4002, "获取锁成功"),
+    SYNC_LOCK_MANY_REQ(4003, "请求太多"),
+    SYNC_LOCK_NOT_ENOUGH_STOCK(4004, "库存不够");
 
     /**
      *

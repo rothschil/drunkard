@@ -2,11 +2,12 @@ package xyz.wongs.drunkard.base.aop;
 
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSON;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -32,7 +33,6 @@ import java.util.Date;
  * @date 20/12/2 10:23
  * @Version 1.0.0
 */
-@Slf4j
 @Aspect
 @Component
 public class ApplicationLogAop {

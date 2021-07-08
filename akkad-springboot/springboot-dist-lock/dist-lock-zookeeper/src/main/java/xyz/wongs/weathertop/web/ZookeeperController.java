@@ -25,7 +25,7 @@ public class ZookeeperController {
                 log.error("I am lock1，i am updating resource……！！！");
                 Thread.sleep(2000);
             } else{
-                throw new DrunkardException(ResultCode.SYSNC_LOCK_FAILURE);
+                throw new DrunkardException(ResultCode.SYNC_LOCK_FAILURE);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -42,7 +42,7 @@ public class ZookeeperController {
                 log.error("I am lock11，i am updating resource……！！！");
                 Thread.sleep(3000);
             } else{
-                throw new DrunkardException(ResultCode.SYSNC_LOCK_FAILURE);
+                throw new DrunkardException(ResultCode.SYNC_LOCK_FAILURE);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

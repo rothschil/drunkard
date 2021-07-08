@@ -73,7 +73,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             try {
                 jwtVerifier.verify(token);
             } catch (JWTVerificationException e) {
-                throw new DrunkardException(ResultCode.USER_SIGN_VERIFI_NOT_COMPLIANT);
+                throw new DrunkardException(ResultCode.USER_SIGN_VERIFY_NOT_COMPLIANT);
             }
             return true;
         }

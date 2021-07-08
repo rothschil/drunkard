@@ -23,6 +23,10 @@ dependencies {
             libraries.'hutool-all',
             libraries.'spring-boot-starter-aop'
     )
+    compile libraries.'lombok'
+    annotationProcessor libraries.'lombok'
+    testCompile libraries.'lombok'
+    testAnnotationProcessor libraries.'lombok'
 
     compile(libraries.'commons-httpclient'){
         exclude group:'commons-logging', module: 'commons-logging'

@@ -1,7 +1,6 @@
 package xyz.wongs.drunkard.base.constant;
 
 /** 通用常量信息
- * @ClassName Constants
  * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
@@ -10,49 +9,49 @@ package xyz.wongs.drunkard.base.constant;
 */
 public class Constant {
 
+    public static String DB_TYPE ="db.type";
+
     public static final String RANDOM_STR="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-    public static final String IP_LOCAL_ADDREE = "unknown";
+    public static final String IP_LOCAL_ADDRESS = "unknown";
     public static final String UNKNOWN = "unknown";
     public static final String HEADER_X_FORWARDED_FOR ="x-forwarded-for";
 
-    /** BEGIN  JAVA基础类型 **/
+    /**
+     * BEGIN  JAVA基础类型
+     * **/
     public static final String BASIC_TYPE_INTEGER = "Integer";
-    public static final String BASIC_TYPE_BIGDECIMAL = "BigDecimal";
-    public static final String BASIC_TYPE_Long = "Long";
+    public static final String BASIC_TYPE_BIG_DECIMAL = "BigDecimal";
+    public static final String BASIC_TYPE_LONG = "Long";
     public static final String BASIC_TYPE_DATE = "Date";
     public static final String BASIC_TYPE_INT = "int";
-    public static final String BASIC_TYPE_STRING = "String";
-    /** END  JAVA基础类型 **/
-
 
     /**
-     * d
-     */
-    public static final String DEFAULT_SORT="id";
-
-    /**
-     * d
-     */
-    public static final String PREIX_SORT="d";
-
-    /**
-     * 斜杠
+     *
      */
     public static final String POINT=".";
+    /**
+     * 问号
+     */
+    public static final String HF_QUESTION_MARK="?";
 
     /**
-     * 斜杠
+     * 逗号
+     */
+    public static final String HF_COMMA = ",";
+
+    /**
+     *
      */
     public static final String SLASH="/";
 
     /**
-     * UTF-8 字符集
+     *
      */
     public static final String STATUS_EFF = "Y";
 
     /**
-     * UTF-8 字符集
+     *
      */
     public static final String STATUS_EXP = "N";
 
@@ -75,11 +74,6 @@ public class Constant {
      * 通用失败标识
      */
     public static final String FAIL = "1";
-
-    /**
-     * 登录成功
-     */
-    public static final String LOGIN_SUCCESS = "Success";
 
     /**
      * 注销
@@ -176,21 +170,8 @@ public class Constant {
      */
     public static final String SUFFIX_XML = ".xml";
 
-    /**
-     * 问号
-     */
-    public static final String HF_QUESTION_MARK="?";
-
-    /**
-     * 逗号
-     */
-    public static final String HF_COMMA = ",";
-
-    /**
-     * 句号
-     */
-    public static final String HF_PERIOD = ".";
 
     public static final String RESULT="result";
-    public static final String SECKILL="恭喜您，秒杀成功。";
+
+    public static final String SUCCESS_SKILL ="恭喜您，秒杀成功。";
 }

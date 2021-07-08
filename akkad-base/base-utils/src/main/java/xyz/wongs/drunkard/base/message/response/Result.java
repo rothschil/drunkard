@@ -1,26 +1,22 @@
 package xyz.wongs.drunkard.base.message.response;
 
-import lombok.Data;
 import xyz.wongs.drunkard.base.message.enums.ResultCode;
 
 import java.io.Serializable;
 
 /**
- * @ClassName
  * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/8/2 13:48
  * @Version 1.0.0
  */
-@Data
-public class Result implements Serializable {
+public class Result extends SubResult implements Serializable {
     private static final long serialVersionUID = -4505655308965878999L;
 
-    private Integer code;
-
-    private String message;
-
+    /**
+     * 对需要响应的数据进行封装
+     */
     private Object data;
 
     private Result() {
@@ -91,4 +87,11 @@ public class Result implements Serializable {
         return result;
     }
 
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
 }
