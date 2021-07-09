@@ -66,7 +66,7 @@ public class ThreadPoolUtils {
         ThreadFactory threadFactory = new CoustomThreadFactory(theadName);
 
         // 3、自定义线程池超出容量的拒绝策略
-        RejectedExecutionHandler policy = new CoustomRejectedExecutionHandler();
+        RejectedExecutionHandler policy = new CustomsRejectedExecutionHandler();
         return doCreate(corePoolSize, maximumPoolSize,keepAliveTime, unit, queue,threadFactory, policy);
     }
 
@@ -116,7 +116,7 @@ public class ThreadPoolUtils {
         // 2、自定义线程名字
         ThreadFactory threadFactory = new CoustomThreadFactory(theadName);
         // 3、自定义线程池超出容量的拒绝策略
-        RejectedExecutionHandler policy = new CoustomRejectedExecutionHandler();
+        RejectedExecutionHandler policy = new CustomsRejectedExecutionHandler();
         return new ThreadPoolExecutor(poolSize, maximumPoolSize,keepAliveTime, unit, workQueue,threadFactory, policy);
     }
 

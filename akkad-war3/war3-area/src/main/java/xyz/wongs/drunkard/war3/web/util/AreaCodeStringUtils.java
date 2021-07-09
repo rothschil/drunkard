@@ -65,7 +65,4 @@ public class AreaCodeStringUtils {
         return new Random().nextInt(bound);
     }
 
-    public static void main(String[] args) {
-        System.out.println(AreaCodeStringUtils.getUrlStrByLocationCode("110102001000",3));
-    }
 }

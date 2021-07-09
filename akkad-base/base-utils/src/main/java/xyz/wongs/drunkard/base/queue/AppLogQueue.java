@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import xyz.wongs.drunkard.base.handler.IQueueTaskHandler;
 import xyz.wongs.drunkard.base.utils.thread.ThreadPoolUtils;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.concurrent.Future;
@@ -74,17 +75,16 @@ public class AppLogQueue {
         }
     }
 
-    public boolean addQueue(IQueueTaskHandler taskHandler){
+    public void addQueue(IQueueTaskHandler taskHandler){
         if(!running){
             LOG.warn("service is stop");
-            return false;
+            return ;
         }
 
         boolean isFull = queue.offer(taskHandler);
         if(!isFull){
             LOG.warn("添加任务到队列失败");
         }
-        return isFull;
     }
 
     public boolean empty(){

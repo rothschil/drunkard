@@ -10,9 +10,9 @@ package xyz.wongs.drunkard.base.message.enums;
 public enum ResultCode {
 
     /** 成功 **/
-    SUCCESS(0,"成功"),
+    SUCCESS(0,"SUCCESS"),
     /** 失败 **/
-    FAILURE(-1,"失败"),
+    FAILURE(-1,"FAILURE"),
 
     EXCEPTION(201, "未知异常"),
     RUNTIME_EXCEPTION(202, "运行时异常"),
@@ -33,21 +33,23 @@ public enum ResultCode {
     /**
      * 2000～2999 区间表示用户错误
      */
-    USER_NOT_LOGGED_IN(2001,"用户未登录，访问路径需要验证"),
-    USER_NOT_LOGIN_ERROR(2002,"用户不存在或密码错误"),
-    USER_ACCOUNT_FORBIDDEN(2003,"用户被禁用"),
-    USER_NOT_EXIST(2004,"账号不存在"),
-    USER_HAS_EXISTED(2005,"账号已存在"),
-    USER_IS_EXPIRED(2006,"账号已过期"),
-    USER_FIRST_LANDING(2007, "账号首次登录"),
-    USER_SIGN_VERIFY_NOT_COMPLIANT(2010,"签名校验不合规"),
-    USER_PASSWORD_RESET_FAILED(2011, "重置密码失败"),
-    USER_UNKNOWN_IDENTITY(2012, "未知身份"),
-    MANY_USER_LOGINS(2111,"多用户在线"),
-    USER_KEY_EXCEPTION(2108,"密钥生成失败"),
-    TOO_MANY_PASSWD_ENTER(2112, "密码输入次数过多"),
-    VERIFICATION_CODE_INCORRECT(2202,"图形验证码不正确"),
-    VERIFICATION_CODE_FAIL(2203,"图形验证码生产失败"),
+    USER_NOT_LOGGED_IN(2001,"Access to Resources Requires Identity! Please Sign In"),
+    USER_NOT_LOGIN_ERROR(2002,"The User does not exist Or the password is wrong"),
+    USER_ACCOUNT_FORBIDDEN(2003,"Account is disabled"),
+    USER_NOT_EXIST(2004,"Account not exists"),
+    USER_HAS_EXISTED(2005,"Account exists"),
+    USER_IS_EXPIRED(2006,"Account expired"),
+    USER_FIRST_LANDING(2007, "Login for the first time"),
+    USER_SIGN_VERIFY_NOT_COMPLIANT(2010,"Signature does not match"),
+    USER_PASSWORD_RESET_FAILED(2011, "Password reset failed"),
+    USER_UNKNOWN_IDENTITY(2012, "Unknown identity"),
+    UNSUCCESSFUL_AUTHENTICATION(2014, "Authentication failed"),
+
+    MANY_USER_LOGINS(2111,"Users are online"),
+    USER_KEY_EXCEPTION(2108,"Key generation failed"),
+    TOO_MANY_PASSWD_ENTER(2112, "Enter password frequently"),
+    VERIFICATION_CODE_INCORRECT(2202,"Verification code error"),
+    VERIFICATION_CODE_FAIL(2203,"Verification code generation failed"),
 
     TOKEN_EXPIRED(2308,"Token Expired"),
     TOKEN_GENERATION_FAIL(2309,"The Token generation failed"),

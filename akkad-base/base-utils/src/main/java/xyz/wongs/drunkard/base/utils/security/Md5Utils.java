@@ -55,7 +55,6 @@ public class Md5Utils {
             return hex(digest);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println(e.toString());
             return "";
         }
     }
@@ -161,10 +160,4 @@ public class Md5Utils {
         }
     }
 
-    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        System.out.println(2<<4);
-        //        System.out.println(Md5Utils.getSalt4Md5("fZ1j1ll", "MZONl1233224322168"));
-        // eM49Z79O49N3fl041b62e731133f2cf2a44f43e427323312
-//        System.out.println(Md5Utils.getSaltverify4Md5("fZ1j1ll","eM49Z79O49N3fl041b62e731133f2cf2a44f43e427323312", "MZONl1233224322168"));
-    }
 }

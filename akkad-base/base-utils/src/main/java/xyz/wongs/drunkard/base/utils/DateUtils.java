@@ -353,14 +353,6 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         return cal.getTime();
     }
 
-    public static void main(String[] args) {
-        Date dateNow = DateUtils.getNowDate();
-        Date dateSet = DateUtils.offset(dateNow,10, Calendar.SECOND);
-        System.out.println("[dateNow] =" + dateNow);
-        System.out.println("[dateSet] =" + dateSet);
-    }
-
-
     /**
      * @param i 与当前月份的偏移，负数 则是往前
      * @Author: WCNGS@QQ.COM

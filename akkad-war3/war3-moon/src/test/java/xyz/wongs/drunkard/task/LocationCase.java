@@ -56,6 +56,5 @@ public class LocationCase extends BaseTest {
                 .andReturn();
         int status=mvcResult.getResponse().getStatus();
         Assert.assertEquals(200,status);
-        System.out.println(mvcResult.getResponse().getContentAsString());
     }
 }

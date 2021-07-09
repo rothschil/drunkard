@@ -96,7 +96,7 @@ mybatis:
 为了规范索引管理，这里将所有的操作都封装成一个基类，实现对索引的增删改查。同时还集成了对数据的单个以及批量的插入以及删除。避免针对每个索引都自己写一套实现，杜绝代码的冗余，同时这样的集成对代码的结构本身也是低侵入性。
 
 ~~~java
-package xyz.wongs.weathertop.base.dao;
+package xyz.wongs.drunkard.base.dao;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -121,7 +121,7 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sun.rmi.runtime.Log;
-import xyz.wongs.weathertop.base.entiy.ElasticEntity;
+import xyz.wongs.drunkard.base.entiy.ElasticEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -348,7 +348,7 @@ public class BaseElasticDao {
 
 ## 3.1. 索引管理
 
-由于在**BaseElasticDao**类中**createIndex**方法，我在Controller层将索引名称和索引SQL封装过，详细见[Github演示源码]([https://github.com/king-angmar/weathertop/tree/master/doc/image/elastich) 中**xyz.wongs.weathertop.palant.vo.IdxVo**
+由于在**BaseElasticDao**类中**createIndex**方法，我在Controller层将索引名称和索引SQL封装过，详细见[Github演示源码]([https://github.com/king-angmar/weathertop/tree/master/doc/image/elastich) 中**xyz.wongs.drunkard.palant.vo.IdxVo**
 
 ### 3.1.1. 创建索引
 
@@ -365,7 +365,7 @@ public class BaseElasticDao {
 /**
     * @Description 创建Elastic索引
     * @param idxVo
-    * @return xyz.wongs.weathertop.base.message.response.ResponseResult
+    * @return xyz.wongs.drunkard.base.message.response.ResponseResult
     * @throws
     * @date 2019/11/19 11:07
     */
@@ -393,7 +393,7 @@ public ResponseResult createIndex(@RequestBody IdxVo idxVo){
 
 ~~~
 
-创建索引需要设置分片，这里采用**Settings.Builder**方式，当然也可以JSON自定义方式，本文篇幅有限，不做演示。查看**xyz.wongs.weathertop.base.service.BaseElasticService.buildSetting**方法，这里是默认值。
+创建索引需要设置分片，这里采用**Settings.Builder**方式，当然也可以JSON自定义方式，本文篇幅有限，不做演示。查看**xyz.wongs.drunkard.base.service.BaseElasticService.buildSetting**方法，这里是默认值。
 
 > index.number_of_shards：分片数
 
@@ -444,7 +444,7 @@ yellow open   idx_copy_to  HouC9s6LSjiwrJtDicgY3Q   3   2          1            
 /**
     * @Description 判断索引是否存在；存在-TRUE，否则-FALSE
     * @param index
-    * @return xyz.wongs.weathertop.base.message.response.ResponseResult
+    * @return xyz.wongs.drunkard.base.message.response.ResponseResult
     * @throws
     * @date 2019/11/19 18:48
     */

@@ -23,8 +23,10 @@ findProject(':akkad-springboot:springboot-elasticsearch:es-footman')?.name = 'es
 
 include 'akkad-springboot:springboot-jwt'
 findProject(':akkad-springboot:springboot-jwt')?.name = 'springboot-jwt'
+include 'akkad-springboot:springboot-jwt:jwt-base'
 include 'akkad-springboot:springboot-jwt:jwt-encry'
 include 'akkad-springboot:springboot-jwt:jwt-safety'
+include 'akkad-springboot:springboot-jwt:jwt-security'
 
 include 'akkad-springboot:springboot-mq'
 include 'akkad-springboot:springboot-mq:mq-kafka'
@@ -35,9 +37,6 @@ findProject(':akkad-springboot:springboot-mq:mq-kafka:kafka-server')?.name = 'ka
 
 include 'akkad-springboot:springboot-mq:mq-rocketmq'
 findProject(':akkad-springboot:springboot-mq:mq-rocketmq')?.name = 'mq-rocketmq'
-
-include 'akkad-springboot:springboot-nosql:nosql-redis'
-findProject(':akkad-springboot:springboot-nosql:nosql-redis')?.name = 'nosql-redis'
 
 project(':akkad-base:base-utils').projectDir = file('akkad-base/base-utils')
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="xyz.wongs.weathertop.mapper.TLockMapper" >
-  <resultMap id="BaseResultMap" type="xyz.wongs.weathertop.entity.TLock" >
+<mapper namespace="xyz.wongs.drunkard.mapper.TLockMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.entity.TLock" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="lock_key" property="lockKey" jdbcType="VARCHAR" />
     <result column="owner" property="owner" jdbcType="CHAR" />
@@ -21,13 +21,13 @@
     delete from t_lock
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="xyz.wongs.weathertop.entity.TLock" >
+  <insert id="insert" parameterType="xyz.wongs.drunkard.entity.TLock" >
     insert into t_lock (id, lock_key, owner, 
       expire_seconds, create_time)
     values (#{id,jdbcType=INTEGER}, #{lockKey,jdbcType=VARCHAR}, #{owner,jdbcType=CHAR}, 
       #{expireSeconds,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="xyz.wongs.weathertop.entity.TLock" >
+  <insert id="insertSelective" parameterType="xyz.wongs.drunkard.entity.TLock" >
     insert into t_lock
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -64,7 +64,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.weathertop.entity.TLock" >
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunkard.entity.TLock" >
     update t_lock
     <set >
       <if test="lockKey != null" >
@@ -82,7 +82,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.wongs.weathertop.entity.TLock" >
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunkard.entity.TLock" >
     update t_lock
     set lock_key = #{lockKey,jdbcType=VARCHAR},
       owner = #{owner,jdbcType=CHAR},

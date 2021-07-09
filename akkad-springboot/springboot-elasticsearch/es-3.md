@@ -16,7 +16,7 @@ http方式提交数据，案例中我将数据格式做了规范，提交过程�
 /**
     * @Description 新增数据
     * @param elasticDataVo
-    * @return xyz.wongs.weathertop.base.message.response.ResponseResult
+    * @return xyz.wongs.drunkard.base.message.response.ResponseResult
     * @throws
     * @date 2019/11/20 17:10
     */
@@ -51,12 +51,12 @@ public ResponseResult add(@RequestBody ElasticDataVo elasticDataVo){
 
 ~~~java
 
-package xyz.wongs.weathertop.palant.vo;
+package xyz.wongs.drunkard.palant.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import xyz.wongs.weathertop.base.entiy.ElasticEntity;
+import xyz.wongs.drunkard.base.entiy.ElasticEntity;
 
 /**
  * @ClassName ElasticDataVo
@@ -89,12 +89,12 @@ public class ElasticDataVo<T> {
 
 ~~~java
 
-package xyz.wongs.weathertop.base.entiy;
+package xyz.wongs.drunkard.base.entiy;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import xyz.wongs.weathertop.base.persistence.mybatis.entity.BaseEntity;
+import xyz.wongs.drunkard.base.persistence.mybatis.entity.BaseEntity;
 
 import java.util.Map;
 
@@ -141,7 +141,7 @@ public class ElasticEntity<T> {
 /**
     * @Description
     * @param queryVo 查询实体对象
-    * @return xyz.wongs.weathertop.base.message.response.ResponseResult
+    * @return xyz.wongs.drunkard.base.message.response.ResponseResult
     * @throws
     * @date 2019/11/21 9:31
     */
@@ -227,7 +227,7 @@ public class QueryVo {
 /**
     * @Description 删除
     * @param elasticDataVo
-    * @return xyz.wongs.weathertop.base.message.response.ResponseResult
+    * @return xyz.wongs.drunkard.base.message.response.ResponseResult
     * @throws
     * @date 2019/11/21 9:56
     */

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="xyz.wongs.weathertop.deno.mapper.RedisLockMapper" >
-  <resultMap id="BaseResultMap" type="xyz.wongs.weathertop.deno.entity.RedisLock" >
+<mapper namespace="xyz.wongs.drunkard.deno.mapper.RedisLockMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.deno.entity.RedisLock" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="counts" property="counts" jdbcType="INTEGER" />
   </resultMap>
@@ -18,11 +18,11 @@
     delete from redis_lock
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="xyz.wongs.weathertop.deno.entity.RedisLock" >
+  <insert id="insert" parameterType="xyz.wongs.drunkard.deno.entity.RedisLock" >
     insert into redis_lock (id, counts)
     values (#{id,jdbcType=INTEGER}, #{counts,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="xyz.wongs.weathertop.deno.entity.RedisLock" >
+  <insert id="insertSelective" parameterType="xyz.wongs.drunkard.deno.entity.RedisLock" >
     insert into redis_lock
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -41,7 +41,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.weathertop.deno.entity.RedisLock" >
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunkard.deno.entity.RedisLock" >
     update redis_lock
     <set >
       <if test="counts != null" >
@@ -50,7 +50,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.wongs.weathertop.deno.entity.RedisLock" >
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunkard.deno.entity.RedisLock" >
     update redis_lock
     set counts = #{counts,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

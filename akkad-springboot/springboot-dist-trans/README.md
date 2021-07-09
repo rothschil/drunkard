@@ -285,7 +285,7 @@ CREATE TABLE `inform_sms` (
 ### 6.5.1. DruidConfig
 
 ~~~
-package xyz.wongs.weathertop.config;
+package xyz.wongs.drunkard.config;
 
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.support.http.StatViewServlet;
@@ -464,7 +464,7 @@ public class DruidConfig {
 ### 6.5.2. 数据源A的配置
 
 ~~~
-package xyz.wongs.weathertop.config;
+package xyz.wongs.drunkard.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -477,7 +477,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import xyz.wongs.weathertop.base.persistence.mybatis.mapper.BaseMapper;
+import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
 
 import javax.sql.DataSource;
 
@@ -486,7 +486,7 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = SystemDataSourceConfig.PACKAGE,markerInterface = BaseMapper.class, sqlSessionFactoryRef = "systemSqlSessionFactory")
 public class SystemDataSourceConfig {
 
-	static final String PACKAGE = "xyz.wongs.weathertop.mapper.quanmin";
+	static final String PACKAGE = "xyz.wongs.drunkard.mapper.quanmin";
 
 	@Autowired
 	@Qualifier("systemDataSource")
@@ -516,7 +516,7 @@ public class SystemDataSourceConfig {
 ### 6.5.3. 数据源B的配置
 
 ~~~
-package xyz.wongs.weathertop.config;
+package xyz.wongs.drunkard.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -528,7 +528,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import xyz.wongs.weathertop.base.persistence.mybatis.mapper.BaseMapper;
+import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
 
 import javax.sql.DataSource;
 
@@ -536,7 +536,7 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = BusinessDataSourceConfig.PACKAGE,markerInterface = BaseMapper.class, sqlSessionFactoryRef = "businessSqlSessionFactory")
 public class BusinessDataSourceConfig {
 
-	static final String PACKAGE = "xyz.wongs.weathertop.mapper.location";
+	static final String PACKAGE = "xyz.wongs.drunkard.mapper.location";
 
 	@Autowired
 	@Qualifier("businessDataSource")
@@ -571,16 +571,16 @@ public class BusinessDataSourceConfig {
 ### 6.6.1. 服务层
 
 ~~~
-package xyz.wongs.weathertop.service;
+package xyz.wongs.drunkard.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import xyz.wongs.weathertop.entity.location.Location;
-import xyz.wongs.weathertop.entity.quanmin.InformSms;
-import xyz.wongs.weathertop.service.location.LocationService;
-import xyz.wongs.weathertop.service.quanmin.InformSmsService;
+import xyz.wongs.drunkard.entity.location.Location;
+import xyz.wongs.drunkard.entity.quanmin.InformSms;
+import xyz.wongs.drunkard.service.location.LocationService;
+import xyz.wongs.drunkard.service.quanmin.InformSmsService;
 
 import java.util.Date;
 

@@ -237,7 +237,7 @@ mybatis:
 
 ~~~
 
-package xyz.wongs.weathertop.comp;
+package xyz.wongs.drunkard.comp;
 
 import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
@@ -402,18 +402,18 @@ public class RedisLockComponent {
 
 ~~~
 
-package xyz.wongs.weathertop.web;
+package xyz.wongs.drunkard.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import xyz.wongs.weathertop.base.message.enums.ResponseCode;
-import xyz.wongs.weathertop.base.message.response.ResponseResult;
-import xyz.wongs.weathertop.comp.RedisLockComponent;
-import xyz.wongs.weathertop.deno.entity.RedisLock;
-import xyz.wongs.weathertop.deno.mapper.RedisLockMapper;
+import xyz.wongs.drunkard.base.message.enums.ResponseCode;
+import xyz.wongs.drunkard.base.message.response.ResponseResult;
+import xyz.wongs.drunkard.comp.RedisLockComponent;
+import xyz.wongs.drunkard.deno.entity.RedisLock;
+import xyz.wongs.drunkard.deno.mapper.RedisLockMapper;
 
 import java.util.concurrent.TimeUnit;
 

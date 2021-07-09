@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="xyz.wongs.weathertop.mapper.quanmin.InformSmsMapper" >
-  <resultMap id="BaseResultMap" type="xyz.wongs.weathertop.entity.quanmin.InformSms" >
+<mapper namespace="xyz.wongs.drunkard.mapper.quanmin.InformSmsMapper" >
+  <resultMap id="BaseResultMap" type="xyz.wongs.drunkard.entity.quanmin.InformSms" >
     <id column="inform_id" property="id" jdbcType="INTEGER" />
     <result column="service_type" property="serviceType" jdbcType="VARCHAR" />
     <result column="service_id" property="serviceId" jdbcType="VARCHAR" />
@@ -26,7 +26,7 @@
     delete from inform_sms
     where inform_id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="xyz.wongs.weathertop.entity.quanmin.InformSms" >
+  <insert id="insert" parameterType="xyz.wongs.drunkard.entity.quanmin.InformSms" >
     insert into inform_sms (inform_id, service_type, service_id, 
       content, triger_time, create_date, 
       state, state_remark, state_date
@@ -36,7 +36,7 @@
       #{state,jdbcType=VARCHAR}, #{stateRemark,jdbcType=VARCHAR}, #{stateDate,jdbcType=DATE}
       )
   </insert>
-  <insert id="insertSelective" parameterType="xyz.wongs.weathertop.entity.quanmin.InformSms" >
+  <insert id="insertSelective" parameterType="xyz.wongs.drunkard.entity.quanmin.InformSms" >
     insert into inform_sms
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="informId != null" >
@@ -97,7 +97,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.weathertop.entity.quanmin.InformSms" >
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.wongs.drunkard.entity.quanmin.InformSms" >
     update inform_sms
     <set >
       <if test="serviceType != null" >
@@ -127,7 +127,7 @@
     </set>
     where inform_id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.wongs.weathertop.entity.quanmin.InformSms" >
+  <update id="updateByPrimaryKey" parameterType="xyz.wongs.drunkard.entity.quanmin.InformSms" >
     update inform_sms
     set service_type = #{serviceType,jdbcType=VARCHAR},
       service_id = #{serviceId,jdbcType=VARCHAR},
