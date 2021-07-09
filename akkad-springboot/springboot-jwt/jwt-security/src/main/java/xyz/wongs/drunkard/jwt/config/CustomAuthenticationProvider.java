@@ -33,14 +33,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String name = authentication.getName();
         String passWord = authentication.getCredentials().toString();
         // 认证逻辑
-        if (name.equals("admin")&& passWord.equals("123")) {
+        if ("admin".equals(name)&& "123".equals(passWord)) {
             // 这里设置权限和角色
             ArrayList<GrantedAuthority> authorities = new ArrayList<>();
             authorities.add( new GrantedAuthorityImpl("ROLE_ADMIN") );
             authorities.add( new GrantedAuthorityImpl("AUTH_WRITE") );
             // 生成令牌
-            Authentication auth = new UsernamePasswordAuthenticationToken(name, passWord, authorities);
-            return auth;
+            return new UsernamePasswordAuthenticationToken(name, passWord, authorities);
         }else {
             throw new DrunkardException(ResultCode.USER_NOT_LOGIN_ERROR);
         }
@@ -55,7 +54,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
      **/
     @Override
     public boolean supports(Class<?> authentication) {
-
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 }

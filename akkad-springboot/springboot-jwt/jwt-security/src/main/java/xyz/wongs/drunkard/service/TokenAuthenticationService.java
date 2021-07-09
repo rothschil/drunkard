@@ -2,15 +2,19 @@ package xyz.wongs.drunkard.service;
 
 import com.alibaba.fastjson.JSONObject;
 import io.jsonwebtoken.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.util.Assert;
 import xyz.wongs.drunkard.base.constant.Constant;
 import xyz.wongs.drunkard.base.message.enums.ResultCode;
 import xyz.wongs.drunkard.base.message.exception.DrunkardException;
 import xyz.wongs.drunkard.base.message.response.Result;
 import xyz.wongs.drunkard.base.utils.DateUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -27,6 +31,7 @@ import java.util.List;
  */
 public class TokenAuthenticationService {
 
+    private static Logger LOG = LoggerFactory.getLogger(TokenAuthenticationService.class);
     /**
     * 60
      */
@@ -50,13 +55,12 @@ public class TokenAuthenticationService {
      * @Date 2021/7/9-9:58
      * @Param response response请求
      * @param userName 账号名称
-     * @return
      **/
     public static void addAuthentication(HttpServletResponse response, String userName) {
 
         Date dateNow = DateUtils.getNowDate();
         // 生成JWT
-        String JWT = Jwts.builder()
+        String jwt = Jwts.builder()
                 // 保存权限（角色）
                 .claim("authorities", "ROLE_ADMIN,AUTH_WRITE")
                 // 用户名写入标题
@@ -70,7 +74,7 @@ public class TokenAuthenticationService {
         try {
             response.setContentType(Constant.APPLICATION_JSON);
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getOutputStream().println(JSONObject.toJSON(Result.success(JWT)).toString());
+            response.getOutputStream().println(JSONObject.toJSON(Result.success(jwt)).toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,6 +92,7 @@ public class TokenAuthenticationService {
         String token = request.getHeader(HEADER_STRING);
 
         if (token != null) {
+            LOG.error(token);
             // 解析 Token
             Claims claims = null;
             try {
@@ -99,16 +104,12 @@ public class TokenAuthenticationService {
                         .getBody();
             } catch (ExpiredJwtException e) {
                 throw new DrunkardException(ResultCode.TOKEN_EXPIRED);
-            } catch (UnsupportedJwtException e) {
-                e.printStackTrace();
-            } catch (MalformedJwtException e) {
+            } catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException e) {
                 e.printStackTrace();
             } catch (SignatureException e) {
                 throw new DrunkardException(ResultCode.TOKEN_INVALID);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
             }
-
+            Assert.notNull(claims,"The Claims must not be null");
             // 拿用户名
             String user = claims.getSubject();
 

@@ -16,7 +16,6 @@ import xyz.wongs.drunkard.jwt.bo.AccountCredentials;
 import xyz.wongs.drunkard.service.TokenAuthenticationService;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -36,18 +35,17 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
     }
 
     @Override
-    public Authentication attemptAuthentication(
-            HttpServletRequest req, HttpServletResponse res)
-            throws AuthenticationException, IOException, ServletException {
+    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
+            throws AuthenticationException, IOException {
 
         // JSON反序列化成 AccountCredentials
-        AccountCredentials creds = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
+        AccountCredentials cred = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
 
         // 返回一个验证令牌
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        creds.getUserName(),
-                        creds.getPassWord()
+                        cred.getUserName(),
+                        cred.getPassWord()
                 )
         );
     }
@@ -56,15 +54,16 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
     protected void successfulAuthentication(
             HttpServletRequest req,
             HttpServletResponse res, FilterChain chain,
-            Authentication auth) throws IOException, ServletException {
+            Authentication auth) {
         TokenAuthenticationService.addAuthentication(res, auth.getName());
     }
 
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
         response.setContentType(Constant.APPLICATION_JSON);
         response.setStatus(HttpServletResponse.SC_OK);
         response.getOutputStream().println(JSONObject.toJSON(Result.fail(ResultCode.UNSUCCESSFUL_AUTHENTICATION)).toString());
     }
+
 }
