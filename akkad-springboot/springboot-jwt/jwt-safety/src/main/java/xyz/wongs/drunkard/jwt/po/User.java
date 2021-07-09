@@ -1,4 +1,4 @@
-package xyz.wongs.drunkard.jwt.pojo;
+package xyz.wongs.drunkard.jwt.po;
 
 import java.io.Serializable;
 

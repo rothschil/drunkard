@@ -1,7 +1,7 @@
 package xyz.wongs.drunkard.service;
 
 import org.springframework.stereotype.Component;
-import xyz.wongs.drunkard.jwt.pojo.User;
+import xyz.wongs.drunkard.jwt.po.User;
 
 import java.util.ArrayList;
 import java.util.List;

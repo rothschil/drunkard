@@ -39,7 +39,6 @@ public class ResponseResultInterceptor implements HandlerInterceptor {
                 }
             }
         } catch (Exception e){
-            e.printStackTrace();
         }
         return true;
     }

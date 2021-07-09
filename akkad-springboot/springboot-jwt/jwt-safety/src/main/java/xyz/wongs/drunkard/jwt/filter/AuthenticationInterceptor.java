@@ -13,7 +13,7 @@ import xyz.wongs.drunkard.base.message.enums.ResultCode;
 import xyz.wongs.drunkard.base.message.exception.DrunkardException;
 import xyz.wongs.drunkard.jwt.annotation.IgnoreTokenCheck;
 import xyz.wongs.drunkard.jwt.annotation.LoginToken;
-import xyz.wongs.drunkard.jwt.pojo.User;
+import xyz.wongs.drunkard.jwt.po.User;
 import xyz.wongs.drunkard.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;

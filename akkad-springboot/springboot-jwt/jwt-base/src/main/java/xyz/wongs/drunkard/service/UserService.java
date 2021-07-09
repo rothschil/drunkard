@@ -1,7 +1,8 @@
 package xyz.wongs.drunkard.service;
 
 import org.springframework.stereotype.Component;
-import xyz.wongs.drunkard.jwt.pojo.User;
+import xyz.wongs.drunkard.jwt.po.Role;
+import xyz.wongs.drunkard.jwt.po.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +25,12 @@ public class UserService {
     }
 
     public User getUserById(String id) {
-        List<User> lists = USERS.stream().filter(user -> id.equals(user.getUserName())).collect(Collectors.toList());
-
+        List<User> lists = USERS.stream().filter(user -> user.getUsername().equals(id)).collect(Collectors.toList());
         return lists.get(0);
     }
 
     public User findByUsername(User params) {
-        List<User> lists = USERS.stream().filter(user -> (user.getUserName().equals(params.getUserName()))).collect(Collectors.toList());
+        List<User> lists = USERS.stream().filter(user -> (user.getUsername().equals(params.getUsername()))).collect(Collectors.toList());
         if(lists.isEmpty()){
             return null;
         }
@@ -39,8 +39,13 @@ public class UserService {
 
     public boolean validateUser(User params) {
         List<User> lists = USERS.stream().filter(user -> (
-                user.getUserName().equals(params.getUserName())) && user.getPassWord().equals(params.getPassWord())
+                user.getUsername().equals(params.getUsername())) && user.getPassword().equals(params.getPassword())
         ).collect(Collectors.toList());
         return lists.isEmpty();
+    }
+
+    public Role[] findRoleByUsername(String userName) {
+        Role[] roles = {new Role("admin","ADMIN"),new Role("sam","GRUID")};
+        return roles;
     }
 }

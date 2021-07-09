@@ -3,7 +3,7 @@ package xyz.wongs.drunkard.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.stereotype.Component;
-import xyz.wongs.drunkard.jwt.pojo.User;
+import xyz.wongs.drunkard.jwt.po.User;
 
 /**
  * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
