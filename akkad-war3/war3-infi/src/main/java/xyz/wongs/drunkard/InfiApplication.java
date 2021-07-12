@@ -1,11 +1,9 @@
 package xyz.wongs.drunkard;
 
-import com.github.hiwepy.ip2region.spring.boot.EnableIP2region;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 
@@ -19,10 +17,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @Version 1.0.0
 */
 @ServletComponentScan
-@EnableIP2region
 @EnableAsync
 @MapperScan(basePackages = {"xyz.wongs.drunkard.**.mapper"})
-@ComponentScan(basePackages = {"com.github.hiwepy","xyz.wongs.drunkard"})
+@ComponentScan(basePackages = {"org.lionsoul.ip2region","xyz.wongs.drunkard"})
 @SpringBootApplication
 public class InfiApplication {
 

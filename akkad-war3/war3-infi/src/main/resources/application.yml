@@ -76,12 +76,6 @@ swagger:
   application-description: springfox swagger 3.0整合Demo
   try-host: http://localhost:${server.port}
 
-ip2region:
-  external: false
-  index-block-size: 4096
-  total-header-size: 8192
-  location: classpath:ipdb/ip2region.db
-
 # Shiro
 shiro:
   user:

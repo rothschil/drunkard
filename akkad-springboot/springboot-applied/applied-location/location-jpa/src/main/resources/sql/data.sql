@@ -1,0 +1,16 @@
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values (2288663,'Y','13','河北省',0,NULL,'13.html'),(2288664,'Y','14','山西省',0,NULL,'14.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values (2288661,'Y','11','北京市',0,NULL,'11.html'),(2288662,'Y','12','天津市',0,NULL,'12.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288665,'Y','15','内蒙古自治区',0,NULL,'15.html'),(2288666,'Y','21','辽宁省',0,NULL,'21.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288667,'Y','22','吉林省',0,NULL,'22.html'),(2288668,'Y','23','黑龙江省',0,NULL,'23.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288669,'Y','31','上海市',0,NULL,'31.html'),(2288670,'Y','32','江苏省',0,NULL,'32.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288671,'Y','33','浙江省',0,NULL,'33.html'),(2288672,'Y','34','安徽省',0,NULL,'34.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288673,'Y','35','福建省',0,NULL,'35.html'),(2288682,'Y','50','重庆市',0,NULL,'50.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288674,'Y','36','江西省',0,NULL,'36.html'),(2288675,'Y','37','山东省',0,NULL,'37.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288676,'Y','41','河南省',0,NULL,'41.html'),(2288679,'Y','44','广东省',0,NULL,'44.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288677,'Y','42','湖北省',0,NULL,'42.html'),(2288678,'Y','43','湖南省',0,NULL,'43.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288680,'Y','45','广西壮族自治区',0,NULL,'45.html'),(2288681,'Y','46','海南省',0,NULL,'46.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288683,'Y','51','四川省',0,NULL,'51.html'),(2288684,'Y','52','贵州省',0,NULL,'52.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288685,'Y','53','云南省',0,NULL,'53.html'),(2288688,'Y','62','甘肃省',0,NULL,'62.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288686,'Y','54','西藏自治区',0,NULL,'54.html'),(2288687,'Y','61','陕西省',0,NULL,'61.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288689,'Y','63','青海省',0,NULL,'63.html'),(2288690,'Y','64','宁夏回族自治区',0,NULL,'64.html');
+insert  into tb_locations(id,flag,local_code,local_name,lv,sup_local_code,url) values(2288691,'Y','65','新疆维吾尔自治区',0,NULL,'65.html');

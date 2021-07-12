@@ -1,10 +1,8 @@
 package xyz.wongs.drunkard.framework.manager.factory;
 
-import java.util.TimerTask;
-
+import eu.bitwalker.useragentutils.UserAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import xyz.wongs.drunkard.base.utils.ServletUtils;
 import xyz.wongs.drunkard.base.utils.StringUtils;
 import xyz.wongs.drunkard.base.utils.bean.SpringUtils;
@@ -20,7 +18,7 @@ import xyz.wongs.drunkard.war3.core.service.ISysOperLogService;
 import xyz.wongs.drunkard.war3.core.service.ISysUserOnlineService;
 import xyz.wongs.drunkard.war3.core.service.impl.SysLogininforServiceImpl;
 
-import eu.bitwalker.useragentutils.UserAgent;
+import java.util.TimerTask;
 
 /**
  * @ClassName AsyncFactory

@@ -1,7 +1,5 @@
 package xyz.wongs.drunkard.war3.web.controller.common;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,9 @@ import xyz.wongs.drunkard.common.conf.ServerConfig;
 import xyz.wongs.drunkard.common.core.domain.AjaxResult;
 import xyz.wongs.drunkard.common.utils.FileUploadUtils;
 import xyz.wongs.drunkard.war3.constant.Constants;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 通用请求处理

@@ -38,25 +38,36 @@ findProject(':akkad-springboot:springboot-mq:mq-kafka:kafka-server')?.name = 'ka
 include 'akkad-springboot:springboot-mq:mq-rocketmq'
 findProject(':akkad-springboot:springboot-mq:mq-rocketmq')?.name = 'mq-rocketmq'
 
+include 'akkad-springboot:springboot-applied'
+include 'akkad-springboot:springboot-applied:applied-region'
+include 'akkad-springboot:springboot-applied:applied-thumbnailator'
+
+include 'akkad-springboot:springboot-applied:applied-oauth2'
+include 'akkad-springboot:springboot-applied:applied-oauth2:oauth2-resource'
+include 'akkad-springboot:springboot-applied:applied-oauth2:oauth2-server'
+
+include 'akkad-springboot:springboot-applied:applied-image'
+
+include 'akkad-springboot:springboot-applied:applied-location'
+include 'akkad-springboot:springboot-applied:applied-location:location-base'
+include 'akkad-springboot:springboot-applied:applied-location:location-jpa'
+include 'akkad-springboot:springboot-applied:applied-location:location-mybatis'
+
 project(':akkad-base:base-utils').projectDir = file('akkad-base/base-utils')
 
 findProject(':akkad-base:base-persistence')?.name = 'base-persistence'
 
 findProject(':akkad-base:base-persistence:persistence-jpa')?.name = 'persistence-jpa'
 include 'akkad-war3'
-include 'akkad-war3:war3-moon'
+
 include 'akkad-war3:war3-area'
 include 'akkad-war3:war3-infi'
 include 'akkad-war3:war3-sky'
-findProject(':akkad-war3:war3-moon')?.name = 'war3-moon'
 findProject(':akkad-war3:war3-area')?.name = 'war3-area'
 findProject(':akkad-war3:war3-infi')?.name = 'war3-infi'
 findProject(':akkad-war3:war3-sky')?.name = 'war3-sky'
 
-include 'akkad-war3:war3-oauth2:oauth2-resource'
-include 'akkad-war3:war3-oauth2:oauth2-server'
-findProject('akkad-war3:war3-oauth2:oauth2-resource')?.name = 'oauth2-resource'
-findProject('akkad-war3:war3-oauth2:oauth2-server')?.name = 'oauth2-server'
+
 
 
 include 'akkad-base:base-persistence:persistence-mybatis'
@@ -68,7 +79,4 @@ findProject(':akkad-base:base-persistence:persistence-mybatis:mybatis-no-pk')?.n
 include 'akkad-base:base-persistence:persistence-mybatis:mybatis-pk-redis'
 findProject(':akkad-base:base-persistence:persistence-mybatis:mybatis-pk-redis')?.name = 'mybatis-pk-redis'
 
-include 'akkad-war3:war3-dior'
-include 'akkad-war3:war3-dior:dior-thumbnailator'
-findProject(':akkad-war3:war3-dior:dior-thumbnailator')?.name = 'dior-thumbnailator'
 

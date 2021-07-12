@@ -1,0 +1,23 @@
+plugins {
+    id 'java-library' // 引入一个新的插件
+}
+archivesBaseName = 'location-mybatis'
+dependencies {
+    implementation project(':akkad-base:base-persistence:persistence-mybatis:mybatis-pk-redis')
+    implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.3.4.RELEASE')
+    implementation('javax.persistence:javax.persistence-api:2.2')
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.4.RELEASE')
+    implementation('org.jsoup:jsoup:1.9.2')
+    implementation('org.apache.httpcomponents:httpmime:4.5.5')
+    implementation('net.sourceforge.htmlunit:neko-htmlunit:2.30')
+    implementation('net.sourceforge.htmlunit:htmlunit-core-js:2.31')
+    implementation('xalan:xalan:2.7.2'){
+        exclude(group:'xml-apis', module: 'xml-apis')
+    }
+    implementation('com.jayway.jsonpath:json-path:2.5.0')
+    implementation('io.springfox:springfox-swagger2:2.9.2')
+    implementation('io.springfox:springfox-swagger-ui:2.9.2')
+    compile fileTree(dir: 'libs', includes: ['*.jar'])
+
+}
+bootJar.enabled = true

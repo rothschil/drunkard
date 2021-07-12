@@ -1,0 +1,13 @@
+archivesBaseName = 'location-jpa'
+dependencies {
+    compile(project(':akkad-base:base-persistence:persistence-jpa')) {
+        exclude group:'com.oracle', module: 'ojdbc6'
+        exclude group:'mysql', module: 'mysql-connector-java'
+    }
+    implementation('javax.persistence:javax.persistence-api:2.2')
+    implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.3.4.RELEASE')
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.4.RELEASE')
+
+}
+bootJar.enabled = true
+

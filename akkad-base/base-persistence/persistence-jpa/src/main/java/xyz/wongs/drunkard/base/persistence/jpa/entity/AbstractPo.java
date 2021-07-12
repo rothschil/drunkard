@@ -47,10 +47,8 @@ public abstract class AbstractPo<ID extends Serializable> extends BasePo<ID> imp
         if (!getClass().equals(obj.getClass())) {
             return false;
         }
-
         AbstractPo<?> that = (AbstractPo<?>) obj;
-
-        return null == this.getId() ? false : this.getId().equals(that.getId());
+        return null != this.getId() && this.getId().equals(that.getId());
     }
 
 

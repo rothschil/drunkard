@@ -1,6 +1,5 @@
 package xyz.wongs.drunkard.task;
 
-import com.alibaba.fastjson.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

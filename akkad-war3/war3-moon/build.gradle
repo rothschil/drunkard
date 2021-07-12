@@ -1,8 +1,0 @@
-archivesBaseName = 'war3-moon'
-dependencies {
-    implementation project(':akkad-base:base-persistence:persistence-mybatis:mybatis-no-pk')
-    implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.3.4.RELEASE')
-    implementation('javax.persistence:javax.persistence-api:2.2')
-    testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.4.RELEASE')
-
-}

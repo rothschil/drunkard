@@ -1,0 +1,11 @@
+archivesBaseName = 'springboot-applied'
+dependencies {
+    compile(project(':akkad-base:base-utils')) {
+        exclude group:'com.alibaba', module: 'druid-spring-boot-starter'
+        exclude group:'com.oracle', module: 'ojdbc6'
+        exclude group:'mysql', module: 'mysql-connector-java'
+    }
+    implementation('org.lionsoul:ip2region-spring-boot-starter:1.0.2')
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.4.RELEASE')
+}
+bootJar.enabled = true
