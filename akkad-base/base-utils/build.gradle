@@ -1,7 +1,7 @@
 apply from : 'dependencies.gradle'
 description = 'base-utils'
 dependencies {
-    compile(
+    api(
             libraries.'hibernate-validator',
             libraries.'commons-compress',
             libraries.'commons-text',
@@ -23,13 +23,13 @@ dependencies {
             libraries.'hutool-all',
             libraries.'spring-boot-starter-aop'
     )
-    compile libraries.'lombok'
+    api libraries.'lombok'
     annotationProcessor libraries.'lombok'
-    testCompile libraries.'lombok'
+    testImplementation libraries.'lombok'
     testAnnotationProcessor libraries.'lombok'
-    compile group: 'com.h2database', name: 'h2', version: '1.4.200'
+    api group: 'com.h2database', name: 'h2', version: '1.4.200'
 
-    compile(libraries.'commons-httpclient'){
+    api(libraries.'commons-httpclient'){
         exclude group:'commons-logging', module: 'commons-logging'
     }
 }

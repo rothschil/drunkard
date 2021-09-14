@@ -1,22 +1,28 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.4.RELEASE'
     id 'java'
+    id 'org.springframework.boot' version '2.5.0'
 }
-
 apply plugin: 'io.spring.dependency-management'
 group project_group
 version project_version
+
+jar.enabled = false
+bootJar.enabled = false
 
 sourceCompatibility = project_jdk
 targetCompatibility = project_jdk
 
 repositories {
-    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    maven {
+        allowInsecureProtocol true
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
     mavenCentral()
 }
 
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'java-library'
     apply plugin: 'idea'
     apply plugin: 'jacoco'
     apply plugin: 'org.springframework.boot'
@@ -24,6 +30,10 @@ subprojects {
     sourceCompatibility = project_jdk
     targetCompatibility = project_jdk
     repositories {
+        maven{
+            allowInsecureProtocol true
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
         mavenCentral()
     }
 
@@ -33,6 +43,8 @@ subprojects {
 
     jar {
         enabled = true
+        // 禁用档案后缀，处理 **-plain.jar
+        archiveClassifier = ''
     }
 
     // 默认不需要打可执行jar包
@@ -40,7 +52,7 @@ subprojects {
         enabled = false
     }
     dependencies {
-        compile group: 'log4j', name: 'log4j', version: '1.2.17'
+        api group: 'log4j', name: 'log4j', version: '1.2.17'
 //        compile 'org.projectlombok:lombok:1.18.12'
 //        annotationProcessor 'org.projectlombok:lombok:1.18.12'
 //        testCompile 'org.projectlombok:lombok:1.18.12'
@@ -52,8 +64,24 @@ subprojects {
     }
 
     task javadocTask(type :Javadoc){
-        // 定义所有JAVA代码
+        //  delete("javadoc/")
+        //定义所有Java源代码
         source = sourceSets.main.allJava
+        options.encoding = 'UTF-8'
+        options.charSet = 'UTF-8'
+        //保留 public 的方法
+        options.memberLevel = JavadocMemberLevel.PUBLIC
+        options.linkSource = true
+        options.links("http://docs.oracle.com/javase/8/docs/api/")
+        //是否保留作者
+        options.author = false
+        //是否生成树状结构
+        options.noTree = true
+        options.noIndex = true
+        options.noNavBar = true
+        // destinationDir = file("javadoc/") //生成 javadoc 的目标目录
+        //报错不中断
+        failOnError = false
     }
 
     task javadocJarTask(type :Jar,dependsOn: javadocTask){

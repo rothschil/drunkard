@@ -1,6 +1,6 @@
 archivesBaseName = 'location-jpa'
 dependencies {
-    compile(project(':akkad-base:base-persistence:persistence-jpa')) {
+    api(project(':akkad-base:base-persistence:persistence-jpa')) {
 //        exclude group:'com.alibaba', module: 'druid-spring-boot-starter'
         exclude group:'com.oracle', module: 'ojdbc6'
         exclude group:'mysql', module: 'mysql-connector-java'

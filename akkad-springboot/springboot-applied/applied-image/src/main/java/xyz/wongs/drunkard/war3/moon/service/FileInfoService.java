@@ -1,7 +1,5 @@
 package xyz.wongs.drunkard.war3.moon.service;//package xyz.wongs.drunkard.war3.domain.service;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.cursor.Cursor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,14 +11,12 @@ import xyz.wongs.drunkard.war3.moon.mapper.FileInfoMapper;
 import java.util.List;
 
 /**
- * @ClassName FileInfoService
  * @Description
  * @author WCNGS@QQ.COM
  * @Github <a>https://github.com/rothschil</a>
  * @date 2020/9/9 16:11
  * @Version 1.0.0
 */
-@Slf4j
 @Service(value="fileInfoService")
 @Transactional(readOnly = true)
 public class FileInfoService extends BaseService<FileInfo, Long> {
@@ -38,8 +34,5 @@ public class FileInfoService extends BaseService<FileInfo, Long> {
         fileInfoMapper.batchInsert(lists);
 	}
 
-    public void queryByCursor(int limit){
-        Cursor<FileInfo> cursor = fileInfoMapper.queryByCursor(limit);
-        cursor.forEach(foo -> {log.error(foo.toString());});
-    }
+
 }

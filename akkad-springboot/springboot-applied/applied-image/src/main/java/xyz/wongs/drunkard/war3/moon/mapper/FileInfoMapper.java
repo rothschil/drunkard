@@ -1,13 +1,18 @@
 package xyz.wongs.drunkard.war3.moon.mapper;
 
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.cursor.Cursor;
+
 import xyz.wongs.drunkard.base.persistence.mybatis.mapper.BaseMapper;
 import xyz.wongs.drunkard.war3.moon.entity.FileInfo;
 
 import java.util.List;
 
+/**
+ * @Author <a href="mailto:WCNGS@QQ.COM">Sam</a>
+ * @Description //TODO
+ * @Github <a>https://github.com/rothschil</a>
+ * @date 2021/7/13 - 9:41
+ * @Version 1.0.0
+ */
 public interface FileInfoMapper extends BaseMapper<FileInfo,Long> {
     @Override
     int deleteByPrimaryKey(Long id);
@@ -23,7 +28,4 @@ public interface FileInfoMapper extends BaseMapper<FileInfo,Long> {
 
     void batchInsert(List<FileInfo> lists);
 
-    @Select("select * from tb_file_info limit #{limit}")
-    //@Options(fetchSize = Integer.MIN_VALUE)//mysql情况比较特殊，只能这样设置
-    Cursor<FileInfo> queryByCursor(@Param("limit") int limit);
 }

@@ -1,6 +1,6 @@
 archivesBaseName = 'mq-rocketmq'
 dependencies {
-    compile project(':akkad-base:base-utils')
+    api project(':akkad-base:base-utils')
 //    {
 //        exclude group: 'com.alibaba', module: 'druid-spring-boot-starter'
 //        exclude group: 'mysql', module: 'mysql-connector-java'

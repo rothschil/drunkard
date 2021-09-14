@@ -1,12 +1,12 @@
 archivesBaseName = 'jwt-security'
 dependencies {
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
-    runtime( group: 'javax.xml.bind', name: 'jaxb-impl', version: '2.3.1')
-    runtime group: 'javax.xml.bind', name: 'jaxb-core', version: '2.3.1'
-    runtime group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+//    runtimeOnly( group: 'javax.xml.bind', name: 'jaxb-impl', version: '3.0.2')
+//    runtimeOnly group: 'javax.xml.bind', name: 'jaxb-core', version: '3.0.2'
+//    runtimeOnly group: 'javax.xml.bind', name: 'jaxb-api', version: '3.0.2'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.5.2'
     implementation group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.1.1.RELEASE'
-    compile(project(':akkad-springboot:springboot-jwt:jwt-base'))
+    api(project(':akkad-springboot:springboot-jwt:jwt-base'))
 
 }
 bootJar.enabled = true

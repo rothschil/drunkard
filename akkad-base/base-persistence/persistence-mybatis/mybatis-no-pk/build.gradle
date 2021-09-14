@@ -1,4 +1,4 @@
 archivesBaseName = 'mybatis-no-pk'
 dependencies {
-    compile project(':akkad-base:base-persistence:persistence-mybatis:mybatis-base')
+    api project(':akkad-base:base-persistence:persistence-mybatis:mybatis-base')
 }
